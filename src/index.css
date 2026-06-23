@@ -1,0 +1,342 @@
+/* ============================================================
+   WEBLOGICS — Credibility-First Design System
+   Clean, editorial, handcrafted — not a template
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand Palette */
+  --primary:     #252525;   /* Premium Charcoal neutral */
+  --secondary:   #C8102E;   /* Weblogics Red Accent */
+  --accent:      #545454;   /* Dark Grey neutral */
+  --warm:        #F4F4F4;   /* Pale Grey neutral */
+  --background:  #FFFFFF;
+  --text:        #252525;   /* Charcoal for text */
+  --text-muted:  #7D7D7D;   /* Mid Grey for captions */
+  --border:      #CFCFCF;   /* Light Grey for elegant borders */
+  --dark-bg:     #252525;   /* Premium Charcoal neutral dark sections */
+
+  /* Typography */
+  --font-serif:  'Lora', Georgia, serif;
+  --font-body:   'Inter', system-ui, sans-serif;
+
+  /* Spacing */
+  --section:     6rem;
+  --section-sm:  4rem;
+  --container:   1240px;
+  --radius:      4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+
+  /* Shadows — very subtle, not SaaS-flashy */
+  --shadow-xs:   0 1px 3px rgba(0,0,0,0.06);
+  --shadow-sm:   0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md:   0 4px 20px rgba(0,0,0,0.10);
+  --shadow-lg:   0 8px 40px rgba(0,0,0,0.12);
+
+  /* Transitions */
+  --ease:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --transition:  0.3s var(--ease);
+  --transition-premium: 0.6s var(--ease-out-expo);
+}
+
+/* ── Marquee Keyframes ── */
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── Container ── */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ── Sections ── */
+.section        { padding: var(--section) 0; }
+.section-sm     { padding: var(--section-sm) 0; }
+.bg-warm        { background: var(--warm); }
+.bg-dark        { background: var(--dark-bg); }
+.bg-border      { background: var(--border); }
+
+/* ── Typography Scale ── */
+.display {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+.display em {
+  font-style: italic;
+  color: var(--secondary);
+}
+
+.h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--primary);
+}
+
+.h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--primary);
+}
+
+.h3 {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--primary);
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.lead {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 640px;
+}
+
+.body { font-size: 1rem; line-height: 1.7; color: var(--text-muted); }
+.body-sm { font-size: 0.875rem; line-height: 1.6; color: var(--text-muted); }
+
+/* ── Utilities ── */
+.text-center   { text-align: center; }
+.text-white    { color: #fff; }
+.text-muted    { color: var(--text-muted); }
+.text-red      { color: var(--secondary); }
+.text-navy     { color: var(--primary); }
+
+.mt-2  { margin-top: 0.5rem; }
+.mt-4  { margin-top: 1rem; }
+.mt-6  { margin-top: 1.5rem; }
+.mt-8  { margin-top: 2rem; }
+.mt-10 { margin-top: 2.5rem; }
+.mt-12 { margin-top: 3rem; }
+.mb-4  { margin-bottom: 1rem; }
+.mb-6  { margin-bottom: 1.5rem; }
+.mb-8  { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+
+.max-w-prose { max-width: 640px; }
+.mx-auto     { margin-left: auto; margin-right: auto; }
+.flex        { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-4  { gap: 1rem; }
+.gap-6  { gap: 1.5rem; }
+.gap-8  { gap: 2rem; }
+.gap-12 { gap: 3rem; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  border: 2px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--secondary);
+  color: #fff;
+  border-color: var(--secondary);
+}
+.btn-primary:hover {
+  background: #a60d25;
+  border-color: #a60d25;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(200,16,46,0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-outline-white {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255,255,255,0.4);
+}
+.btn-outline-white:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: white;
+}
+
+.btn-lg { padding: 1.125rem 2.25rem; font-size: 1rem; }
+
+/* ── Section Labels ── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--secondary);
+  margin-bottom: 1.25rem;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--secondary);
+}
+
+/* ── Divider ── */
+hr.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0;
+}
+
+/* ── Cards ── */
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: #d0d5dd;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ── Image Zoom Hover ── */
+.zoom-wrap {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+.zoom-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+.zoom-wrap:hover img { transform: scale(1.03); }
+
+/* ── Inline Tag ── */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  background: rgba(11,31,58,0.07);
+  color: var(--primary);
+}
+
+.tag-red {
+  background: rgba(200,16,46,0.08);
+  color: var(--secondary);
+}
+
+/* ── Stat Number ── */
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 500;
+  color: var(--primary);
+  line-height: 1;
+}
+
+/* ── Fade Up Animation ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s var(--ease) both;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+/* ── Horizontal rule separator ── */
+.rule {
+  width: 40px;
+  height: 3px;
+  background: var(--secondary);
+  border-radius: 2px;
+  margin: 1.25rem 0;
+}
+
+/* ── Responsive base ── */
+@media (max-width: 768px) {
+  :root {
+    --section: 4rem;
+    --section-sm: 2.5rem;
+  }
+  .container { padding: 0 1.25rem; }
+}

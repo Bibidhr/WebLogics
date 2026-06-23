@@ -1,0 +1,88 @@
+.careers-header {
+  padding: 10rem 0 6rem 0;
+  background: var(--primary);
+  color: white;
+}
+
+.careers-header h1 {
+  color: white;
+}
+
+.perks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.perk-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.perk-card h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.job-row {
+  background: white;
+  padding: 3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+}
+
+.job-main-info {
+  flex-grow: 1;
+}
+
+.job-main-info h3 {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.job-meta {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.job-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.job-action {
+  flex-shrink: 0;
+}
+
+@media (max-width: 992px) {
+  .perks-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .job-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+}
