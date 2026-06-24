@@ -179,11 +179,12 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: var(--transition-premium);
+  transition: border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
   will-change: transform, box-shadow;
 }
 
 .portfolio-premium-card:hover {
+  border-color: var(--accent);
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
@@ -281,6 +282,13 @@
   font-size: 1.35rem;
   color: var(--primary);
   margin-top: 0.25rem;
+  transition: color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+  display: inline-block;
+}
+
+.portfolio-premium-card:hover .portfolio-card-outcome strong {
+  color: var(--secondary);
+  transform: translateX(4px);
 }
 
 /* Empty State */

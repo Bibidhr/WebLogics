@@ -83,19 +83,6 @@ const portfolioItems = [
     summary: "Corporate website design showcasing custom wrought/cast iron gates, rails, and architectural products for freight deliveries."
   },
   {
-    id: "humble-roofing",
-    title: "Humble Roofing",
-    country: "USA",
-    countryBadge: "USA 🇺🇸",
-    industry: "Construction",
-    service: "seo",
-    serviceLabel: "Search Authority (SEO)",
-    image: "/client_preview_1.png",
-    tags: ["Technical Crawl Fixes", "Local Landing Pages", "Schema Markup"],
-    outcome: "First Page for 28 Keywords",
-    summary: "Executed technical crawl fixes and deployed city-specific service pages to dominate local search terms in high-competition US states."
-  },
-  {
     id: "instant-parcel-taxi",
     title: "Instant Parcel Taxi",
     country: "United Kingdom",
@@ -107,19 +94,6 @@ const portfolioItems = [
     tags: ["Custom Booking App", "Google Ads Search", "CPA Optimization"],
     outcome: "-34% Cost-Per-Acquisition",
     summary: "Custom web app dashboard with rapid address auto-complete and Google Ads retargeting setups to maximize courier bookings."
-  },
-  {
-    id: "vanguard-security",
-    title: "Vanguard Security",
-    country: "South Africa",
-    countryBadge: "South Africa 🇿🇦",
-    industry: "Security",
-    service: "web-development",
-    serviceLabel: "Web Dev & Local SEO",
-    image: "/client_preview_2.png",
-    tags: ["Secure Client Portal", "Local SEO Strategy", "Contract Leads"],
-    outcome: "3 Corporate Bids In 30 Days",
-    summary: "Developed a secure portals architecture for threat response dispatching and optimized local SEO visibility for corporate contracts."
   }
 ];
 
@@ -133,11 +107,10 @@ export default function Portfolio() {
     e.target.src = '/client_preview_1.png';
   };
 
-  const countries = ["Australia", "Canada", "USA", "India", "United Kingdom", "South Africa"];
-  const industries = ["Construction", "Transportation", "Logistics", "Ecommerce", "Education", "Manufacturing", "Security", "Professional Services"];
+  const countries = ["Australia", "Canada", "India", "United Kingdom"];
+  const industries = ["Ecommerce", "Education", "Logistics", "Manufacturing", "Security"];
   const services = [
     { value: "web-development", label: "Web Development" },
-    { value: "seo", label: "SEO" },
     { value: "paid-search", label: "Paid Search" },
     { value: "ecommerce", label: "E-Commerce" }
   ];

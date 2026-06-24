@@ -279,11 +279,13 @@
   align-items: flex-start;
   padding-bottom: 3.5rem;
   border-bottom: 1px solid var(--border);
-  transition: var(--transition-premium);
+  position: relative;
+  transition: border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
 }
 
 .service-item-row:hover {
-  transform: translateX(10px);
+  border-bottom-color: var(--secondary);
+  transform: translateY(-2px);
 }
 
 .service-item-row:last-child {
@@ -295,6 +297,11 @@
   font-size: 1.75rem;
   font-weight: 500;
   color: var(--primary);
+  transition: color 0.4s var(--ease-out-expo);
+}
+
+.service-item-row:hover .service-row-title h3 {
+  color: var(--secondary);
 }
 
 .service-row-desc p {
@@ -422,17 +429,17 @@
 .testimonial-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: 4px;
   background: var(--border);
   border: none;
   cursor: pointer;
   padding: 0;
-  transition: var(--transition);
+  transition: background-color 0.4s var(--ease-out-expo), width 0.4s var(--ease-out-expo);
 }
 
 .testimonial-dot.active {
   background: var(--secondary);
-  transform: scale(1.2);
+  width: 24px;
 }
 
 /* ── Final CTA with Animated Gradient ── */

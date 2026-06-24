@@ -108,13 +108,14 @@ label {
   font-family: var(--font-body);
   font-size: 0.9375rem;
   color: var(--text);
-  transition: var(--transition);
+  transition: border-color 0.4s var(--ease-out-expo), background-color 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
 }
 
 .form-control:focus {
   outline: none;
-  border-color: var(--primary);
+  border-color: var(--secondary);
   background: white;
+  box-shadow: 0 0 0 3px var(--secondary-light);
 }
 
 textarea.form-control {

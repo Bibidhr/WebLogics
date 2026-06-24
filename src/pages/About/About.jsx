@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ShieldCheck, Target, Award, Users, Heart } from 'lucide-react';
+import { ShieldCheck, Target, Award, Users, Heart, MapPin, Phone, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './About.css';
@@ -53,6 +53,19 @@ const staggerContainer = {
   }
 };
 
+const locationChips = [
+  { label: "Australia", flag: "🇦🇺" },
+  { label: "Canada", flag: "🇨🇦" },
+  { label: "USA", flag: "🇺🇸" },
+  { label: "United Kingdom", flag: "🇬🇧" },
+  { label: "India", flag: "🇮🇳" }
+];
+
+const chipVariants = {
+  hidden: { opacity: 0, y: 10, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+};
+
 export default function About() {
   const team = [
     {
@@ -96,51 +109,101 @@ export default function About() {
           <div className="about-content">
             <span className="section-label">Our Story</span>
             <h2 className="h1">Fostering digital clarity since 2014</h2>
-            <p className="body mt-4">
-              Weblogics was founded in North Sydney to bridge the gap between creative marketing agencies and technical engineering shops. We believe that digital growth cannot succeed in a silo; high rankings require technical page speed, and paid media requires conversion-optimized UX.
-            </p>
-            <p className="body mt-4">
-              Today, our senior strategic consultants work directly with clients from our Walker Street office, while our globally distributed teams in New Zealand, the United Kingdom, India, and Canada provide 24/7 development support and continuous campaign optimization. This hybrid model allows us to deliver enterprise-grade execution at boutique agency value.
-            </p>
+            <div className="about-description mt-6">
+              <p className="body">
+                Weblogics was founded in North Sydney to bridge the gap between creative agencies and technical engineering shops. We believe digital growth requires integration: high organic rankings depend directly on code optimization, and search campaigns depend on high-converting UX.
+              </p>
+              <p className="body mt-4">
+                Today, our strategic consultants operate directly from our Walker Street headquarters, collaborating with our engineering nodes in Canada, the UK, and India to deliver round-the-clock support and active portal optimization.
+              </p>
+            </div>
+
+            <div className="location-presence mt-8">
+              <h4 className="presence-title-label">Countries Served & Active Operations</h4>
+              <motion.div 
+                className="location-chips-container mt-4"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+              >
+                {locationChips.map((chip, idx) => (
+                  <motion.span key={idx} className="location-chip" variants={chipVariants}>
+                    <span className="chip-flag">{chip.flag}</span>
+                    <span className="chip-label">{chip.label}</span>
+                  </motion.span>
+                ))}
+              </motion.div>
+            </div>
             
-            <div className="stats-row mt-8">
-              <div>
-                <h3><ScrollCounter end={12} suffix=" Years" /></h3>
-                <p className="body-sm">Active Operation</p>
+            <div className="stats-row mt-10">
+              <div className="stat-item">
+                <h3><ScrollCounter end={12} suffix="+" /></h3>
+                <p className="body-sm">Years in Business</p>
               </div>
-              <div>
-                <h3><ScrollCounter end={22} suffix=" Experts" /></h3>
-                <p className="body-sm">In-House Staff</p>
+              <div className="stat-item">
+                <h3><ScrollCounter end={150} suffix="+" /></h3>
+                <p className="body-sm">Projects Delivered</p>
               </div>
-              <div>
-                <h3><ScrollCounter end={5} suffix=" Countries" /></h3>
-                <p className="body-sm">Global Footprint</p>
+              <div className="stat-item">
+                <h3><ScrollCounter end={22} /></h3>
+                <p className="body-sm">Team Members</p>
+              </div>
+              <div className="stat-item">
+                <h3><ScrollCounter end={5} /></h3>
+                <p className="body-sm">Countries Served</p>
               </div>
             </div>
           </div>
           
-          <div className="about-visual">
-            <h3 className="h3">Sydney HQ Operations</h3>
-            <p className="body-sm mb-6">Our central offices are equipped to handle end-to-end design, search consulting, and engineering oversight.</p>
-            <ul>
-              <li>
-                <span>Address</span>
-                <span>Suite 1105, 100 Walker St, North Sydney</span>
-              </li>
-              <li>
-                <span>Phone Support</span>
-                <span>+61 2 9066 6555</span>
-              </li>
-              <li>
-                <span>Primary Focus</span>
-                <span>Custom Dev, SEO, PPC & Analytics</span>
-              </li>
-              <li>
-                <span>Global Nodes</span>
-                <span>Sydney, London, Toronto, Auckland, Mumbai</span>
-              </li>
-            </ul>
-          </div>
+          <motion.div 
+            className="about-visual"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="visual-image-frame">
+              <img src="/sydney_office_about.png" alt="Weblogics Sydney HQ Suite" />
+            </div>
+            <div className="visual-details">
+              <div className="visual-title-row">
+                <MapPin size={18} className="text-secondary" />
+                <div>
+                  <h4>Sydney HQ Operations</h4>
+                  <p className="body-xs">Suite 1105, 100 Walker St, North Sydney</p>
+                </div>
+              </div>
+              
+              <hr className="visual-divider" />
+              
+              <ul className="visual-details-list">
+                <li>
+                  <span className="detail-name">Specialties</span>
+                  <span className="detail-value">Custom Dev, SEO, PPC & Analytics</span>
+                </li>
+                <li>
+                  <span className="detail-name">Global Offices</span>
+                  <span className="detail-value">Sydney, London, Toronto, Auckland, Mumbai</span>
+                </li>
+                <li>
+                  <span className="detail-name">Coverage Zone</span>
+                  <span className="detail-value">APAC, North America, EMEA</span>
+                </li>
+              </ul>
+
+              <hr className="visual-divider" />
+
+              <div className="visual-actions">
+                <a href="tel:+61290666555" className="visual-phone-btn">
+                  <Phone size={14} /> +61 2 9066 6555
+                </a>
+                <Link to="/contact" className="visual-cta-btn">
+                  Book Strategy Session <ArrowRight size={14} />
+                </Link>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
