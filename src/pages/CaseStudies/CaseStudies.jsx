@@ -101,17 +101,20 @@ export default function CaseStudies() {
 
   return (
     <div className="case-studies-page">
-      <section className="case-studies-header text-center">
+      <section className="subpage-header">
+        <div className="hero-gradient-mesh"></div>
+        <div className="hero-glow-orb orb-1"></div>
+        <div className="hero-glow-orb orb-2"></div>
         <div className="container">
-          <span className="section-label" style={{color: 'white', borderColor: 'rgba(255,255,255,0.3)'}}>Case Studies</span>
-          <h1 className="display text-white">Client outcomes. Verified results.</h1>
-          <p className="lead mx-auto text-white opacity-80 mt-4">
+          <span className="section-label section-label-light">Case Studies</span>
+          <h1 className="display display-light">Client outcomes. Verified results.</h1>
+          <p className="lead mx-auto lead-light mt-4">
             Explore how we partner with Australian and international brands to optimize platforms, rank search terms, and run profitable campaigns.
           </p>
         </div>
       </section>
 
-      <section className="case-studies-list">
+      <section className="section section-gray">
         <div className="container">
           <motion.div 
             className="cs-list-grid"
@@ -126,8 +129,22 @@ export default function CaseStudies() {
                 key={cs.id}
                 variants={fadeUp}
               >
-                <div className="cs-list-image-wrap zoom-wrap">
-                  <img src={cs.image} alt={cs.title} onError={handleImgError} />
+                <div className="portfolio-shell-wrapper" style={{ width: '100%' }}>
+                  <div className="browser-shell">
+                    <div className="browser-header">
+                      <div className="browser-dots">
+                        <div className="browser-dot red"></div>
+                        <div className="browser-dot yellow"></div>
+                        <div className="browser-dot green"></div>
+                      </div>
+                      <div className="browser-bar">www.{cs.title.split(':')[0].toLowerCase().replace(/\s+/g, '')}.com</div>
+                    </div>
+                    <div className="browser-screen">
+                      <div className="portfolio-screenshot">
+                        <img src={cs.image} alt={cs.title} onError={handleImgError} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="cs-list-content">

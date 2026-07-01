@@ -1,58 +1,97 @@
-.services-header {
-  padding: 10rem 0 6rem 0;
-  background: var(--primary);
-  color: white;
+/* ============================================================
+   WEBLOGICS — Premium Services Page Styling
+   Clean visual layout with premium hovered details
+   ============================================================ */
+
+.services-page {
+  background: var(--bg-gray);
 }
 
-.services-header h1 {
-  color: white;
-}
+
 
 .services-grid-large {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 3rem;
-  margin-top: 4rem;
 }
 
 .service-card-large {
-  background: white;
-  padding: 3rem;
+  background: var(--bg-white);
+  padding: 3.5rem 3rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition: border-color 0.3s var(--ease);
-  will-change: transform, box-shadow;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.service-card-large::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-out-expo);
 }
 
 .service-card-large:hover {
-  border-color: var(--secondary);
+  transform: translateY(-8px);
+  border-color: rgba(44, 94, 173, 0.3);
+  box-shadow: var(--shadow-lg);
+}
+
+.service-card-large:hover::before {
+  transform: scaleX(1);
 }
 
 .service-icon-large {
-  color: var(--secondary);
-  margin-bottom: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-gray);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  margin-bottom: 1.75rem;
+  transition: all 0.3s ease;
+}
+
+.service-card-large:hover .service-icon-large {
+  background: var(--primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
 }
 
 .service-card-large h2 {
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
   margin-bottom: 1rem;
 }
 
 .service-card-large p {
-  font-size: 0.9375rem;
+  font-size: 0.96rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: 2rem;
 }
 
 .service-features-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
   margin-top: auto;
   border-top: 1px solid var(--border);
   padding-top: 1.5rem;
@@ -61,14 +100,14 @@
 .service-feature-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
+  gap: 0.65rem;
+  font-size: 0.9rem;
   color: var(--text);
   font-weight: 500;
 }
 
 .service-feature-item svg {
-  color: var(--secondary);
+  color: var(--accent);
   flex-shrink: 0;
 }
 
@@ -76,19 +115,19 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 700;
   color: var(--primary);
-  transition: var(--transition);
+  transition: all 0.3s ease;
+  width: max-content;
 }
 
 .service-detail-link svg {
   transition: transform 0.3s var(--ease-out-expo);
-  will-change: transform;
 }
 
 .service-card-large:hover .service-detail-link {
-  color: var(--secondary);
+  color: var(--accent);
 }
 
 .service-card-large:hover .service-detail-link svg {
@@ -98,6 +137,108 @@
 @media (max-width: 992px) {
   .services-grid-large {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
+  }
+  
+  .service-card-large {
+    padding: 3rem 2rem;
+  }
+}
+
+/* ── Why Partner With Us Grid ── */
+.services-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  margin-top: 3.5rem;
+}
+
+.why-card-premium {
+  background: var(--bg-white);
+  padding: 3rem 2.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo), border-color 0.4s ease;
+}
+
+.why-card-premium:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(44, 94, 173, 0.3);
+}
+
+.why-card-premium h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.why-card-premium p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ── Platforms / Logos Grid ── */
+.tech-logos-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+.tech-logo-card {
+  background: var(--bg-white);
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.tech-logo-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.tech-logo-card strong {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.tech-logo-card span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 1024px) {
+  .services-why-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .tech-logos-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .tech-logos-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

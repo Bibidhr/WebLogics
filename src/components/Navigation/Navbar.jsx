@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -8,6 +8,18 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownTimeout = useRef(null);
+
+  const openDropdown = useCallback(() => {
+    clearTimeout(dropdownTimeout.current);
+    setIsDropdownOpen(true);
+  }, []);
+
+  const closeDropdown = useCallback(() => {
+    dropdownTimeout.current = setTimeout(() => {
+      setIsDropdownOpen(false);
+    }, 300);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,7 +36,7 @@ export default function Navbar() {
     <header className={`navbar ${isSolid ? 'solid scrolled' : 'transparent'}`}>
       <div className="container nav-container">
         <NavLink to="/" className="brand" onClick={() => setIsMobileMenuOpen(false)}>
-          <span className="brand-text">Web<span className="text-red">logics</span></span>
+          <span className="brand-text">Web<span className="text-accent">logics</span></span>
         </NavLink>
 
         <nav className="desktop-nav">
@@ -35,9 +47,9 @@ export default function Navbar() {
               </NavLink>
             </li>
             <li 
-              className="dropdown"
-              onMouseEnter={() => setIsDropdownOpen(true)}
-              onMouseLeave={() => setIsDropdownOpen(false)}
+              className={`dropdown ${isDropdownOpen ? 'dropdown-open' : ''}`}
+              onMouseEnter={openDropdown}
+              onMouseLeave={closeDropdown}
             >
               <NavLink 
                 to="/services" 
@@ -45,16 +57,15 @@ export default function Navbar() {
               >
                 Services <ChevronDown size={14} />
               </NavLink>
-              {isDropdownOpen && (
-                <ul className="dropdown-menu">
-                  <li><NavLink to="/services/web-development">Web Development</NavLink></li>
-                  <li><NavLink to="/services/seo">SEO Optimization</NavLink></li>
-                  <li><NavLink to="/services/google-ads">Google Ads & PPC</NavLink></li>
-                  <li><NavLink to="/services/social-media-marketing">Social Media Marketing</NavLink></li>
-                  <li><NavLink to="/services/branding">Brand Strategy</NavLink></li>
-                  <li><NavLink to="/services/ecommerce">E-commerce Solutions</NavLink></li>
-                </ul>
-              )}
+              <div className="dropdown-bridge"></div>
+              <ul className="dropdown-menu">
+                <li><NavLink to="/services/web-development">Web Development</NavLink></li>
+                <li><NavLink to="/services/seo">SEO Optimization</NavLink></li>
+                <li><NavLink to="/services/google-ads">Google Ads & PPC</NavLink></li>
+                <li><NavLink to="/services/social-media-marketing">Social Media Marketing</NavLink></li>
+                <li><NavLink to="/services/branding">Brand Strategy</NavLink></li>
+                <li><NavLink to="/services/ecommerce">E-commerce Solutions</NavLink></li>
+              </ul>
             </li>
             <li>
               <NavLink to="/portfolio" className={({ isActive }) => isActive ? "active-link" : ""}>

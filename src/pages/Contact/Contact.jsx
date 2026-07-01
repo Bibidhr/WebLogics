@@ -10,17 +10,20 @@ const fadeUp = {
 export default function Contact() {
   return (
     <div className="contact-page">
-      <section className="contact-header text-center">
+      <section className="subpage-header">
+        <div className="hero-gradient-mesh"></div>
+        <div className="hero-glow-orb orb-1"></div>
+        <div className="hero-glow-orb orb-2"></div>
         <div className="container">
-          <span className="section-label" style={{color: 'white', borderColor: 'rgba(255,255,255,0.3)'}}>Contact Us</span>
-          <h1 className="display text-white">Let's discuss growth.</h1>
-          <p className="lead mx-auto text-white opacity-80 mt-4">
+          <span className="section-label section-label-light">Contact Us</span>
+          <h1 className="display display-light">Let's discuss growth.</h1>
+          <p className="lead mx-auto lead-light mt-4">
             Connect with a senior strategist in North Sydney. Book a briefing session or request a proposal.
           </p>
         </div>
       </section>
 
-      <section className="contact-section">
+      <section className="section section-gray">
         <div className="container contact-grid">
           <motion.div 
             className="contact-info"

@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
-import { useRef } from 'react';
-import { ArrowLeft, CheckCircle2, Calendar, ShieldCheck, Zap } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { ArrowLeft, CheckCircle2, Calendar, ShieldCheck, Zap, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import './ServiceDetail.css';
 
@@ -155,6 +155,7 @@ export default function ServiceDetail() {
   const { serviceId } = useParams();
   const service = serviceData[serviceId];
   const containerRef = useRef(null);
+  const [openFaq, setOpenFaq] = useState(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -177,19 +178,22 @@ export default function ServiceDetail() {
 
   return (
     <div className="service-detail-page">
-      {/* Header */}
-      <section className="detail-header">
+      {/* Unified Subpage Header */}
+      <section className="subpage-header">
+        <div className="hero-gradient-mesh"></div>
+        <div className="hero-glow-orb orb-1"></div>
+        <div className="hero-glow-orb orb-2"></div>
         <div className="container">
           <Link to="/services" className="back-link">
             <ArrowLeft size={16} /> Back to Services
           </Link>
-          <h1 className="display text-white mt-6">{service.title}</h1>
-          <p className="lead text-white opacity-90 mt-4">{service.subtitle}</p>
+          <h1 className="display display-light mt-6">{service.title}</h1>
+          <p className="lead lead-light mt-4">{service.subtitle}</p>
         </div>
       </section>
 
-      {/* Main Breakdown */}
-      <section className="section bg-white">
+      {/* Overview + Deliverables */}
+      <section className="section section-gray">
         <div className="container detail-grid">
           <div className="detail-main-content">
             <span className="section-label">Overview</span>
@@ -204,32 +208,6 @@ export default function ServiceDetail() {
                 </li>
               ))}
             </ul>
-
-            <h3 className="h2 mt-12">Engagement Process</h3>
-            <div className="process-list mt-8" ref={containerRef}>
-              <div className="timeline-line-bg"></div>
-              <motion.div 
-                className="timeline-line-grow" 
-                style={{ scaleY, originY: 0 }}
-              />
-              
-              {service.process.map((step, i) => (
-                <motion.div 
-                  key={i} 
-                  className="process-step-item"
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                >
-                  <div className="step-num">{step.step}</div>
-                  <div className="step-content">
-                    <h4>{step.title}</h4>
-                    <p className="body-sm mt-2">{step.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </div>
 
           <aside className="detail-sidebar">
@@ -263,21 +241,80 @@ export default function ServiceDetail() {
         </div>
       </section>
 
+      {/* Engagement Process */}
+      <section className="section section-white">
+        <div className="container">
+          <div className="text-center mb-12">
+            <span className="section-label">Methodology</span>
+            <h2 className="h1">Engagement process</h2>
+            <p className="lead mx-auto mt-4">A clear, structured workflow from kickoff to launch.</p>
+          </div>
+
+          <div className="process-list" ref={containerRef}>
+            <div className="timeline-line-bg"></div>
+            <motion.div 
+              className="timeline-line-grow" 
+              style={{ scaleY, originY: 0 }}
+            />
+            
+            {service.process.map((step, i) => (
+              <motion.div 
+                key={i} 
+                className="process-step-item"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+              >
+                <div className="step-num">{step.step}</div>
+                <div className="step-content">
+                  <h4>{step.title}</h4>
+                  <p className="body-sm mt-2">{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQs */}
-      <section className="section bg-warm">
-        <div className="container max-w-prose mx-auto">
-          <div className="text-center mb-10">
+      <section className="section section-gray">
+        <div className="container">
+          <div className="faq-intro">
             <span className="section-label">Common Questions</span>
-            <h2 className="h2">Service FAQ</h2>
+            <h2 className="h1">Service FAQ</h2>
+            <p>Quick answers to the most common questions about this service.</p>
           </div>
           
-          <div className="faq-list">
+          <div className="faq-accordion-container">
             {service.faqs.map((faq, i) => (
-              <div key={i} className="faq-item">
-                <h4>{faq.q}</h4>
-                <p className="body mt-2">{faq.a}</p>
+              <div className={`faq-item ${openFaq === i ? 'open' : ''}`} key={i}>
+                <button className="faq-trigger" onClick={() => setOpenFaq(openFaq === i ? null : i)} type="button">
+                  <h3>{faq.q}</h3>
+                  <div className="faq-icon-holder">
+                    {openFaq === i ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </div>
+                </button>
+                <div className="faq-content" style={{ maxHeight: openFaq === i ? '300px' : '0' }}>
+                  <div className="faq-answer-inner">
+                    <p>{faq.a}</p>
+                  </div>
+                </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="section section-white">
+        <div className="container text-center">
+          <span className="section-label">Get Started</span>
+          <h2 className="h1 mt-4">Ready to discuss {service.title.toLowerCase()}?</h2>
+          <p className="lead mx-auto mt-4">Book a no-obligation strategy session with our team. We will review your current setup and outline a clear action plan.</p>
+          <div className="mt-8" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link to="/contact" className="btn btn-primary">Start Your Project</Link>
+            <Link to="/services" className="btn btn-outline">View All Services</Link>
           </div>
         </div>
       </section>

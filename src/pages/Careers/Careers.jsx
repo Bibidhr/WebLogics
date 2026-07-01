@@ -1,4 +1,4 @@
-import { Briefcase, MapPin, Clock, ArrowRight } from 'lucide-react';
+import { Briefcase, MapPin, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './Careers.css';
 
@@ -29,11 +29,14 @@ const jobs = [
 export default function Careers() {
   return (
     <div className="careers-page">
-      <section className="careers-header text-center">
+      <section className="subpage-header">
+        <div className="hero-gradient-mesh"></div>
+        <div className="hero-glow-orb orb-1"></div>
+        <div className="hero-glow-orb orb-2"></div>
         <div className="container">
-          <span className="section-label" style={{color: 'white', borderColor: 'rgba(255,255,255,0.3)'}}>Careers</span>
-          <h1 className="display text-white">Join Weblogics</h1>
-          <p className="lead mx-auto text-white opacity-80 mt-4">
+          <span className="section-label section-label-light">Careers</span>
+          <h1 className="display display-light">Join Weblogics</h1>
+          <p className="lead mx-auto lead-light mt-4">
             Work with a dedicated technical growth team in North Sydney. We prioritize technical precision, transparency, and professional growth.
           </p>
         </div>
@@ -67,7 +70,7 @@ export default function Careers() {
       </section>
 
       {/* Jobs Board */}
-      <section className="section bg-warm">
+      <section className="section section-gray">
         <div className="container">
           <div className="text-center mb-12">
             <span className="section-label">Open Positions</span>

@@ -1,12 +1,4 @@
-.careers-header {
-  padding: 10rem 0 6rem 0;
-  background: var(--primary);
-  color: white;
-}
 
-.careers-header h1 {
-  color: white;
-}
 
 .perks-grid {
   display: grid;
@@ -15,36 +7,58 @@
 }
 
 .perk-card {
-  background: white;
-  padding: 2.5rem;
+  background: var(--bg-white);
+  padding: 3rem 2.5rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo), border-color 0.4s ease;
+}
+
+.perk-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(44, 94, 173, 0.3);
 }
 
 .perk-card h4 {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
   color: var(--primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.perk-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .jobs-list {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
 .job-row {
-  background: white;
+  background: var(--bg-white);
   padding: 3rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 3rem;
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo), border-color 0.4s ease;
+}
+
+.job-row:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(44, 94, 173, 0.3);
 }
 
 .job-main-info {
@@ -52,22 +66,31 @@
 }
 
 .job-main-info h3 {
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
   color: var(--primary);
 }
 
 .job-meta {
   display: flex;
   gap: 1.5rem;
+  margin-top: 0.75rem;
 }
 
 .job-meta-item {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.8125rem;
-  font-weight: 500;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-muted);
+}
+
+.job-main-info p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 1rem;
 }
 
 .job-action {
@@ -83,6 +106,6 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
-    padding: 2rem;
+    padding: 2.25rem;
   }
 }

@@ -1,17 +1,10 @@
-.contact-header {
-  padding: 10rem 0 6rem 0;
-  background: var(--primary);
-  color: white;
-}
+
 
 .contact-header h1 {
-  color: white;
+  color: #FFFFFF;
 }
 
-.contact-section {
-  padding: 6rem 0;
-  background: var(--warm);
-}
+
 
 .contact-grid {
   display: grid;
@@ -73,6 +66,7 @@
   padding: 3rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .contact-form-wrapper h3 {

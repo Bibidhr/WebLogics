@@ -100,17 +100,20 @@ export default function Services() {
 
   return (
     <div className="services-page">
-      <section className="services-header text-center">
+      <section className="subpage-header">
+        <div className="hero-gradient-mesh"></div>
+        <div className="hero-glow-orb orb-1"></div>
+        <div className="hero-glow-orb orb-2"></div>
         <div className="container">
-          <span className="section-label" style={{color: 'white', borderColor: 'rgba(255,255,255,0.3)'}}>Capabilities</span>
-          <h1 className="display text-white">Bespoke digital solutions</h1>
-          <p className="lead mx-auto text-white opacity-80 mt-4">
+          <span className="section-label section-label-light">Capabilities</span>
+          <h1 className="display display-light">Bespoke digital solutions.</h1>
+          <p className="lead mx-auto lead-light mt-4">
             We deliver robust development, transparent organic search marketing, and highly efficient paid campaigns.
           </p>
         </div>
       </section>
 
-      <section className="section bg-warm">
+      <section className="section section-gray">
         <div className="container">
           <motion.div 
             className="services-grid-large"
@@ -142,6 +145,69 @@ export default function Services() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* ── Why Partner With Us ── */}
+      <section className="section section-white">
+        <div className="container">
+          <div className="text-center mb-12">
+            <span className="section-label">Why Us</span>
+            <h2 className="h1">Our engineering standards</h2>
+            <p className="lead mx-auto mt-4">We deliver enterprise quality codebases, bulletproof local search indexes, and clear ad spend pipelines.</p>
+          </div>
+          
+          <div className="services-why-grid">
+            <div className="why-card-premium">
+              <h4>Senior Strategy Only</h4>
+              <p className="body-sm mt-2">Every strategic decision and code route is executed directly by a senior practitioner with over 8 years commercial delivery history.</p>
+            </div>
+            <div className="why-card-premium">
+              <h4>Server-Side Conversion Audits</h4>
+              <p className="body-sm mt-2">We build custom attribution pathways directly on GTM. We verify numbers instead of inflating them on marketing dashboards.</p>
+            </div>
+            <div className="why-card-premium">
+              <h4>Headless Architectures</h4>
+              <p className="body-sm mt-2">We engineer web storefronts and interfaces using React frameworks to guarantee sub-second mobile page index loading speeds.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Platforms We Build & Scale ── */}
+      <section className="section section-gray">
+        <div className="container">
+          <div className="text-center mb-12">
+            <span className="section-label">Integrations</span>
+            <h2 className="h1">Platforms we build & scale</h2>
+          </div>
+          
+          <div className="tech-logos-grid">
+            <div className="tech-logo-card">
+              <strong>React / Vite</strong>
+              <span>Headless Frontends</span>
+            </div>
+            <div className="tech-logo-card">
+              <strong>Next.js</strong>
+              <span>Server-Side Code</span>
+            </div>
+            <div className="tech-logo-card">
+              <strong>Shopify Plus</strong>
+              <span>E-Commerce Engine</span>
+            </div>
+            <div className="tech-logo-card">
+              <strong>Node / APIs</strong>
+              <span>Secure Integrations</span>
+            </div>
+            <div className="tech-logo-card">
+              <strong>Google Ads</strong>
+              <span>Campaign Scaling</span>
+            </div>
+            <div className="tech-logo-card">
+              <strong>Google Tag Manager</strong>
+              <span>Conversion Audit</span>
+            </div>
+          </div>
         </div>
       </section>
     </div>

@@ -44,17 +44,20 @@ const posts = [
 export default function Blog() {
   return (
     <div className="blog-page">
-      <section className="blog-header text-center">
+      <section className="subpage-header">
+        <div className="hero-gradient-mesh"></div>
+        <div className="hero-glow-orb orb-1"></div>
+        <div className="hero-glow-orb orb-2"></div>
         <div className="container">
-          <span className="section-label" style={{color: 'white', borderColor: 'rgba(255,255,255,0.3)'}}>Blog & Insights</span>
-          <h1 className="display text-white">Digital growth insights</h1>
-          <p className="lead mx-auto text-white opacity-80 mt-4">
+          <span className="section-label section-label-light">Blog & Insights</span>
+          <h1 className="display display-light">Digital growth insights</h1>
+          <p className="lead mx-auto lead-light mt-4">
             Read technical commentary on React application architectures, keyword intent optimization, and clean conversion tracking.
           </p>
         </div>
       </section>
 
-      <section className="section bg-warm">
+      <section className="section section-gray">
         <div className="container">
           <div className="blog-grid">
             {posts.map((post) => (

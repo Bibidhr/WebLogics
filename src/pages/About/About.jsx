@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ShieldCheck, Target, Award, Users, Heart, MapPin, Phone, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Target, Award, Users, Heart, MapPin, Phone, ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './About.css';
@@ -91,20 +91,23 @@ export default function About() {
   return (
     <div className="about-page">
       {/* ── Hero Section ── */}
-      <section className="about-hero text-center">
+      <section className="subpage-header">
+        <div className="hero-gradient-mesh"></div>
+        <div className="hero-glow-orb orb-1"></div>
+        <div className="hero-glow-orb orb-2"></div>
         <div className="container">
-          <span className="section-label" style={{color: 'white', borderColor: 'rgba(255,255,255,0.3)'}}>Weblogics Digital</span>
-          <h1 className="display text-white">
+          <span className="section-label section-label-light">Weblogics Digital</span>
+          <h1 className="display display-light">
             Sydney based strategy.<br/>Global execution capability.
           </h1>
-          <p className="lead mx-auto text-white opacity-80 mt-4">
+          <p className="lead mx-auto lead-light mt-4">
             We build high-performance web platforms and run growth marketing channels with total transparency and data-backed outcomes.
           </p>
         </div>
       </section>
 
       {/* ── Narrative & Location Facts ── */}
-      <section className="section bg-white">
+      <section className="section section-gray">
         <div className="container about-grid">
           <div className="about-content">
             <span className="section-label">Our Story</span>
@@ -136,24 +139,7 @@ export default function About() {
               </motion.div>
             </div>
             
-            <div className="stats-row mt-10">
-              <div className="stat-item">
-                <h3><ScrollCounter end={12} suffix="+" /></h3>
-                <p className="body-sm">Years in Business</p>
-              </div>
-              <div className="stat-item">
-                <h3><ScrollCounter end={150} suffix="+" /></h3>
-                <p className="body-sm">Projects Delivered</p>
-              </div>
-              <div className="stat-item">
-                <h3><ScrollCounter end={22} /></h3>
-                <p className="body-sm">Team Members</p>
-              </div>
-              <div className="stat-item">
-                <h3><ScrollCounter end={5} /></h3>
-                <p className="body-sm">Countries Served</p>
-              </div>
-            </div>
+
           </div>
           
           <motion.div 
@@ -207,8 +193,30 @@ export default function About() {
         </div>
       </section>
 
+      {/* ── Company Statistics (Moved from about-content) ── */}
+      <section className="stats-section">
+        <div className="container stats-grid">
+          <div className="stat-card">
+            <div className="stat-number-large"><ScrollCounter end={12} suffix="+" /></div>
+            <div className="stat-description">Years Experience</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-number-large"><ScrollCounter end={180} suffix="+" /></div>
+            <div className="stat-description">Projects Completed</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-number-large"><ScrollCounter end={22} suffix="" /></div>
+            <div className="stat-description">Team Members</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-number-large"><ScrollCounter end={5} suffix="" /></div>
+            <div className="stat-description">Countries Served</div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Mission & Vision ── */}
-      <section className="section bg-warm">
+      <section className="section section-white">
         <div className="container mv-grid">
           <motion.div 
             className="mv-card"
@@ -306,15 +314,36 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="section bg-dark text-center">
+      {/* ── Conversion Pre-Footer CTA Section ── */}
+      <section className="prefooter-cta-section">
         <div className="container">
-          <h2 className="h1 text-white">Let's build a reliable partner channel.</h2>
-          <p className="lead mx-auto text-white opacity-80 mt-4">
-            Connect with our team in North Sydney to discuss custom web engineering or ranking search terms.
-          </p>
-          <div className="mt-8">
-            <Link to="/contact" className="btn btn-primary btn-lg">Schedule a Briefing Session</Link>
+          <div className="cta-box-premium">
+            <div className="cta-box-grid">
+              <div className="cta-box-content">
+                <h2>Ready to build a digital system that converts?</h2>
+                <p>Let's map out a customized search, development, and conversion strategy to scale your business queries.</p>
+                <div className="cta-box-actions">
+                  <Link to="/contact" className="btn btn-primary btn-lg">Book a Free Consultation</Link>
+                  <Link to="/contact" className="btn btn-outline-white btn-lg">Send an Inquiry</Link>
+                </div>
+              </div>
+
+              <div className="cta-contact-card-premium">
+                <h3>Contact North Sydney</h3>
+                <div className="cta-info-item">
+                  <Phone size={16} />
+                  <a href="tel:+61290666555">+61 2 9066 6555</a>
+                </div>
+                <div className="cta-info-item">
+                  <Mail size={16} />
+                  <a href="mailto:info@weblogics.com.au">info@weblogics.com.au</a>
+                </div>
+                <div className="cta-info-item">
+                  <MapPin size={16} />
+                  <span>Suite 1105, 100 Walker Street,<br />North Sydney NSW 2061</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

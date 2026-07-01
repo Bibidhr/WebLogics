@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Check, X, RefreshCw } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Check, X, RefreshCw, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Portfolio.css';
+
 
 const portfolioItems = [
   {
@@ -53,7 +55,7 @@ const portfolioItems = [
     serviceLabel: "Web Development & SEO",
     image: "/portfolio_city_security.png",
     tags: ["Corporate Security Site", "Local SEO", "Client Portals"],
-    outcome: "First Page Ranks for Security Queries",
+    outcome: "First Page Ranks",
     summary: "Developed a secure corporate web presence for city security operations, optimizing local search visibility for corporate security bids."
   },
   {
@@ -66,7 +68,7 @@ const portfolioItems = [
     serviceLabel: "Custom Web App & SEO",
     image: "/portfolio_sleepy.png",
     tags: ["Course Directory UI", "LMS Portal Integration", "SEO Copywriting"],
-    outcome: "+120% enrollment queries",
+    outcome: "+120% Enrollments",
     summary: "Restructured the course directory and student dashboard, boosting organic search engine rankings for civil service preparation."
   },
   {
@@ -79,7 +81,7 @@ const portfolioItems = [
     serviceLabel: "Web Design & Development",
     image: "/portfolio_aesthetic.png",
     tags: ["React Corporate Web", "Product Catalog UI", "B2B Dispatch Sync"],
-    outcome: "+65% B2B Shipper Inquiries",
+    outcome: "+65% B2B Inquiries",
     summary: "Corporate website design showcasing custom wrought/cast iron gates, rails, and architectural products for freight deliveries."
   },
   {
@@ -88,11 +90,11 @@ const portfolioItems = [
     country: "United Kingdom",
     countryBadge: "United Kingdom 🇬🇧",
     industry: "Logistics",
-    service: "paid-search",
+    service: "web-development",
     serviceLabel: "PPC & Booking Engine",
     image: "/client_preview_3.png",
     tags: ["Custom Booking App", "Google Ads Search", "CPA Optimization"],
-    outcome: "-34% Cost-Per-Acquisition",
+    outcome: "-34% CPA Reduction",
     summary: "Custom web app dashboard with rapid address auto-complete and Google Ads retargeting setups to maximize courier bookings."
   }
 ];
@@ -134,30 +136,48 @@ export default function Portfolio() {
   const filteredItems = portfolioItems.filter(item => {
     const matchCountry = selectedCountries.length === 0 || selectedCountries.includes(item.country);
     const matchIndustry = selectedIndustries.length === 0 || selectedIndustries.includes(item.industry);
-    const matchService = selectedServices.length === 0 || selectedServices.includes(item.service);
+    const matchService = selectedServices.length === 0 || selectedServices.includes(item.service) || (item.service === 'paid-search' && selectedServices.includes('paid-search'));
     return matchCountry && matchIndustry && matchService;
   });
 
   return (
     <div className="portfolio-page">
-      <section className="portfolio-header text-center">
+      <section className="subpage-header">
+        <div className="hero-gradient-mesh"></div>
+        <div className="hero-glow-orb orb-1"></div>
+        <div className="hero-glow-orb orb-2"></div>
         <div className="container">
-          <span className="section-label" style={{color: 'white', borderColor: 'rgba(255,255,255,0.3)'}}>Portfolio</span>
-          <h1 className="display text-white">Proven international delivery</h1>
-          <p className="lead mx-auto text-white opacity-80 mt-4">
+          <span className="section-label section-label-light">Portfolio</span>
+          <h1 className="display display-light">Proven international delivery.</h1>
+          <p className="lead mx-auto lead-light mt-4">
             We partner with clients globally across construction, transport, logistics, and retail to build robust codebases and capture rankings.
           </p>
+          
+          <div className="portfolio-stats-row mt-8">
+            <div className="p-stat-item">
+              <strong>50+</strong>
+              <span>Projects Delivered</span>
+            </div>
+            <div className="p-stat-item">
+              <strong>98%</strong>
+              <span>Client Satisfaction</span>
+            </div>
+            <div className="p-stat-item">
+              <strong>Global</strong>
+              <span>International Clients</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="section bg-warm">
+      <section className="section">
         <div className="container portfolio-workspace">
           {/* Sidebar Filters */}
           <aside className="portfolio-sidebar-filters">
             <div className="filter-header-block">
               <h3>Filters</h3>
               {(selectedCountries.length > 0 || selectedIndustries.length > 0 || selectedServices.length > 0) && (
-                <button className="clear-btn" onClick={clearAllFilters}>
+                <button className="clear-btn" onClick={clearAllFilters} type="button">
                   Clear All <X size={14} />
                 </button>
               )}
@@ -175,7 +195,7 @@ export default function Portfolio() {
                       onChange={() => toggleFilter('country', c)}
                     />
                     <span className="custom-box">
-                      {selectedCountries.includes(c) && <Check size={12} />}
+                      {selectedCountries.includes(c) && <Check size={12} fill="currentColor" />}
                     </span>
                     <span>{c}</span>
                   </label>
@@ -195,7 +215,7 @@ export default function Portfolio() {
                       onChange={() => toggleFilter('industry', ind)}
                     />
                     <span className="custom-box">
-                      {selectedIndustries.includes(ind) && <Check size={12} />}
+                      {selectedIndustries.includes(ind) && <Check size={12} fill="currentColor" />}
                     </span>
                     <span>{ind}</span>
                   </label>
@@ -215,7 +235,7 @@ export default function Portfolio() {
                       onChange={() => toggleFilter('service', s.value)}
                     />
                     <span className="custom-box">
-                      {selectedServices.includes(s.value) && <Check size={12} />}
+                      {selectedServices.includes(s.value) && <Check size={12} fill="currentColor" />}
                     </span>
                     <span>{s.label}</span>
                   </label>
@@ -232,19 +252,19 @@ export default function Portfolio() {
               <div className="tags-container">
                 {selectedCountries.map(c => (
                   <span className="active-filter-tag" key={c}>
-                    {c} <button onClick={() => toggleFilter('country', c)}><X size={12} /></button>
+                    {c} <button onClick={() => toggleFilter('country', c)} type="button"><X size={12} /></button>
                   </span>
                 ))}
                 {selectedIndustries.map(i => (
                   <span className="active-filter-tag" key={i}>
-                    {i} <button onClick={() => toggleFilter('industry', i)}><X size={12} /></button>
+                    {i} <button onClick={() => toggleFilter('industry', i)} type="button"><X size={12} /></button>
                   </span>
                 ))}
                 {selectedServices.map(s => {
                   const label = services.find(item => item.value === s)?.label;
                   return (
                     <span className="active-filter-tag" key={s}>
-                      {label} <button onClick={() => toggleFilter('service', s)}><X size={12} /></button>
+                      {label} <button onClick={() => toggleFilter('service', s)} type="button"><X size={12} /></button>
                     </span>
                   );
                 })}
@@ -256,7 +276,7 @@ export default function Portfolio() {
                 <RefreshCw size={36} className="text-secondary mb-4 spin-slow" />
                 <h3>No projects match your active filters</h3>
                 <p className="mt-2 text-muted">Try clearing some options in the sidebar to browse our international work.</p>
-                <button className="btn btn-outline mt-6" onClick={clearAllFilters}>Reset Filters</button>
+                <button className="btn btn-outline mt-6" onClick={clearAllFilters} type="button">Reset Filters</button>
               </div>
             ) : (
               <motion.div layout className="portfolio-dashboard-grid">
@@ -268,31 +288,50 @@ export default function Portfolio() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      className="portfolio-premium-card" 
+                      className="portfolio-mockup-card" 
                       key={item.id}
                     >
-                      <div className="portfolio-image-box zoom-wrap">
-                        <img 
-                          src={item.image} 
-                          alt={`${item.title} Screenshot`} 
-                          onError={handleImgError}
-                        />
+                      <div className="portfolio-shell-wrapper">
+                        <div className="browser-shell">
+                          <div className="browser-header">
+                            <div className="browser-dots">
+                              <div className="browser-dot red"></div>
+                              <div className="browser-dot yellow"></div>
+                              <div className="browser-dot green"></div>
+                            </div>
+                            <div className="browser-bar">www.{item.title.toLowerCase().replace(/\s+/g, '')}.com</div>
+                          </div>
+                          <div className="browser-screen">
+                            <div className="portfolio-screenshot">
+                              <img 
+                                src={item.image} 
+                                alt={`${item.title} Screenshot`} 
+                                onError={handleImgError}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="portfolio-detail-box">
-                        <div className="detail-header-row">
-                          <span className="country-indicator">{item.countryBadge}</span>
-                          <span className="industry-indicator">{item.industry}</span>
+                      <div className="portfolio-mockup-info">
+                        <div className="portfolio-tag-row">
+                          <span className="premium-tag">{item.countryBadge}</span>
+                          <span className="premium-tag">{item.industry}</span>
                         </div>
                         <h3>{item.title}</h3>
-                        <p className="summary-text">{item.summary}</p>
-                        <div className="portfolio-tag-wrap">
+                        <p>{item.summary}</p>
+                        <div className="portfolio-tag-row mt-2">
                           {item.tags.map((tag, i) => (
-                            <span className="p-tag" key={i}>{tag}</span>
+                            <span className="premium-tag premium-tag-accent" key={i}>{tag}</span>
                           ))}
                         </div>
-                        <div className="portfolio-card-outcome">
-                          <span>Attributed Result</span>
-                          <strong>{item.outcome}</strong>
+                        <div className="portfolio-meta-bar mt-4">
+                          <div className="portfolio-metrics-badge">
+                            <span>Attributed Result</span>
+                            <strong>{item.outcome}</strong>
+                          </div>
+                          <Link to="/case-studies" className="portfolio-cta-link">
+                            View Case Study <ArrowRight size={14} />
+                          </Link>
                         </div>
                       </div>
                     </motion.div>

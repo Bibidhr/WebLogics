@@ -1,19 +1,4 @@
 /* About Page Styles */
-.about-hero {
-  padding: 10rem 0 6rem 0;
-  background: var(--primary);
-  color: white;
-  position: relative;
-}
-
-.about-hero h1 {
-  color: white;
-  margin-top: 1.5rem;
-}
-
-.about-hero p {
-  color: rgba(255, 255, 255, 0.8);
-}
 
 .about-grid {
   display: grid;

@@ -1,459 +1,688 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Phone } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ArrowRight,
+  BarChart3,
+  CheckCircle2,
+  Code2,
+  Mail,
+  MapPin,
+  Phone,
+  Search,
+  Share2,
+  ShoppingBag,
+  Star,
+  Target,
+  TrendingUp,
+  Award,
+  Layers,
+  Cpu,
+  Globe2,
+  ChevronDown,
+  ChevronUp,
+  Check
+} from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import './Home.css';
 
-// ─── Custom Animated Scroll Counter ──────────────────────────────────────────
-function ScrollCounter({ end, suffix = '', prefix = '', duration = 2000 }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const started = useRef(false);
+const ease = [0.16, 1, 0.3, 1];
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started.current) {
-        started.current = true;
-        let startTimestamp = null;
-        const step = (timestamp) => {
-          if (!startTimestamp) startTimestamp = timestamp;
-          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-          const progressEased = 1 - Math.pow(1 - progress, 3); // cubic ease-out
-          setCount(Math.floor(progressEased * end));
-          if (progress < 1) {
-            requestAnimationFrame(step);
-          } else {
-            setCount(end);
-          }
-        };
-        requestAnimationFrame(step);
-      }
-    }, { threshold: 0.2 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [end, duration]);
-
-  return <span ref={ref}>{prefix}{count}{suffix}</span>;
-}
-
-// ─── Framer Motion Motion Primitives ─────────────────────────────────────────
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } }
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1
-    }
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 }
   }
 };
 
-const testimonials = [
+const logos = [
+  'Premium Garage Doors',
+  'Instant Parcel Taxi',
+  'Dhaage Sarees',
+  'Humble Roofing',
+  'Total Trucking Solutions',
+  'Yellow Maxi Cab',
+  'USA Moving Corporation',
+  'MAGS',
+  'Apex Logistics',
+  'Veloce Transport',
+  'Vanguard Retail'
+];
+
+const projects = [
   {
-    quote: "Weblogics restructured our entire organic lead flow. The new website is clean, looks incredibly professional, and ranks at the top of Google for our installation categories. The leads we receive now are high-value and direct.",
-    author: "David Vance",
-    role: "Director, Premium Garage Doors"
+    title: 'Premium Garage Doors',
+    category: 'Lead Generation Website',
+    industry: 'Construction',
+    country: 'Australia',
+    service: 'Website Development + SEO',
+    image: '/portfolio_garage.png',
+    result: '+142% Victoria traffic',
+    description: 'Custom website rebuild and local search campaign for garage door installation enquiries.'
   },
   {
-    quote: "As an e-commerce brand, speed and reliable tracking are everything. The custom storefront Weblogics developed loads instantly, and their paid search campaigns have delivered a steady, profitable return month-over-month.",
-    author: "Priya Sharma",
-    role: "Founder, Dhaage Sarees"
+    title: 'Instant Parcel Taxi',
+    category: 'Booking Experience',
+    industry: 'Logistics',
+    country: 'United Kingdom',
+    service: 'Booking Platform + Google Ads',
+    image: '/client_preview_3.png',
+    result: '-34% cost per acquisition',
+    description: 'Courier booking experience and paid search campaign structure built around urgent parcel intent.'
+  },
+  {
+    title: 'Dhaage Sarees',
+    category: 'Ecommerce Growth',
+    industry: 'Ecommerce',
+    country: 'India',
+    service: 'Ecommerce + Paid Social',
+    image: '/portfolio_sarees.png',
+    result: '4.8x ROAS average',
+    description: 'Shopify storefront, conversion tracking, and acquisition campaigns for a global fashion brand.'
+  },
+  {
+    title: 'Humble Roofing',
+    category: 'Local Services',
+    industry: 'Construction',
+    country: 'Canada',
+    service: 'Website Development + SEO',
+    image: '/client_preview_2.png',
+    result: 'Lead-focused service pages',
+    description: 'Service-led website structure designed to turn local roofing traffic into high-value quote requests.'
   }
 ];
 
+const testimonials = [
+  {
+    quote: 'Weblogics restructured our entire organic lead flow. The new website is clean, looks incredibly professional, and ranks at the top of Google for our installation categories.',
+    name: 'David Vance',
+    company: 'Premium Garage Doors',
+    country: 'Australia',
+    project: 'Website Development + Local SEO',
+    rating: 5
+  },
+  {
+    quote: 'As an e-commerce brand, speed and reliable tracking are everything. The custom storefront Weblogics developed loads instantly, and their paid campaigns deliver steady returns.',
+    name: 'Priya Sharma',
+    company: 'Dhaage Sarees',
+    country: 'India',
+    project: 'Shopify Storefront + Paid Campaigns',
+    rating: 5
+  }
+];
+
+const services = [
+  {
+    title: 'Website Development',
+    path: '/services/web-development',
+    Icon: Code2,
+    description: 'Custom websites and application frontends engineered for trust, speed, and lead conversion.',
+    benefits: ['Conversion-first page layout', 'Sub-second react frameworks', 'Tailored APIs & CRM sync']
+  },
+  {
+    title: 'SEO & Search Engine Marketing',
+    path: '/services/seo',
+    Icon: Search,
+    description: 'Technical and content-led search work focused on commercial terms that produce high-value enquiries.',
+    benefits: ['Technical code crawling audits', 'Intent-led services pages', 'Sydney/Local search authority']
+  },
+  {
+    title: 'Google Ads & Paid PPC',
+    path: '/services/google-ads',
+    Icon: Target,
+    description: 'Paid search campaigns structured around search relevance, keyword attribution, and custom landing pages.',
+    benefits: ['Search campaigns auditing', 'Strict keyword budget control', 'Attribution reports weekly']
+  },
+  {
+    title: 'Social Media Advertising',
+    path: '/services/social-media-marketing',
+    Icon: Share2,
+    description: 'Paid social funnels structured to build brand trust, position authority, and capture warm leads.',
+    benefits: ['Bespoke ad creative templates', 'Professional scriptwriting', 'Audience retargeting audits']
+  },
+  {
+    title: 'Ecommerce Storefronts',
+    path: '/services/ecommerce',
+    Icon: ShoppingBag,
+    description: 'Shopify Plus storefront setups designed to reduce friction and improve purchase confidence.',
+    benefits: ['Custom cart workflow logic', 'Headless storefront builds', 'Logistics API sync auditing']
+  }
+];
+
+const differentiators = [
+  { title: '12+ Years Enterprise Experience', text: 'Established delivery history across custom development, SEO strategies, paid campaigns, and storefronts.' },
+  { title: 'Proven International Portfolio', text: 'Work represented across Australia, India, Canada, the United Kingdom, and the United States.' },
+  { title: 'Australian-Based Strategy Team', text: 'Consultation led from North Sydney with transparent, clear communication for corporate stakeholders.' },
+  { title: 'Results-Focused Methodology', text: 'Every layout element, service route, and campaign is explicitly tied to sales, visibility, or trust.' }
+];
+
+const processSteps = [
+  { step: '01', title: 'Discovery & Analytics Audit', text: 'We map your business model, current web performance, conversion metrics, and valuable client actions.' },
+  { step: '02', title: 'Technical Strategy Mapping', text: 'We define the landing page layout, offer hierarchy, high-intent keywords, campaign budget, and tracking setup.' },
+  { step: '03', title: 'Design & Custom Engineering', text: 'We design the user experience, write professional copy, and engineer custom assets in React or Shopify.' },
+  { step: '04', title: 'Integrations & Quality Control', text: 'We audit load times, responsiveness, API sync routes, forms, search readiness, and tracking before launch.' },
+  { step: '05', title: 'Post-Launch Performance Tuning', text: 'We monitor organic indices, tune search bids, optimize conversion copy, and support digital development.' }
+];
+
+const techStack = [
+  { name: 'React', category: 'Frontend', desc: 'UI Development', logo: 'RE' },
+  { name: 'Next.js', category: 'Frontend', desc: 'Server Rendering', logo: 'N' },
+  { name: 'Shopify Plus', category: 'Platforms', desc: 'Ecommerce Engine', logo: 'S' },
+  { name: 'Node.js', category: 'Backend', desc: 'Secure APIs', logo: 'JS' },
+  { name: 'Google Ads', category: 'Advertising', desc: 'Paid PPC Search', logo: 'G' },
+  { name: 'Google Analytics 4', category: 'Advertising', desc: 'Traffic Attribution', logo: 'GA' },
+  { name: 'Vercel', category: 'Platforms', desc: 'Cloud Deployment', logo: 'V' },
+  { name: 'Tailwind CSS', category: 'Frontend', desc: 'Utility Styling', logo: 'TW' },
+  { name: 'Meta Pixel & API', category: 'Advertising', desc: 'Social Conversion', logo: 'M' },
+  { name: 'Webflow', category: 'Platforms', desc: 'Rapid CMS Websites', logo: 'WF' }
+];
+
+const industries = [
+  { title: 'Manufacturing & Construction', text: 'Local installation and building manufacturers requiring quote funnels.', icon: Cpu, metric: '+142% Leads' },
+  { title: 'Logistics & Transport', text: 'Courier services and fleet transport operations requiring instant booking forms.', icon: Globe2, metric: '-34% Cost-per-lead' },
+  { title: 'E-Commerce & Retail', text: 'Brands looking to upgrade checkout speed, tracking, and purchase flow.', icon: ShoppingBag, metric: '4.8x Avg ROAS' },
+  { title: 'B2B SaaS & Tech', text: 'Software companies looking to build corporate credibility and generate demos.', icon: Layers, metric: 'Enterprise-grade' },
+  { title: 'Health & Professional Services', text: 'Private medical systems and consultants seeking patient bookings.', icon: Award, metric: '+88% Bookings' }
+];
+
+const faqs = [
+  { question: 'What services does Weblogics provide?', answer: 'We offer a complete suite of enterprise growth services, including custom React/Next.js and Shopify development, technical and content-led SEO, Google Ads search campaigns, paid social advertising funnels, and brand position strategy.' },
+  { question: 'How do you charge for custom website projects?', answer: 'Projects are structured around transparent milestone-based deliverables. We do not tie you to recurring template bills; you own your custom codebase fully upon delivery.' },
+  { question: 'Do you work with clients outside of Australia?', answer: 'Yes. We serve established businesses and brands internationally across Australia, the United Kingdom, Canada, the United States, and India.' },
+  { question: 'How long does a typical digital agency project take?', answer: 'A custom landing page or SEO structure typically takes 4–6 weeks from discovery to launch, while complex React applications or Shopify Plus migrations average 8–12 weeks.' }
+];
+
+function SectionReveal({ children, className = '', ...props }) {
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return <div className={className} {...props}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      className={className}
+      {...props}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-70px' }}
+      variants={fadeUp}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function CountUp({ end, suffix = '', prefix = '', duration = 1200 }) {
+  const reduceMotion = useReducedMotion();
+  const [value, setValue] = useState(0);
+  const ref = useRef(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+
+    const node = ref.current;
+    if (!node) return undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || started.current) return;
+      started.current = true;
+
+      let startTime = null;
+      const tick = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setValue(Math.floor(eased * end));
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+
+      requestAnimationFrame(tick);
+    }, { threshold: 0.2 });
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [duration, end, reduceMotion]);
+
+  return <span ref={ref}>{prefix}{reduceMotion ? end : value}{suffix}</span>;
+}
+
+function Stars({ rating }) {
+  return (
+    <div className="rating-row" aria-label={`${rating} star rating`}>
+      {Array.from({ length: rating }).map((_, index) => (
+        <Star key={index} size={15} fill="currentColor" />
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
-  const [activeTesti, setActiveTesti] = useState(0);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [selectedTechTab, setSelectedTechTab] = useState('All');
+  const [openFaq, setOpenFaq] = useState(null);
+  const reduceMotion = useReducedMotion();
 
-  // Fallback image helper
-  const handleImgError = (e) => {
-    e.target.src = '/client_preview_1.png';
+  const techCategories = ['All', 'Frontend', 'Backend', 'Platforms', 'Advertising'];
+
+  const filteredTech = useMemo(() => {
+    if (selectedTechTab === 'All') return techStack;
+    return techStack.filter((tech) => tech.category === selectedTechTab);
+  }, [selectedTechTab]);
+
+  const toggleFaq = (index) => {
+    setOpenFaq(openFaq === index ? null : index);
   };
 
-  // Reusable 3D mouse tilt handler
-  const handleMouseMove = (e) => {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rx = -(y / (rect.height / 2)) * 6; // max 6 degrees X
-    const ry = (x / (rect.width / 2)) * 6;  // max 6 degrees Y
-    el.style.setProperty('--rx', rx.toFixed(2));
-    el.style.setProperty('--ry', ry.toFixed(2));
-  };
-
-  const handleMouseLeave = (e) => {
-    const el = e.currentTarget;
-    el.style.setProperty('--rx', '0');
-    el.style.setProperty('--ry', '0');
-  };
+  const heroMotion = reduceMotion ? {} : { initial: 'hidden', animate: 'visible', variants: staggerContainer };
 
   return (
     <div className="home-page">
-      {/* ── Hero Section ── */}
-      <section className="hero-section">
+      {/* ── Layered Hero Section ── */}
+      <section className="home-hero-section">
+        <div className="hero-gradient-mesh"></div>
         <div className="container hero-grid">
-          <motion.div 
-            className="hero-content"
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeUp} className="hero-subtitle">
-              Based in North Sydney, Serving Ambition
+          <motion.div className="hero-copy" {...heroMotion}>
+            <motion.div className="hero-badge" variants={fadeUp}>
+              <Award size={14} /> Enterprise Digital Growth Agency
             </motion.div>
-            <motion.h1 variants={fadeUp} className="display">
-              Bespoke digital growth for <em>established</em> businesses.
+            <motion.h1 className="display display-light" variants={fadeUp}>
+              Websites, SEO, and paid media built to <em>generate better leads</em>.
             </motion.h1>
-            <motion.p variants={fadeUp} className="body mt-4">
-              We design and build custom web applications, optimize search visibility, and engineer high-ROI paid media campaigns. Driven by transparency, backed by experience, and focused on business value.
+            <motion.p className="hero-lead" variants={fadeUp}>
+              We partner with established service businesses and global ecommerce brands to transform their digital presence into high-conversion sales pipelines.
             </motion.p>
-            <motion.div variants={fadeUp} className="hero-actions">
-              <Link to="/contact" className="btn btn-primary">
-                Book Free Strategy Session <ArrowRight size={16} />
+            <motion.div className="hero-actions" variants={fadeUp}>
+              <Link to="/contact" className="btn btn-primary btn-lg">
+                Book a Strategy Session <ArrowRight size={16} />
               </Link>
-              <a href="tel:+61290666555" className="hero-phone">
-                <Phone size={18} /> +61 2 9066 6555
-              </a>
+              <Link to="/portfolio" className="btn btn-outline-white btn-lg">
+                View Our Portfolio
+              </Link>
+            </motion.div>
+            
+            <motion.div className="hero-stats-mini" variants={fadeUp}>
+              <div className="stat-item">
+                <div className="stat-num"><CountUp end={12} suffix="+" /></div>
+                <div className="stat-label">Years Experience</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num"><CountUp end={180} suffix="+" /></div>
+                <div className="stat-label">Projects Delivered</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num"><span>$</span><CountUp end={12} suffix="M+" /></div>
+                <div className="stat-label">Managed Ads</div>
+              </div>
             </motion.div>
           </motion.div>
 
-          <motion.div 
-            className="hero-visual"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-          >
-            <div className="hero-image-wrap">
-              <img 
-                src="/portfolio_garage.png" 
-                alt="Premium Garage Doors Website Preview" 
-                onError={handleImgError}
-              />
+          {/* Interactive Floating Dashboard visual */}
+          <div className="hero-visual-wrapper">
+            <div className="hero-main-dashboard">
+              <div className="dashboard-header">
+                <div className="browser-dot red"></div>
+                <div className="browser-dot yellow"></div>
+                <div className="browser-dot green"></div>
+              </div>
+              <div className="dashboard-content">
+                <div>// Weblogics Client Pipeline Node</div>
+                <div className="dashboard-metric-box">
+                  <div>
+                    <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', opacity: 0.5 }}>Monthly Attribution</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF' }}>$142,500 AUD</div>
+                  </div>
+                  <div style={{ color: '#10B981', fontWeight: 700 }}>+24.8% MoM</div>
+                </div>
+                <div className="dashboard-graph-bars">
+                  <div className="dashboard-bar" style={{ height: '35%' }}></div>
+                  <div className="dashboard-bar" style={{ height: '55%' }}></div>
+                  <div className="dashboard-bar" style={{ height: '40%' }}></div>
+                  <div className="dashboard-bar" style={{ height: '65%' }}></div>
+                  <div className="dashboard-bar" style={{ height: '85%' }}></div>
+                </div>
+                <div style={{ fontSize: '0.65rem', opacity: 0.4, textAlign: 'right' }}>Active tracking online</div>
+              </div>
             </div>
-            <div className="hero-caption">
-              Featured Project: Digital Strategy & Custom Platform for Premium Garage Doors, Australia
+
+            {/* Float widgets */}
+            <div className="hero-floater floater-seo">
+              <BarChart3 size={20} />
+              <div>
+                <strong style={{ display: 'block', fontSize: '0.9rem', color: '#FFFFFF' }}>+142% Traffic</strong>
+                <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.5)' }}>Local search rankings</span>
+              </div>
             </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* ── Logos section (Marquee) ── */}
-      <section className="logos-section">
-        <div className="container">
-          <h2 className="logos-title">Collaborating with Ambitious Brands</h2>
-          <div className="marquee-container">
-            <div className="marquee-track">
-              {[...Array(2)].map((_, i) => (
-                <div key={i} className="flex gap-12" style={{ paddingRight: '3rem' }}>
-                  <div className="logo-item">PREMIUM GARAGE DOORS</div>
-                  <div className="logo-item">DHAAGE SAREES</div>
-                  <div className="logo-item">MAGS</div>
-                  <div className="logo-item">CITY SECURITY SERVICES</div>
-                  <div className="logo-item">SLEEPY CLASSES IAS</div>
-                  <div className="logo-item">AESTHETIC ART PRODUCTS</div>
-                </div>
-              ))}
+            <div className="hero-floater floater-leads">
+              <div className="growth-label">
+                <span>Leads Captured</span>
+                <span>Live</span>
+              </div>
+              <div className="growth-num">+218% YoY</div>
+              <div style={{ width: '100%', height: '3px', background: 'rgba(255,255,255,0.1)', borderRadius: '2px', overflow: 'hidden' }}>
+                <div style={{ width: '82%', height: '100%', background: '#10B981' }}></div>
+              </div>
+            </div>
+
+            <div className="hero-floater floater-trust">
+              <div className="stars">
+                <Star size={12} fill="currentColor" />
+                <Star size={12} fill="currentColor" />
+                <Star size={12} fill="currentColor" />
+                <Star size={12} fill="currentColor" />
+                <Star size={12} fill="currentColor" />
+              </div>
+              <span>5.0 rating</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Outcomes / Stats Section ── */}
-      <section className="outcomes-section">
-        <div className="container outcomes-grid">
-          <div className="outcome-card">
-            <h3 className="stat-number text-navy">
-              <ScrollCounter end={12} suffix=" Years" />
-            </h3>
-            <h4>In Business</h4>
-            <p>Building high-performance digital platforms and organic traffic frameworks for Australian enterprises.</p>
-          </div>
-          <div className="outcome-card">
-            <h3 className="stat-number text-navy">
-              <ScrollCounter end={22} suffix=" Specialists" />
-            </h3>
-            <h4>Sydney HQ & Global Teams</h4>
-            <p>A unified team of web developers, SEO strategists, and copywriters delivering round-the-clock technical support.</p>
-          </div>
-          <div className="outcome-card">
-            <h3 className="stat-number text-navy">
-              <ScrollCounter end={180} prefix="" suffix="+" />
-            </h3>
-            <h4>Bespoke Projects</h4>
-            <p>From custom enterprise web systems to highly optimized growth marketing campaigns that drive client acquisition.</p>
+      {/* ── Trusted By Logo Marquee ── */}
+      <section className="trusted-section">
+        <div className="trusted-intro">Trusted by leading service & ecommerce brands</div>
+        <div className="marquee-container">
+          <div className="marquee-track">
+            {logos.map((logo, idx) => (
+              <span key={logo + idx} className="logo-item">
+                <span className="logo-dot"></span> {logo}
+              </span>
+            ))}
+            {/* Duplicate for infinite marquee scroll */}
+            {logos.map((logo, idx) => (
+              <span key={logo + idx + '-dup'} className="logo-item">
+                <span className="logo-dot"></span> {logo}
+              </span>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── Featured Work Section ── */}
-      <section className="featured-section">
+      {/* ── Services Glassmorphism Deck ── */}
+      <section className="section services-section">
         <div className="container">
-          <div className="flex justify-between items-center">
-            <div>
-              <span className="section-label">Selected Work</span>
-              <h2 className="h1">Real outcomes for real clients</h2>
+          <div className="services-intro-row">
+            <span className="section-label section-label-light">Capabilities</span>
+            <h2 className="h1 h1-light">Bespoke digital solutions engineered to convert.</h2>
+            <p>We deliver fast, secure web frameworks and technical search strategies that directly produce inquiries.</p>
+          </div>
+
+          <div className="services-glass-grid">
+            {services.slice(0, 3).map((service, index) => {
+              const Icon = service.Icon;
+              return (
+                <div className="service-glass-card" key={index}>
+                  <div className="service-glass-icon"><Icon size={24} /></div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <ul className="service-glass-bullets">
+                    {service.benefits.map((bullet) => (
+                      <li key={bullet}><Check size={14} /> {bullet}</li>
+                    ))}
+                  </ul>
+                  <Link to={service.path} className="service-glass-link">
+                    Explore Capability <ArrowRight size={14} />
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="services-glass-grid-bottom">
+            {services.slice(3, 5).map((service, index) => {
+              const Icon = service.Icon;
+              return (
+                <div className="service-glass-card" key={index + 3}>
+                  <div className="service-glass-icon"><Icon size={24} /></div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <ul className="service-glass-bullets">
+                    {service.benefits.map((bullet) => (
+                      <li key={bullet}><Check size={14} /> {bullet}</li>
+                    ))}
+                  </ul>
+                  <Link to={service.path} className="service-glass-link">
+                    Explore Capability <ArrowRight size={14} />
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Portfolio Section (Browser shell mockups) ── */}
+      <section className="section home-portfolio-section">
+        <div className="container">
+          <div className="portfolio-header-layout">
+            <div className="left-column">
+              <span className="section-label">Selected Projects</span>
+              <h2 className="h1">High-performance custom work.</h2>
             </div>
-            <Link to="/portfolio" className="btn btn-outline d-mobile-none">View All Work</Link>
+            <p>Filter through our recent digital builds. Each system is designed from the ground up for speed, security, and leads.</p>
           </div>
 
-          <div className="featured-grid">
-            {/* Case Study 1 */}
-            <motion.div 
-              className="featured-card"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={fadeUp}
-            >
-              <div className="featured-img-wrap zoom-wrap">
-                <img 
-                  src="/portfolio_garage.png" 
-                  alt="Premium Garage Doors website preview" 
-                  onError={handleImgError}
-                />
-              </div>
-              <div className="featured-info">
-                <div className="featured-meta">
-                  <span className="tag-red tag">Australia 🇦🇺</span>
-                  <span className="text-muted">Manufacturing & SEO</span>
-                </div>
-                <h3 className="h3">Premium Garage Doors</h3>
-                <p>We designed a custom web presence and optimized local search terms to capture high-value garage installation queries across Victoria.</p>
-                <div className="featured-result">
-                  <span>Measured Outcome</span>
-                  <strong>+142% Victoria Traffic</strong>
-                </div>
-                <Link to="/portfolio" className="featured-link">
-                  View Portfolio <ArrowRight size={14} />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Case Study 2 */}
-            <motion.div 
-              className="featured-card"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={fadeUp}
-            >
-              <div className="featured-img-wrap zoom-wrap">
-                <img 
-                  src="/portfolio_sarees.png" 
-                  alt="Dhaage Sarees storefront preview" 
-                  onError={handleImgError}
-                />
-              </div>
-              <div className="featured-info">
-                <div className="featured-meta">
-                  <span className="tag-red tag">India 🇮🇳</span>
-                  <span className="text-muted">Shopify & Paid Ads</span>
-                </div>
-                <h3 className="h3">Dhaage Sarees</h3>
-                <p>Built an optimized Shopify storefront, configured custom conversion triggers, and launched high-ROI search and social ads.</p>
-                <div className="featured-result">
-                  <span>Measured Outcome</span>
-                  <strong>4.8x ROAS Average</strong>
-                </div>
-                <Link to="/portfolio" className="featured-link">
-                  View Portfolio <ArrowRight size={14} />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Case Study 3 */}
-            <motion.div 
-              className="featured-card"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={fadeUp}
-            >
-              <div className="featured-img-wrap zoom-wrap">
-                <img 
-                  src="/portfolio_mags.png" 
-                  alt="MAGS Shopify Storefront" 
-                  onError={handleImgError}
-                />
-              </div>
-              <div className="featured-info">
-                <div className="featured-meta">
-                  <span className="tag-red tag">India 🇮🇳</span>
-                  <span className="text-muted">Shopify & SEO</span>
-                </div>
-                <h3 className="h3">MAGS</h3>
-                <p>Designed a clean, modern Shopify storefront highlighting sustainable viscose clothing and traditional fashion apparel.</p>
-                <div className="featured-result">
-                  <span>Measured Outcome</span>
-                  <strong>+88% Organic Impressions</strong>
-                </div>
-                <Link to="/portfolio" className="featured-link">
-                  View Portfolio <ArrowRight size={14} />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Services Capabilities ── */}
-      <section className="home-services-section">
-        <div className="container">
-          <span className="section-label">Capabilities</span>
-          <h2 className="h1">Bespoke technical solutions for business expansion</h2>
-          
-          <div className="services-list-container">
-            {/* Service 1 */}
-            <motion.div 
-              className="service-item-row"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={fadeUp}
-            >
-              <div className="service-row-title">
-                <h3>Web Design & Development</h3>
-              </div>
-              <div className="service-row-desc">
-                <p>We build robust, high-performance websites and web applications tailored to security, speed, and clean user experience. No templates. Every site is built custom using modern developer workflows.</p>
-                <div className="service-row-bullets">
-                  <div className="service-bullet"><CheckCircle2 size={16} /> Custom React & Headless Frameworks</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> Sub-Second Loading Speed Optimization</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> Enterprise Security & Clean Architecture</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> E-Commerce Custom Integrations</div>
-                </div>
-                <Link to="/services" className="featured-link mt-6">View Web Services <ArrowRight size={14} /></Link>
-              </div>
-            </motion.div>
-
-            {/* Service 2 */}
-            <motion.div 
-              className="service-item-row"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={fadeUp}
-            >
-              <div className="service-row-title">
-                <h3>Search Engine Optimization (SEO)</h3>
-              </div>
-              <div className="service-row-desc">
-                <p>We target high-intent organic search terms rather than simple traffic volume. Our strategies prioritize technical crawls, editorial copywriting, and robust local authority to drive actual lead flow.</p>
-                <div className="service-row-bullets">
-                  <div className="service-bullet"><CheckCircle2 size={16} /> Technical Site Architecture Audits</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> In-Depth Keyword Commercial Analysis</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> High-End Content Editorial Writing</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> Sydney & National Brand Positioning</div>
-                </div>
-                <Link to="/services" className="featured-link mt-6">View SEO Services <ArrowRight size={14} /></Link>
-              </div>
-            </motion.div>
-
-            {/* Service 3 */}
-            <motion.div 
-              className="service-item-row"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={fadeUp}
-            >
-              <div className="service-row-title">
-                <h3>Paid Media & Google Ads</h3>
-              </div>
-              <div className="service-row-desc">
-                <p>We manage PPC and paid social spend with strict budget efficiency and ROAS alignment. Every dollar is tracked directly through advanced analytics conversion models.</p>
-                <div className="service-row-bullets">
-                  <div className="service-bullet"><CheckCircle2 size={16} /> Google Search & Display PPC Campaigns</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> Social Media Ad Spend (Meta & LinkedIn)</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> High-Converting Landing Page Design</div>
-                  <div className="service-bullet"><CheckCircle2 size={16} /> Clear, Honest Weekly ROI Attribution</div>
-                </div>
-                <Link to="/services" className="featured-link mt-6">View Paid Campaigns <ArrowRight size={14} /></Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Sydney Office & Team Section ── */}
-      <section className="home-team-section">
-        <div className="container team-grid">
-          <motion.div 
-            className="team-image-wrap"
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <img src="/team_photo.png" alt="Weblogics Team North Sydney" />
-          </motion.div>
-          <motion.div 
-            className="team-content"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-50px' }}
-            variants={fadeUp}
-          >
-            <span className="section-label">Sydney Headquarters</span>
-            <h2 className="h2">A genuine team committed to your growth</h2>
-            <p className="body">
-              Operating from our main office at 100 Walker Street, North Sydney, Weblogics pairs senior local strategy with experienced global delivery networks. Our clients work directly with senior consultants who understand the Australian market landscape.
-            </p>
-            <p className="body mt-4">
-              We stand against abstract visual tricks, hidden statistics, and generic AI templates. Every proposal we produce includes a detailed breakdown of resources, verified timeline deliverables, and direct access to the developers and search specialists executing the work.
-            </p>
-            <Link to="/about" className="btn btn-outline mt-6">Learn About Our Team</Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Testimonials Spotlight (Premium dot animation) ── */}
-      <section className="home-testimonials-section">
-        <div className="container">
-          <div className="text-center">
-            <span className="section-label">Client Voices</span>
-            <h2 className="h1">Trusted by business owners and directors</h2>
-          </div>
-
-          <div className="testimonial-spotlight-wrapper">
-            <div className="quote-icon">“</div>
-            <AnimatePresence mode="wait">
-              <motion.div 
-                key={activeTesti} 
-                initial={{ opacity: 0, y: 10 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                exit={{ opacity: 0, y: -10 }} 
-                transition={{ duration: 0.4 }} 
-                className="testimonial-slide"
-              >
-                <p className="testimonial-body">
-                  "{testimonials[activeTesti].quote}"
-                </p>
-                <div className="testimonial-author">
-                  <div className="author-info">
-                    <strong>{testimonials[activeTesti].author}</strong>
-                    <span>{testimonials[activeTesti].role}</span>
+          <div className="portfolio-grid-home">
+            {projects.map((project, index) => (
+              <div className="portfolio-mockup-card" key={index}>
+                <div className="portfolio-shell-wrapper">
+                  <div className="browser-shell">
+                    <div className="browser-header">
+                      <div className="browser-dots">
+                        <div className="browser-dot red"></div>
+                        <div className="browser-dot yellow"></div>
+                        <div className="browser-dot green"></div>
+                      </div>
+                      <div className="browser-bar">www.{project.title.toLowerCase().replace(/\s+/g, '')}.com.au</div>
+                    </div>
+                    <div className="browser-screen">
+                      <div className="portfolio-screenshot">
+                        <img src={project.image} alt={project.title} />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
 
-            <div className="testimonial-controls">
+                <div className="portfolio-mockup-info">
+                  <div className="portfolio-tag-row">
+                    <span className="premium-tag">{project.category}</span>
+                    <span className="premium-tag">{project.country}</span>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <div className="portfolio-meta-bar">
+                    <div className="portfolio-metrics-badge">
+                      <span>Attributed Result</span>
+                      <strong>{project.result}</strong>
+                    </div>
+                    <Link to="/case-studies" className="portfolio-cta-link">
+                      View Case Study <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link to="/portfolio" className="btn btn-outline btn-lg">Browse Full Case Studies</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Why Choose Us ── */}
+      <section className="section why-us-section">
+        <div className="container why-us-grid">
+          <div className="why-us-sticky">
+            <span className="section-label">Why Choose Us</span>
+            <h2 className="h1">Senior consulting, tailored codebases, and direct results.</h2>
+            <p>We are a dedicated growth partner, not a one-off template builder. We specialize in planning, structuring, and delivering custom campaigns designed to scale with your business operations.</p>
+            <Link to="/about" className="btn btn-outline">Meet our Sydney Team</Link>
+          </div>
+
+          <div className="why-us-cards">
+            {differentiators.map((diff, index) => (
+              <div className="premium-card why-card" key={index}>
+                <div className="why-icon">
+                  <Check size={20} />
+                </div>
+                <div className="why-card-content">
+                  <h3>{diff.title}</h3>
+                  <p>{diff.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Our Process (Milestones) ── */}
+      <section className="section process-section">
+        <div className="container">
+          <div className="process-intro">
+            <span className="section-label">Our Process</span>
+            <h2 className="h1">A structured digital roadmap.</h2>
+            <p>Our projects follow a structured five-step lifecycle to guarantee transparency, technical efficiency, and clean deployment.</p>
+          </div>
+
+          <div className="timeline-track-wrap">
+            <div className="timeline-line"></div>
+            {processSteps.map((step, index) => (
+              <div className="timeline-step" key={index}>
+                <div className="timeline-bubble">{step.step}</div>
+                <div className="premium-card timeline-card">
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Technologies We Use Section ── */}
+      <section className="section tech-section">
+        <div className="container">
+          <div className="tech-intro">
+            <span className="section-label">Our Stack</span>
+            <h2 className="h1">Modern technology optimized for conversion speed.</h2>
+            <p>We build without monolithic templates. We utilize robust libraries and frameworks to deliver lightweight, scalable assets.</p>
+          </div>
+
+          <div className="tech-tabs-list">
+            {techCategories.map((cat) => (
+              <button
+                key={cat}
+                className={`tech-tab-btn ${selectedTechTab === cat ? 'active' : ''}`}
+                onClick={() => setSelectedTechTab(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <div className="tech-grid">
+            {filteredTech.map((tech, index) => (
+              <div className="tech-badge-card" key={index}>
+                <div className="tech-badge-icon">{tech.logo}</div>
+                <h4>{tech.name}</h4>
+                <span>{tech.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Industries We Serve ── */}
+      <section className="section industries-section">
+        <div className="container">
+          <div className="industries-intro">
+            <span className="section-label">Industries We Serve</span>
+            <h2 className="h1">Tailored search strategies for target sectors.</h2>
+            <p>We configure custom conversion copy and keywords mapped to specific business models to optimize high-intent actions.</p>
+          </div>
+
+          <div className="industries-grid">
+            {industries.map((ind, index) => {
+              const IconComp = ind.icon;
+              return (
+                <div className="premium-card industry-card" key={index}>
+                  <div className="industry-icon">
+                    <IconComp size={20} />
+                  </div>
+                  <h3>{ind.title}</h3>
+                  <p>{ind.text}</p>
+                  <div className="industry-stat">
+                    <span>Performance</span>
+                    <strong>{ind.metric}</strong>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Company Statistics (Animated count ups) ── */}
+      <section className="stats-section">
+        <div className="container stats-grid">
+          <div className="stat-card">
+            <div className="stat-number-large"><CountUp end={12} suffix="+" /></div>
+            <div className="stat-description">Years Experience</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-number-large"><CountUp end={180} suffix="+" /></div>
+            <div className="stat-description">Projects Completed</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-number-large"><CountUp end={6} suffix="" /></div>
+            <div className="stat-description">Countries Served</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-number-large"><span>$</span><CountUp end={12} suffix="M+" /></div>
+            <div className="stat-description">Ads Capital Directed</div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Testimonials ── */}
+      <section className="section home-testimonial-section">
+        <div className="container">
+          <div className="testimonials-intro">
+            <span className="section-label">Success Proof</span>
+            <h2 className="h1">Client results backed by work.</h2>
+            <p>Read specific reviews from business owners who partnered with Weblogics for websites, search SEO, and campaigns.</p>
+          </div>
+
+          <div className="testimonial-panel-outer">
+            <div className="testimonial-card-premium">
+              <Stars rating={testimonials[activeTestimonial].rating} />
+              <blockquote>"{testimonials[activeTestimonial].quote}"</blockquote>
+              <div className="testimonial-author-box">
+                <div className="author-avatar">{testimonials[activeTestimonial].company.slice(0, 2).toUpperCase()}</div>
+                <div className="author-meta">
+                  <strong>{testimonials[activeTestimonial].name}</strong>
+                  <span>{testimonials[activeTestimonial].company} — {testimonials[activeTestimonial].country}</span>
+                  <small>{testimonials[activeTestimonial].project}</small>
+                </div>
+              </div>
+            </div>
+            
+            <div className="testimonial-dots">
               {testimonials.map((_, index) => (
-                <button 
-                  key={index} 
-                  className={`testimonial-dot ${activeTesti === index ? 'active' : ''}`}
-                  onClick={() => setActiveTesti(index)}
+                <button
+                  key={index}
+                  className={activeTestimonial === index ? 'active' : ''}
+                  onClick={() => setActiveTestimonial(index)}
                   aria-label={`Show testimonial ${index + 1}`}
+                  type="button"
                 />
               ))}
             </div>
@@ -461,20 +690,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
-      <section className="home-cta-section">
+      {/* ── Accordion FAQ Section ── */}
+      <section className="section faq-section">
         <div className="container">
-          <h2>Let's build a reliable partner channel.</h2>
-          <p className="lead mx-auto text-white opacity-80">
-            Partner with an established Sydney team focused on technical precision and verified results.
-          </p>
-          <div className="cta-actions mt-8">
-            <Link to="/contact" className="btn btn-primary btn-lg">
-              Book a Strategy Session
-            </Link>
-            <a href="tel:+61290666555" className="cta-phone">
-              <Phone size={20} /> +61 2 9066 6555
-            </a>
+          <div className="faq-intro">
+            <span className="section-label">FAQ</span>
+            <h2 className="h1">Common questions answered clearly.</h2>
+            <p>Find straightforward explanations about our project strategies, platforms, timelines, and services.</p>
+          </div>
+
+          <div className="faq-accordion-container">
+            {faqs.map((faq, index) => (
+              <div className={`faq-item ${openFaq === index ? 'open' : ''}`} key={index}>
+                <button className="faq-trigger" onClick={() => toggleFaq(index)} type="button">
+                  <h3>{faq.question}</h3>
+                  <div className="faq-icon-holder">
+                    {openFaq === index ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </div>
+                </button>
+                <div className="faq-content" style={{ maxHeight: openFaq === index ? '300px' : '0' }}>
+                  <div className="faq-answer-inner">
+                    <p>{faq.answer}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Conversion Pre-Footer CTA Section ── */}
+      <section className="prefooter-cta-section">
+        <div className="container">
+          <div className="cta-box-premium">
+            <div className="cta-box-grid">
+              <div className="cta-box-content">
+                <h2>Ready to build a digital system that converts?</h2>
+                <p>Let's map out a customized search, development, and conversion strategy to scale your business queries.</p>
+                <div className="cta-box-actions">
+                  <Link to="/contact" className="btn btn-primary btn-lg">Book a Free Consultation</Link>
+                  <Link to="/contact" className="btn btn-outline-white btn-lg">Send an Inquiry</Link>
+                </div>
+              </div>
+
+              <div className="cta-contact-card-premium">
+                <h3>Contact North Sydney</h3>
+                <div className="cta-info-item">
+                  <Phone size={16} />
+                  <a href="tel:+61290666555">+61 2 9066 6555</a>
+                </div>
+                <div className="cta-info-item">
+                  <Mail size={16} />
+                  <a href="mailto:info@weblogics.com.au">info@weblogics.com.au</a>
+                </div>
+                <div className="cta-info-item">
+                  <MapPin size={16} />
+                  <span>Suite 1105, 100 Walker Street,<br />North Sydney NSW 2061</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
