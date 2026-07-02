@@ -319,7 +319,7 @@
 }
 
 .team-bio-info h3 {
-  font-size: 1.25rem;
+  font-size: 1.5rem; /* Exactly 24px */
   color: var(--primary);
 }
 
@@ -334,7 +334,7 @@
 }
 
 .team-bio-info p {
-  font-size: 0.9375rem;
+  font-size: 1.125rem; /* Exactly 18px */
   color: var(--text-muted);
   line-height: 1.6;
 }
@@ -352,5 +352,104 @@
   }
   .team-bios-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   ABOUT PAGE — Premium Visual Overlays & Depth Effects
+   ============================================================ */
+
+/* ── Office Image Overlap Accent ── */
+.image-overlap-accent {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  border: 2px solid rgba(44, 94, 173, 0.12);
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+.visual-image-frame {
+  position: relative;
+}
+
+.about-visual:hover .image-overlap-accent {
+  top: -16px;
+  left: -16px;
+  width: calc(100% + 32px);
+  height: calc(100% + 32px);
+  border-color: rgba(44, 94, 173, 0.2);
+}
+
+/* ── Section Transition Divider ── */
+.about-section-divider {
+  background: var(--bg-gray);
+  padding: 0;
+  margin-top: -1px;
+  position: relative;
+  z-index: 5;
+}
+
+/* ── Stats Section Angled Top ── */
+.about-stats-angled {
+  position: relative;
+  clip-path: polygon(0 30px, 100% 0, 100% 100%, 0 100%);
+  padding: calc(4rem + 30px) 0 5.5rem 0;
+  margin-top: -30px;
+}
+
+/* ── Mission/Vision Layered Cards ── */
+.mv-card.layered-card-wrap {
+  border-radius: var(--radius-md);
+  z-index: 1;
+}
+
+.mv-card.layered-card-wrap::before {
+  border-radius: var(--radius-md);
+}
+
+/* ── Team Section Gradient Glow ── */
+.team-bios-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.team-bios-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── About Page Image Break-Out ── */
+.about-visual .visual-image-frame {
+  transform: translateX(20px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-visual:hover .visual-image-frame {
+  transform: translateX(25px);
+}
+
+/* ── Responsive About Overlays ── */
+@media (max-width: 1024px) {
+  .about-visual .visual-image-frame {
+    transform: none;
+  }
+  
+  .about-visual:hover .visual-image-frame {
+    transform: none;
+  }
+  
+  .about-stats-angled {
+    clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
+    margin-top: -15px;
+    padding-top: calc(5.5rem + 15px);
+  }
+  
+  .image-overlap-accent {
+    display: none;
   }
 }

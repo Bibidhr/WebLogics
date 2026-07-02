@@ -59,26 +59,28 @@ export default function Blog() {
 
       <section className="section section-gray">
         <div className="container">
-          <div className="blog-grid">
-            {posts.map((post) => (
-              <div className="blog-card" key={post.id}>
-                <div className="blog-info">
-                  <div className="blog-meta-top">
-                    <span className="blog-category">{post.category}</span>
-                    <span className="blog-date">{post.date}</span>
+          <div className="rounded-container-xl" style={{ position: 'relative' }}>
+            <div className="blog-grid">
+              {posts.map((post) => (
+                <div className="blog-card" key={post.id}>
+                  <div className="blog-info">
+                    <div className="blog-meta-top">
+                      <span className="blog-category">{post.category}</span>
+                      <span className="blog-date">{post.date}</span>
+                    </div>
+                    <h3>{post.title}</h3>
+                    <p>{post.excerpt}</p>
+                    <div className="blog-author-row mt-6">
+                      <span className="author-item"><User size={14} /> {post.author}</span>
+                      <span className="author-item"><Clock size={14} /> {post.readTime}</span>
+                    </div>
+                    <Link to="/blog" className="blog-link mt-6">
+                      Read Article <ArrowRight size={14} />
+                    </Link>
                   </div>
-                  <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-                  <div className="blog-author-row mt-6">
-                    <span className="author-item"><User size={14} /> {post.author}</span>
-                    <span className="author-item"><Clock size={14} /> {post.readTime}</span>
-                  </div>
-                  <Link to="/blog" className="blog-link mt-6">
-                    Read Article <ArrowRight size={14} />
-                  </Link>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

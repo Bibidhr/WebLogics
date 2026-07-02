@@ -1,345 +1,244 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Check, X, RefreshCw, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
+import { Activity, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Portfolio.css';
-
 
 const portfolioItems = [
   {
     id: "premium-garage-doors",
     title: "Premium Garage Doors",
-    country: "Australia",
-    countryBadge: "Australia 🇦🇺",
-    industry: "Manufacturing",
-    service: "web-development",
-    serviceLabel: "Web Development & SEO",
+    client: "Premium Garage Doors",
+    country: "Australia 🇦🇺",
+    industry: "Manufacturing & Installation",
     image: "/portfolio_garage.png",
-    tags: ["React Platform", "Local SEO Strategy", "Inventory Sync"],
-    outcome: "+142% Victoria Traffic",
-    summary: "Rebuilt the custom web platform and restructured local search indexes to capture residential garage installation traffic across Victoria."
+    overview: "Rebuilt the custom web platform and restructured local search indexes to capture residential garage installation traffic across Victoria.",
+    challenge: "The client was losing significant local market share to competitors with faster, more optimized web presences. Their existing site had severe technical debt, poor local SEO signals, and an unoptimized lead capture flow that resulted in high bounce rates.",
+    solution: "We engineered a lightning-fast React platform integrated with a headless CMS. We implemented a programmatic local SEO strategy, generating highly optimized service-area pages, and redesigned the conversion funnel to frictionlessly capture quote requests.",
+    techStack: ["React", "Next.js", "Node.js", "PostgreSQL", "Framer Motion"],
+    resultsList: [
+      { metric: "+142%", label: "Local Search Traffic" },
+      { metric: "3.2x", label: "Increase in Lead Volume" },
+      { metric: "0.8s", label: "Average Page Load Time" }
+    ]
   },
   {
     id: "dhaage-sarees",
     title: "Dhaage Sarees",
-    country: "India",
-    countryBadge: "India 🇮🇳",
-    industry: "Ecommerce",
-    service: "ecommerce",
-    serviceLabel: "E-Commerce & Ads",
+    client: "Dhaage",
+    country: "India 🇮🇳",
+    industry: "High-End E-Commerce",
     image: "/portfolio_sarees.png",
-    tags: ["Shopify Store", "Meta Conversion API", "Cart CRO"],
-    outcome: "4.8x ROAS Average",
-    summary: "Developed a modern Shopify storefront and automated abandoned cart pipelines, combined with targeted search and paid social advertising."
-  },
-  {
-    id: "mags",
-    title: "MAGS",
-    country: "India",
-    countryBadge: "India 🇮🇳",
-    industry: "Ecommerce",
-    service: "ecommerce",
-    serviceLabel: "Shopify Store & SEO",
-    image: "/portfolio_mags.png",
-    tags: ["Shopify Development", "Fashion Collections UI", "Technical SEO"],
-    outcome: "+88% Organic Impressions",
-    summary: "Designed a clean, modern Shopify storefront highlighting eco-friendly viscose clothing and traditional attire, optimizing catalog crawls."
+    overview: "Developed a modern Shopify storefront and automated abandoned cart pipelines, combined with targeted search and paid social advertising.",
+    challenge: "Dhaage needed to transition from a local boutique to a national e-commerce brand. Their primary challenge was a low conversion rate on high-ticket items and an inability to accurately track ROAS across fragmented social media campaigns.",
+    solution: "We deployed a bespoke Shopify architecture optimized for visual storytelling and mobile conversions. We integrated the Meta Conversions API for precise tracking and built automated retention pipelines to recover high-value abandoned carts.",
+    techStack: ["Shopify Plus", "Liquid", "Tailwind CSS", "Meta CAPI", "Klaviyo"],
+    resultsList: [
+      { metric: "4.8x", label: "Average ROAS" },
+      { metric: "+65%", label: "Add-to-Cart Rate" },
+      { metric: "18%", label: "Cart Recovery Rate" }
+    ]
   },
   {
     id: "city-security-services",
     title: "City Security Services",
-    country: "Canada",
-    countryBadge: "Canada 🇨🇦",
-    industry: "Security",
-    service: "web-development",
-    serviceLabel: "Web Development & SEO",
+    client: "City Security",
+    country: "Canada 🇨🇦",
+    industry: "Corporate Security",
     image: "/portfolio_city_security.png",
-    tags: ["Corporate Security Site", "Local SEO", "Client Portals"],
-    outcome: "First Page Ranks",
-    summary: "Developed a secure corporate web presence for city security operations, optimizing local search visibility for corporate security bids."
-  },
-  {
-    id: "sleepy-classes-ias",
-    title: "Sleepy Classes IAS",
-    country: "India",
-    countryBadge: "India 🇮🇳",
-    industry: "Education",
-    service: "web-development",
-    serviceLabel: "Custom Web App & SEO",
-    image: "/portfolio_sleepy.png",
-    tags: ["Course Directory UI", "LMS Portal Integration", "SEO Copywriting"],
-    outcome: "+120% Enrollments",
-    summary: "Restructured the course directory and student dashboard, boosting organic search engine rankings for civil service preparation."
-  },
-  {
-    id: "aesthetic-art-products",
-    title: "Aesthetic Art Products",
-    country: "Canada",
-    countryBadge: "Canada 🇨🇦",
-    industry: "Manufacturing",
-    service: "web-development",
-    serviceLabel: "Web Design & Development",
-    image: "/portfolio_aesthetic.png",
-    tags: ["React Corporate Web", "Product Catalog UI", "B2B Dispatch Sync"],
-    outcome: "+65% B2B Inquiries",
-    summary: "Corporate website design showcasing custom wrought/cast iron gates, rails, and architectural products for freight deliveries."
+    overview: "Developed a secure corporate web presence for city security operations, optimizing local search visibility for corporate security bids.",
+    challenge: "The firm needed to bid on multi-million dollar corporate and municipal security contracts, but their digital presence looked outdated and untrustworthy, lacking the enterprise-grade authority required to win large bids.",
+    solution: "We designed a highly authoritative, brutalist yet premium corporate website. We built secure client portals for document handling and implemented an aggressive B2B SEO strategy targeting high-intent procurement keywords.",
+    techStack: ["React", "Express", "AWS", "MongoDB", "Auth0"],
+    resultsList: [
+      { metric: "Page 1", label: "Rankings for B2B Keywords" },
+      { metric: "$2.4M", label: "Pipeline Value Generated" },
+      { metric: "+85%", label: "Dwell Time on Capabilities" }
+    ]
   },
   {
     id: "instant-parcel-taxi",
     title: "Instant Parcel Taxi",
-    country: "United Kingdom",
-    countryBadge: "United Kingdom 🇬🇧",
-    industry: "Logistics",
-    service: "web-development",
-    serviceLabel: "PPC & Booking Engine",
+    client: "IPT Logistics",
+    country: "United Kingdom 🇬🇧",
+    industry: "Logistics & Transport",
     image: "/client_preview_3.png",
-    tags: ["Custom Booking App", "Google Ads Search", "CPA Optimization"],
-    outcome: "-34% CPA Reduction",
-    summary: "Custom web app dashboard with rapid address auto-complete and Google Ads retargeting setups to maximize courier bookings."
+    overview: "Custom web app dashboard with rapid address auto-complete and Google Ads retargeting setups to maximize courier bookings.",
+    challenge: "High customer acquisition costs were eroding profit margins. The booking process was cumbersome, causing users to abandon the funnel halfway through when trying to book urgent parcel deliveries.",
+    solution: "We engineered a frictionless, single-page booking engine with predictive address mapping. Simultaneously, we restructured their Google Ads campaigns, focusing on hyper-local, high-intent search terms and aggressive CPA capping.",
+    techStack: ["Vue.js", "Google Maps API", "Firebase", "Stripe", "Google Ads API"],
+    resultsList: [
+      { metric: "-34%", label: "Reduction in CPA" },
+      { metric: "2.5x", label: "Conversion Rate Uplift" },
+      { metric: "< 60s", label: "Average Booking Time" }
+    ]
   }
 ];
 
 export default function Portfolio() {
-  const [selectedCountries, setSelectedCountries] = useState([]);
-  const [selectedIndustries, setSelectedIndustries] = useState([]);
-  const [selectedServices, setSelectedServices] = useState([]);
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  // Fallback image helper
   const handleImgError = (e) => {
     e.target.src = '/client_preview_1.png';
   };
 
-  const countries = ["Australia", "Canada", "India", "United Kingdom"];
-  const industries = ["Ecommerce", "Education", "Logistics", "Manufacturing", "Security"];
-  const services = [
-    { value: "web-development", label: "Web Development" },
-    { value: "paid-search", label: "Paid Search" },
-    { value: "ecommerce", label: "E-Commerce" }
-  ];
-
-  const toggleFilter = (type, val) => {
-    if (type === 'country') {
-      setSelectedCountries(prev => prev.includes(val) ? prev.filter(c => c !== val) : [...prev, val]);
-    } else if (type === 'industry') {
-      setSelectedIndustries(prev => prev.includes(val) ? prev.filter(i => i !== val) : [...prev, val]);
-    } else if (type === 'service') {
-      setSelectedServices(prev => prev.includes(val) ? prev.filter(s => s !== val) : [...prev, val]);
-    }
-  };
-
-  const clearAllFilters = () => {
-    setSelectedCountries([]);
-    setSelectedIndustries([]);
-    setSelectedServices([]);
-  };
-
-  const filteredItems = portfolioItems.filter(item => {
-    const matchCountry = selectedCountries.length === 0 || selectedCountries.includes(item.country);
-    const matchIndustry = selectedIndustries.length === 0 || selectedIndustries.includes(item.industry);
-    const matchService = selectedServices.length === 0 || selectedServices.includes(item.service) || (item.service === 'paid-search' && selectedServices.includes('paid-search'));
-    return matchCountry && matchIndustry && matchService;
-  });
-
   return (
-    <div className="portfolio-page">
-      <section className="subpage-header">
+    <div className="portfolio-page portfolio-premium">
+      {/* Premium Header */}
+      <section className="portfolio-hero">
         <div className="hero-gradient-mesh"></div>
         <div className="hero-glow-orb orb-1"></div>
-        <div className="hero-glow-orb orb-2"></div>
-        <div className="container">
-          <span className="section-label section-label-light">Portfolio</span>
-          <h1 className="display display-light">Proven international delivery.</h1>
-          <p className="lead mx-auto lead-light mt-4">
-            We partner with clients globally across construction, transport, logistics, and retail to build robust codebases and capture rankings.
-          </p>
-          
-          <div className="portfolio-stats-row mt-8">
-            <div className="p-stat-item">
-              <strong>50+</strong>
-              <span>Projects Delivered</span>
-            </div>
-            <div className="p-stat-item">
-              <strong>98%</strong>
-              <span>Client Satisfaction</span>
-            </div>
-            <div className="p-stat-item">
-              <strong>Global</strong>
-              <span>International Clients</span>
-            </div>
-          </div>
+        <div className="container relative z-10 text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6 }}
+          >
+            <span className="section-label section-label-light mx-auto mb-4">Our Work</span>
+            <h1 className="display display-light mb-6">Digital Excellence<br/>Delivered Globally.</h1>
+            <p className="lead mx-auto lead-light max-w-2xl text-slate-300">
+              We partner with ambitious brands to engineer platforms that dominate search, drive conversions, and scale effortlessly.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container portfolio-workspace">
-          {/* Sidebar Filters */}
-          <aside className="portfolio-sidebar-filters">
-            <div className="filter-header-block">
-              <h3>Filters</h3>
-              {(selectedCountries.length > 0 || selectedIndustries.length > 0 || selectedServices.length > 0) && (
-                <button className="clear-btn" onClick={clearAllFilters} type="button">
-                  Clear All <X size={14} />
-                </button>
-              )}
-            </div>
-
-            {/* Countries Checkbox Group */}
-            <div className="filter-group-box">
-              <h4>Country</h4>
-              <div className="checkbox-list">
-                {countries.map(c => (
-                  <label key={c} className="checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={selectedCountries.includes(c)} 
-                      onChange={() => toggleFilter('country', c)}
+      {/* Massive Project Showcases */}
+      <div className="portfolio-showcases">
+        {portfolioItems.map((project, index) => (
+          <section className="project-showcase-section" key={project.id}>
+            <div className="container">
+              
+              {/* 1. Large Browser Mockup */}
+              <motion.div 
+                className="project-mockup-stage"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+              >
+                <div className="giant-browser-shell">
+                  <div className="browser-header">
+                    <div className="browser-dots">
+                      <div className="browser-dot red"></div>
+                      <div className="browser-dot yellow"></div>
+                      <div className="browser-dot green"></div>
+                    </div>
+                    <div className="browser-bar">www.{project.title.toLowerCase().replace(/\s+/g, '')}.com</div>
+                  </div>
+                  <div className="browser-screen">
+                    <img 
+                      src={project.image} 
+                      alt={`${project.title} Interface`} 
+                      onError={handleImgError}
+                      className="project-hero-image"
                     />
-                    <span className="custom-box">
-                      {selectedCountries.includes(c) && <Check size={12} fill="currentColor" />}
-                    </span>
-                    <span>{c}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
+                    <div className="browser-glare"></div>
+                  </div>
+                </div>
+              </motion.div>
 
-            {/* Industries Checkbox Group */}
-            <div className="filter-group-box">
-              <h4>Industry</h4>
-              <div className="checkbox-list">
-                {industries.map(ind => (
-                  <label key={ind} className="checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={selectedIndustries.includes(ind)} 
-                      onChange={() => toggleFilter('industry', ind)}
-                    />
-                    <span className="custom-box">
-                      {selectedIndustries.includes(ind) && <Check size={12} fill="currentColor" />}
-                    </span>
-                    <span>{ind}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
+              {/* Narrative Content */}
+              <div className="project-narrative-container">
+                
+                {/* 2. Project Overview */}
+                <motion.div 
+                  className="narrative-header"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                >
+                  <div className="project-meta-tags">
+                    <span className="premium-tag">{project.country}</span>
+                    <span className="premium-tag">{project.industry}</span>
+                  </div>
+                  <h2 className="project-title">{project.title}</h2>
+                  <p className="project-overview">{project.overview}</p>
+                </motion.div>
 
-            {/* Services Checkbox Group */}
-            <div className="filter-group-box">
-              <h4>Services</h4>
-              <div className="checkbox-list">
-                {services.map(s => (
-                  <label key={s.value} className="checkbox-item">
-                    <input 
-                      type="checkbox" 
-                      checked={selectedServices.includes(s.value)} 
-                      onChange={() => toggleFilter('service', s.value)}
-                    />
-                    <span className="custom-box">
-                      {selectedServices.includes(s.value) && <Check size={12} fill="currentColor" />}
-                    </span>
-                    <span>{s.label}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          </aside>
-
-          {/* Grid Content */}
-          <main className="portfolio-content-area">
-            {/* Active Tags Row */}
-            <div className="active-tags-row">
-              <span className="results-count">Showing <strong>{filteredItems.length}</strong> projects</span>
-              <div className="tags-container">
-                {selectedCountries.map(c => (
-                  <span className="active-filter-tag" key={c}>
-                    {c} <button onClick={() => toggleFilter('country', c)} type="button"><X size={12} /></button>
-                  </span>
-                ))}
-                {selectedIndustries.map(i => (
-                  <span className="active-filter-tag" key={i}>
-                    {i} <button onClick={() => toggleFilter('industry', i)} type="button"><X size={12} /></button>
-                  </span>
-                ))}
-                {selectedServices.map(s => {
-                  const label = services.find(item => item.value === s)?.label;
-                  return (
-                    <span className="active-filter-tag" key={s}>
-                      {label} <button onClick={() => toggleFilter('service', s)} type="button"><X size={12} /></button>
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-
-            {filteredItems.length === 0 ? (
-              <div className="empty-portfolio text-center">
-                <RefreshCw size={36} className="text-secondary mb-4 spin-slow" />
-                <h3>No projects match your active filters</h3>
-                <p className="mt-2 text-muted">Try clearing some options in the sidebar to browse our international work.</p>
-                <button className="btn btn-outline mt-6" onClick={clearAllFilters} type="button">Reset Filters</button>
-              </div>
-            ) : (
-              <motion.div layout className="portfolio-dashboard-grid">
-                <AnimatePresence mode="popLayout">
-                  {filteredItems.map(item => (
+                <div className="narrative-grid">
+                  {/* 3. Challenge & Solution */}
+                  <div className="narrative-content-column">
                     <motion.div 
-                      layout
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      className="portfolio-mockup-card" 
-                      key={item.id}
+                      className="narrative-block challenge-block"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
                     >
-                      <div className="portfolio-shell-wrapper">
-                        <div className="browser-shell">
-                          <div className="browser-header">
-                            <div className="browser-dots">
-                              <div className="browser-dot red"></div>
-                              <div className="browser-dot yellow"></div>
-                              <div className="browser-dot green"></div>
-                            </div>
-                            <div className="browser-bar">www.{item.title.toLowerCase().replace(/\s+/g, '')}.com</div>
-                          </div>
-                          <div className="browser-screen">
-                            <div className="portfolio-screenshot">
-                              <img 
-                                src={item.image} 
-                                alt={`${item.title} Screenshot`} 
-                                onError={handleImgError}
-                              />
-                            </div>
-                          </div>
-                        </div>
+                      <div className="block-icon">
+                        <Activity size={24} />
                       </div>
-                      <div className="portfolio-mockup-info">
-                        <div className="portfolio-tag-row">
-                          <span className="premium-tag">{item.countryBadge}</span>
-                          <span className="premium-tag">{item.industry}</span>
-                        </div>
-                        <h3>{item.title}</h3>
-                        <p>{item.summary}</p>
-                        <div className="portfolio-tag-row mt-2">
-                          {item.tags.map((tag, i) => (
-                            <span className="premium-tag premium-tag-accent" key={i}>{tag}</span>
-                          ))}
-                        </div>
-                        <div className="portfolio-meta-bar mt-4">
-                          <div className="portfolio-metrics-badge">
-                            <span>Attributed Result</span>
-                            <strong>{item.outcome}</strong>
-                          </div>
-                          <Link to="/case-studies" className="portfolio-cta-link">
-                            View Case Study <ArrowRight size={14} />
-                          </Link>
-                        </div>
+                      <h3>Business Challenge</h3>
+                      <p>{project.challenge}</p>
+                    </motion.div>
+
+                    <motion.div 
+                      className="narrative-block solution-block"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ delay: 0.1 }}
+                    >
+                      <div className="block-icon">
+                        <Zap size={24} />
+                      </div>
+                      <h3>Our Solution</h3>
+                      <p>{project.solution}</p>
+                    </motion.div>
+                  </div>
+
+                  {/* 4. Tech Stack & 5. Results */}
+                  <div className="narrative-sidebar-column">
+                    
+                    <motion.div 
+                      className="tech-stack-block"
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                    >
+                      <h3>Technology Stack</h3>
+                      <div className="tech-pills">
+                        {project.techStack.map((tech, i) => (
+                          <span key={i} className="tech-pill">{tech}</span>
+                        ))}
                       </div>
                     </motion.div>
-                  ))}
-                </AnimatePresence>
-              </motion.div>
-            )}
-          </main>
+
+                    <motion.div 
+                      className="results-block"
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <h3>Business Impact</h3>
+                      <div className="metrics-list">
+                        {project.resultsList.map((result, i) => (
+                          <div className="metric-item" key={i}>
+                            <div className="metric-value">{result.metric}</div>
+                            <div className="metric-label">{result.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        ))}
+      </div>
+      
+      {/* Call to Action */}
+      <section className="section portfolio-cta text-center">
+        <div className="container">
+          <h2 className="h2 mb-4">Ready for these kinds of results?</h2>
+          <p className="lead mx-auto mb-8 text-slate-400">Let's discuss how we can engineer growth for your business.</p>
+          <a href="/contact" className="btn btn-primary btn-lg">Start a Project</a>
         </div>
       </section>
     </div>

@@ -150,6 +150,7 @@ export default function About() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="visual-image-frame">
+                <div className="image-overlap-accent"></div>
               <img src="/sydney_office_about.png" alt="Weblogics Sydney HQ Suite" />
             </div>
             <div className="visual-details">
@@ -194,7 +195,7 @@ export default function About() {
       </section>
 
       {/* ── Company Statistics (Moved from about-content) ── */}
-      <section className="stats-section">
+      <section className="stats-section about-stats-angled">
         <div className="container stats-grid">
           <div className="stat-card">
             <div className="stat-number-large"><ScrollCounter end={12} suffix="+" /></div>
@@ -217,9 +218,11 @@ export default function About() {
 
       {/* ── Mission & Vision ── */}
       <section className="section section-white">
-        <div className="container mv-grid">
+        <div className="container">
+          <div className="rounded-container-xl" style={{ position: 'relative' }}>
+            <div className="mv-grid">
           <motion.div 
-            className="mv-card"
+            className="mv-card layered-card-wrap"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
@@ -233,7 +236,7 @@ export default function About() {
           </motion.div>
           
           <motion.div 
-            className="mv-card"
+            className="mv-card layered-card-wrap"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
@@ -245,12 +248,16 @@ export default function About() {
               To remain Australia’s most trusted technical growth partner. We choose quality partnerships over client volume, ensuring every brand we collaborate with receives dedicated strategy from a senior principal.
             </p>
           </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ── Team Bios Section ── */}
-      <section className="team-bios-section">
+      <section className="team-bios-section section-overlap-up" style={{ zIndex: 11 }}>
         <div className="container">
+          <div className="rounded-container-xl-dark" style={{ position: 'relative', overflow: 'hidden' }}>
+            <div className="section-glow section-glow-accent" style={{ width: '500px', height: '500px', top: '-100px', right: '-150px' }}></div>
           <span className="section-label">Leadership</span>
           <h2 className="h1">Direct access to search & development experts</h2>
           <p className="lead mt-4">We do not pass our clients off to junior account managers. You work directly with the practitioners executing your strategy.</p>
@@ -275,12 +282,14 @@ export default function About() {
               </motion.div>
             ))}
           </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ── Values ── */}
       <section className="section bg-white">
         <div className="container">
+          <div className="rounded-container-xl" style={{ position: 'relative' }}>
           <div className="text-center">
             <span className="section-label">Our Philosophy</span>
             <h2 className="h1">The principles behind our client relationships</h2>
@@ -311,6 +320,7 @@ export default function About() {
               <p className="body-sm mt-2">We earn our partnerships month-to-month based on clear deliverables, communication, and business ROI.</p>
             </motion.div>
           </motion.div>
+          </div>
         </div>
       </section>
 

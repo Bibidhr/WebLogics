@@ -74,14 +74,14 @@
 
 .service-card-large h2 {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.5rem; /* Exactly 24px */
   font-weight: 800;
   color: var(--primary);
   margin-bottom: 1rem;
 }
 
 .service-card-large p {
-  font-size: 0.96rem;
+  font-size: 1.125rem; /* Exactly 18px */
   color: var(--text-muted);
   line-height: 1.7;
   margin-bottom: 2rem;
@@ -101,7 +101,7 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  font-size: 0.9rem;
+  font-size: 1.125rem; /* Exactly 18px */
   color: var(--text);
   font-weight: 500;
 }
@@ -170,7 +170,7 @@
 
 .why-card-premium h4 {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.5rem; /* Exactly 24px */
   font-weight: 800;
   color: var(--primary);
   margin-bottom: 0.75rem;
@@ -179,7 +179,23 @@
 
 .why-card-premium p {
   color: var(--text-muted);
+  font-size: 1.125rem; /* Exactly 18px */
   line-height: 1.6;
+}
+
+/* ── Dark container card overrides ── */
+.rounded-container-xl-dark .why-card-premium {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.rounded-container-xl-dark .why-card-premium h4 {
+  color: #FFFFFF;
+}
+
+.rounded-container-xl-dark .why-card-premium p {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* ── Platforms / Logos Grid ── */

@@ -325,33 +325,58 @@ export default function Home() {
 
           {/* Interactive Floating Dashboard visual */}
           <div className="hero-visual-wrapper">
-            <div className="hero-main-dashboard">
-              <div className="dashboard-header">
-                <div className="browser-dot red"></div>
-                <div className="browser-dot yellow"></div>
-                <div className="browser-dot green"></div>
+            {/* Primary Browser Mockup showing Dashboard Mockup Image */}
+            <div className="hero-main-dashboard browser-shell">
+              <div className="browser-header">
+                <div className="browser-dots">
+                  <div className="browser-dot red"></div>
+                  <div className="browser-dot yellow"></div>
+                  <div className="browser-dot green"></div>
+                </div>
+                <div className="browser-bar" style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#a0aec0' }}>
+                  weblogics.com.au/analytics
+                </div>
               </div>
-              <div className="dashboard-content">
-                <div>// Weblogics Client Pipeline Node</div>
-                <div className="dashboard-metric-box">
-                  <div>
-                    <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', opacity: 0.5 }}>Monthly Attribution</div>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF' }}>$142,500 AUD</div>
-                  </div>
-                  <div style={{ color: '#10B981', fontWeight: 700 }}>+24.8% MoM</div>
-                </div>
-                <div className="dashboard-graph-bars">
-                  <div className="dashboard-bar" style={{ height: '35%' }}></div>
-                  <div className="dashboard-bar" style={{ height: '55%' }}></div>
-                  <div className="dashboard-bar" style={{ height: '40%' }}></div>
-                  <div className="dashboard-bar" style={{ height: '65%' }}></div>
-                  <div className="dashboard-bar" style={{ height: '85%' }}></div>
-                </div>
-                <div style={{ fontSize: '0.65rem', opacity: 0.4, textAlign: 'right' }}>Active tracking online</div>
+              <div className="browser-screen">
+                <img src="/dashboard_mockup.png" alt="Enterprise Analytics Platform Mockup" className="hero-dashboard-img" />
               </div>
             </div>
 
-            {/* Float widgets */}
+            {/* Overlapping Secondary Glassmorphic Window showing results */}
+            <div className="hero-secondary-panel browser-shell">
+              <div className="browser-header">
+                <div className="browser-dots">
+                  <div className="browser-dot red"></div>
+                  <div className="browser-dot yellow"></div>
+                  <div className="browser-dot green"></div>
+                </div>
+                <div className="browser-bar" style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', color: '#a0aec0' }}>
+                  attribution_matrix.xlsx
+                </div>
+              </div>
+              <div className="browser-screen">
+                <img src="/interactive_results_ui.png" alt="Interactive Results UI Mockup" className="hero-results-img" />
+              </div>
+            </div>
+
+            {/* Floating Code Snippet Card representing Custom Software engineering */}
+            <div className="hero-floater floater-code">
+              <div className="code-header">
+                <div className="code-circle"></div>
+                <span>app.config.ts</span>
+              </div>
+              <pre className="code-body">
+                <code>
+{`const client = Weblogics.init({
+  optimize: 'conversions',
+  scale: 'enterprise',
+  speed: 'sub-second'
+});`}
+                </code>
+              </pre>
+            </div>
+
+            {/* Floating Metric Badges */}
             <div className="hero-floater floater-seo">
               <BarChart3 size={20} />
               <div>
@@ -383,36 +408,45 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <div className="hero-scroll-indicator">
+          <div className="mouse-wheel"></div>
+        </div>
       </section>
 
       {/* ── Trusted By Logo Marquee ── */}
       <section className="trusted-section">
-        <div className="trusted-intro">Trusted by leading service & ecommerce brands</div>
-        <div className="marquee-container">
-          <div className="marquee-track">
-            {logos.map((logo, idx) => (
-              <span key={logo + idx} className="logo-item">
-                <span className="logo-dot"></span> {logo}
-              </span>
-            ))}
-            {/* Duplicate for infinite marquee scroll */}
-            {logos.map((logo, idx) => (
-              <span key={logo + idx + '-dup'} className="logo-item">
-                <span className="logo-dot"></span> {logo}
-              </span>
-            ))}
+        <div className="container">
+          <div className="trusted-intro">Trusted by leading service & ecommerce brands</div>
+          <div className="marquee-container">
+            <div className="marquee-track">
+              {logos.map((logo, idx) => (
+                <span key={logo + idx} className="logo-item">
+                  <span className="logo-dot"></span> {logo}
+                </span>
+              ))}
+              {/* Duplicate for infinite marquee scroll */}
+              {logos.map((logo, idx) => (
+                <span key={logo + idx + '-dup'} className="logo-item">
+                  <span className="logo-dot"></span> {logo}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── Services Glassmorphism Deck ── */}
-      <section className="section services-section">
-        <div className="container">
+      <section className="section services-section services-dark-theme">
+        <div className="section-glow section-glow-accent" style={{ width: '600px', height: '600px', top: '-200px', right: '-200px' }}></div>
+        <div className="section-glow section-glow-primary" style={{ width: '500px', height: '500px', bottom: '-150px', left: '-150px' }}></div>
+        
+        <div className="container-narrow">
           <div className="services-intro-row">
             <span className="section-label section-label-light">Capabilities</span>
             <h2 className="h1 h1-light">Bespoke digital solutions engineered to convert.</h2>
             <p>We deliver fast, secure web frameworks and technical search strategies that directly produce inquiries.</p>
           </div>
+          <div className="divider-dots"><span></span></div>
 
           <div className="services-glass-grid">
             {services.slice(0, 3).map((service, index) => {
@@ -459,6 +493,7 @@ export default function Home() {
       </section>
 
       {/* ── Portfolio Section (Browser shell mockups) ── */}
+      {/* ── Portfolio Section (Featured + Grid Layout) ── */}
       <section className="section home-portfolio-section">
         <div className="container">
           <div className="portfolio-header-layout">
@@ -468,9 +503,54 @@ export default function Home() {
             </div>
             <p>Filter through our recent digital builds. Each system is designed from the ground up for speed, security, and leads.</p>
           </div>
+          <div className="divider-gradient-line mb-8"></div>
 
+          {/* Featured Case Study (First project in list) */}
+          {projects.slice(0, 1).map((project, index) => (
+            <div className="portfolio-featured-card" key={index}>
+              <div className="portfolio-featured-image-col">
+                <div className="browser-shell">
+                  <div className="browser-header">
+                    <div className="browser-dots">
+                      <div className="browser-dot red"></div>
+                      <div className="browser-dot yellow"></div>
+                      <div className="browser-dot green"></div>
+                    </div>
+                    <div className="browser-bar">www.{project.title.toLowerCase().replace(/\s+/g, '')}.com.au</div>
+                  </div>
+                  <div className="browser-screen">
+                    <div className="portfolio-screenshot">
+                      <img src={project.image} alt={project.title} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="portfolio-featured-info-col">
+                <span className="section-label">Featured Project</span>
+                <div className="portfolio-tag-row">
+                  <span className="premium-tag">{project.category}</span>
+                  <span className="premium-tag">{project.country}</span>
+                </div>
+                <h2>{project.title}</h2>
+                <p className="body">{project.description}</p>
+                
+                <div className="portfolio-featured-metrics">
+                  <div className="portfolio-metrics-badge">
+                    <span>Attributed Result</span>
+                    <strong>{project.result}</strong>
+                  </div>
+                  <Link to="/case-studies" className="btn btn-primary">
+                    View Case Study <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Remaining Projects Grid */}
           <div className="portfolio-grid-home">
-            {projects.map((project, index) => (
+            {projects.slice(1).map((project, index) => (
               <div className="portfolio-mockup-card" key={index}>
                 <div className="portfolio-shell-wrapper">
                   <div className="browser-shell">
@@ -519,32 +599,34 @@ export default function Home() {
 
       {/* ── Why Choose Us ── */}
       <section className="section why-us-section">
-        <div className="container why-us-grid">
-          <div className="why-us-sticky">
-            <span className="section-label">Why Choose Us</span>
-            <h2 className="h1">Senior consulting, tailored codebases, and direct results.</h2>
-            <p>We are a dedicated growth partner, not a one-off template builder. We specialize in planning, structuring, and delivering custom campaigns designed to scale with your business operations.</p>
-            <Link to="/about" className="btn btn-outline">Meet our Sydney Team</Link>
-          </div>
+        <div className="container">
+          <div className="why-us-grid">
+            <div className="why-us-sticky">
+              <span className="section-label">Why Choose Us</span>
+              <h2 className="h1">Senior consulting, tailored codebases, and direct results.</h2>
+              <p>We are a dedicated growth partner, not a one-off template builder. We specialize in planning, structuring, and delivering custom campaigns designed to scale with your business operations.</p>
+              <Link to="/about" className="btn btn-outline">Meet our Sydney Team</Link>
+            </div>
 
-          <div className="why-us-cards">
-            {differentiators.map((diff, index) => (
-              <div className="premium-card why-card" key={index}>
-                <div className="why-icon">
-                  <Check size={20} />
+            <div className="why-us-cards">
+              {differentiators.map((diff, index) => (
+                <div className="premium-card why-card" key={index}>
+                  <div className="why-icon">
+                    <Check size={20} />
+                  </div>
+                  <div className="why-card-content">
+                    <h3>{diff.title}</h3>
+                    <p>{diff.text}</p>
+                  </div>
                 </div>
-                <div className="why-card-content">
-                  <h3>{diff.title}</h3>
-                  <p>{diff.text}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── Our Process (Milestones) ── */}
-      <section className="section process-section">
+      <section className="section process-section process-dark-theme">
         <div className="container">
           <div className="process-intro">
             <span className="section-label">Our Process</span>
@@ -601,7 +683,7 @@ export default function Home() {
       </section>
 
       {/* ── Industries We Serve ── */}
-      <section className="section industries-section">
+      <section className="section industries-section industries-dark-theme">
         <div className="container">
           <div className="industries-intro">
             <span className="section-label">Industries We Serve</span>
@@ -693,28 +775,32 @@ export default function Home() {
       {/* ── Accordion FAQ Section ── */}
       <section className="section faq-section">
         <div className="container">
-          <div className="faq-intro">
-            <span className="section-label">FAQ</span>
-            <h2 className="h1">Common questions answered clearly.</h2>
-            <p>Find straightforward explanations about our project strategies, platforms, timelines, and services.</p>
-          </div>
+          <div className="faq-grid-layout">
+            <div className="faq-intro-column">
+              <span className="section-label">FAQ</span>
+              <h2 className="h1">Common questions answered clearly.</h2>
+              <p>Find straightforward explanations about our project strategies, platforms, timelines, and services.</p>
+            </div>
 
-          <div className="faq-accordion-container">
-            {faqs.map((faq, index) => (
-              <div className={`faq-item ${openFaq === index ? 'open' : ''}`} key={index}>
-                <button className="faq-trigger" onClick={() => toggleFaq(index)} type="button">
-                  <h3>{faq.question}</h3>
-                  <div className="faq-icon-holder">
-                    {openFaq === index ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            <div className="faq-accordion-column">
+              <div className="faq-accordion-container">
+                {faqs.map((faq, index) => (
+                  <div className={`faq-item ${openFaq === index ? 'open' : ''}`} key={index}>
+                    <button className="faq-trigger" onClick={() => toggleFaq(index)} type="button">
+                      <h3>{faq.question}</h3>
+                      <div className="faq-icon-holder">
+                        {openFaq === index ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </div>
+                    </button>
+                    <div className="faq-content" style={{ maxHeight: openFaq === index ? '300px' : '0' }}>
+                      <div className="faq-answer-inner">
+                        <p>{faq.answer}</p>
+                      </div>
+                    </div>
                   </div>
-                </button>
-                <div className="faq-content" style={{ maxHeight: openFaq === index ? '300px' : '0' }}>
-                  <div className="faq-answer-inner">
-                    <p>{faq.answer}</p>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>

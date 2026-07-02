@@ -41,7 +41,7 @@
   /* Spacing */
   --section:         5.5rem;    /* Tighter spacing to reduce empty space */
   --section-sm:      3.5rem;
-  --container:       1240px;
+  --container:       1400px;
   --radius-sm:       6px;
   --radius:          10px;      /* Softer, consistent roundings */
   --radius-md:       14px;
@@ -59,6 +59,13 @@
   --ease-in-out:     cubic-bezier(0.4, 0, 0.2, 1);
   --transition:      0.25s var(--ease-in-out);
   --transition-premium: 0.5s var(--ease-out-expo);
+
+  /* Overlap & Angle System */
+  --overlap-sm:      40px;
+  --overlap-md:      60px;
+  --overlap-lg:      80px;
+  --angle-sm:        2deg;
+  --angle-md:        3deg;
 }
 
 /* ── Marquee Track ── */
@@ -165,6 +172,12 @@ button {
   padding: 0 2.5rem;
 }
 
+.container-narrow {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
 /* ── Section Rhythm ── */
 .section {
   padding: var(--section) 0;
@@ -180,24 +193,105 @@ button {
 
 .section-white {
   background: var(--bg-white);
-  border-bottom: 1px solid var(--border);
 }
 
 .section-gray {
   background: var(--bg-gray);
-  border-bottom: 1px solid var(--border);
 }
 
 .section-navy {
   background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-light) 100%);
   color: #FFFFFF;
-  border-bottom: 1px solid var(--border-dark);
+}
+
+/* ── Visual Continuity & Premium Flow Utilities ── */
+.section-overlap-up {
+  margin-top: -6rem;
+  z-index: 10;
+  position: relative;
+}
+
+.section-overlap-down {
+  margin-bottom: -6rem;
+  z-index: 10;
+  position: relative;
+}
+
+.rounded-container-xl {
+  border-radius: 40px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  background: var(--bg-white);
+  padding: 4rem;
+}
+
+.rounded-container-xl-dark {
+  border-radius: 40px;
+  overflow: hidden;
+  border: 1px solid var(--border-dark);
+  box-shadow: var(--shadow-lg);
+  background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-light) 100%);
+  color: #FFFFFF;
+  padding: 4rem;
+}
+
+/* ── Dark container color overrides (subpages) ── */
+.rounded-container-xl-dark .section-label {
+  color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.rounded-container-xl-dark .h1,
+.rounded-container-xl-dark h2,
+.rounded-container-xl-dark h3,
+.rounded-container-xl-dark h4 {
+  color: #FFFFFF;
+}
+
+.rounded-container-xl-dark p,
+.rounded-container-xl-dark span,
+.rounded-container-xl-dark .lead {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rounded-container-xl-dark .premium-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.rounded-container-xl-dark .premium-card h3,
+.rounded-container-xl-dark .premium-card h4 {
+  color: #FFFFFF;
+}
+
+.rounded-container-xl-dark .premium-card p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.gradient-bleed-bg {
+  position: relative;
+}
+
+.glass-overlap-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
+  position: relative;
+  z-index: 20;
+}
+
+.no-border {
+  border-bottom: none !important;
 }
 
 /* ── Typography System ── */
 .display {
   font-family: var(--font-display);
-  font-size: clamp(2.75rem, 5.5vw, 4.75rem);
+  font-size: clamp(3rem, 6.5vw, 4.5rem); /* Scales up to exactly 72px */
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -223,7 +317,7 @@ button {
 
 .h1 {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(2.25rem, 4.5vw, 3rem); /* Scales up to exactly 48px */
   font-weight: 750;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -236,7 +330,7 @@ button {
 
 .h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 2.5vw, 2.25rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.25rem);
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -249,7 +343,7 @@ button {
 
 .h3 {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.5rem; /* Exactly 24px */
   font-weight: 700;
   line-height: 1.35;
   color: var(--text);
@@ -260,7 +354,7 @@ button {
 }
 
 .lead {
-  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  font-size: clamp(1.15rem, 1.4vw, 1.35rem); /* Generous lead sizing */
   line-height: 1.75;
   color: var(--text-muted);
   font-weight: 400;
@@ -271,7 +365,7 @@ button {
 }
 
 .body {
-  font-size: 1rem;
+  font-size: 1.125rem; /* Exactly 18px */
   line-height: 1.7;
   color: var(--text-muted);
 }
@@ -281,7 +375,7 @@ button {
 }
 
 .body-sm {
-  font-size: 0.875rem;
+  font-size: 0.95rem; /* Slightly larger small body copy to stay readable */
   line-height: 1.62;
   color: var(--text-muted);
 }
@@ -515,6 +609,84 @@ button {
 .mb-12 { margin-bottom: 3rem; }
 .mx-auto { margin-left: auto; margin-right: auto; }
 .text-center { text-align: center; }
+
+/* ── Decorative Dividers ── */
+.divider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 1.5rem 0;
+}
+
+.divider-dots::before,
+.divider-dots::after,
+.divider-dots span {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.2;
+}
+
+.divider-dots span {
+  opacity: 0.5;
+}
+
+.divider-gradient-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  opacity: 0.15;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+/* ── Layered Card Effect ── */
+.layered-card-wrap {
+  position: relative;
+}
+
+.layered-card-wrap::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: inherit;
+  border: 1px solid var(--border);
+  background: var(--bg-gray);
+  z-index: -1;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.layered-card-wrap:hover::before {
+  top: 10px;
+  left: 10px;
+  right: -10px;
+  bottom: -10px;
+  opacity: 0.7;
+}
+
+/* ── Section Gradient Mesh Overlays ── */
+.section-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-glow-primary {
+  background: var(--primary);
+  opacity: 0.04;
+}
+
+.section-glow-accent {
+  background: var(--accent);
+  opacity: 0.06;
+}
 
 /* ── Global Pre-Footer CTA (Soft Blue Gradient background) ── */
 .prefooter-cta-section {

@@ -115,60 +115,64 @@ export default function Services() {
 
       <section className="section section-gray">
         <div className="container">
-          <motion.div 
-            className="services-grid-large"
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-          >
-            {services.map((service, index) => (
-              <motion.div 
-                className="service-card-large" 
-                key={index}
-                variants={cardVariants}
-                whileHover={{ y: -8, boxShadow: "var(--shadow-md)", transition: { duration: 0.3, ease: "easeOut" } }}
-              >
-                <div className="service-icon-large">{service.icon}</div>
-                <h2>{service.title}</h2>
-                <p>{service.description}</p>
-                <div className="service-features-list">
-                  {service.bullets.map((bullet, i) => (
-                    <div className="service-feature-item" key={i}>
-                      <CheckCircle2 size={16} />
-                      <span>{bullet}</span>
-                    </div>
-                  ))}
-                </div>
-                <Link to={`/services/${service.id}`} className="service-detail-link">
-                  Learn More About {service.title} <ArrowRight size={16} />
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="rounded-container-xl" style={{ position: 'relative' }}>
+            <motion.div 
+              className="services-grid-large"
+              initial="hidden"
+              animate="visible"
+              variants={containerVariants}
+            >
+              {services.map((service, index) => (
+                <motion.div 
+                  className="service-card-large" 
+                  key={index}
+                  variants={cardVariants}
+                  whileHover={{ y: -8, boxShadow: "var(--shadow-md)", transition: { duration: 0.3, ease: "easeOut" } }}
+                >
+                  <div className="service-icon-large">{service.icon}</div>
+                  <h2>{service.title}</h2>
+                  <p>{service.description}</p>
+                  <div className="service-features-list">
+                    {service.bullets.map((bullet, i) => (
+                      <div className="service-feature-item" key={i}>
+                        <CheckCircle2 size={16} />
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Link to={`/services/${service.id}`} className="service-detail-link">
+                    Learn More About {service.title} <ArrowRight size={16} />
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ── Why Partner With Us ── */}
       <section className="section section-white">
         <div className="container">
-          <div className="text-center mb-12">
-            <span className="section-label">Why Us</span>
-            <h2 className="h1">Our engineering standards</h2>
-            <p className="lead mx-auto mt-4">We deliver enterprise quality codebases, bulletproof local search indexes, and clear ad spend pipelines.</p>
-          </div>
-          
-          <div className="services-why-grid">
-            <div className="why-card-premium">
-              <h4>Senior Strategy Only</h4>
-              <p className="body-sm mt-2">Every strategic decision and code route is executed directly by a senior practitioner with over 8 years commercial delivery history.</p>
+          <div className="rounded-container-xl-dark" style={{ position: 'relative' }}>
+            <div className="text-center mb-12">
+              <span className="section-label">Why Us</span>
+              <h2 className="h1">Our engineering standards</h2>
+              <p className="lead mx-auto mt-4">We deliver enterprise quality codebases, bulletproof local search indexes, and clear ad spend pipelines.</p>
             </div>
-            <div className="why-card-premium">
-              <h4>Server-Side Conversion Audits</h4>
-              <p className="body-sm mt-2">We build custom attribution pathways directly on GTM. We verify numbers instead of inflating them on marketing dashboards.</p>
-            </div>
-            <div className="why-card-premium">
-              <h4>Headless Architectures</h4>
-              <p className="body-sm mt-2">We engineer web storefronts and interfaces using React frameworks to guarantee sub-second mobile page index loading speeds.</p>
+            
+            <div className="services-why-grid">
+              <div className="why-card-premium">
+                <h4>Senior Strategy Only</h4>
+                <p className="body-sm mt-2">Every strategic decision and code route is executed directly by a senior practitioner with over 8 years commercial delivery history.</p>
+              </div>
+              <div className="why-card-premium">
+                <h4>Server-Side Conversion Audits</h4>
+                <p className="body-sm mt-2">We build custom attribution pathways directly on GTM. We verify numbers instead of inflating them on marketing dashboards.</p>
+              </div>
+              <div className="why-card-premium">
+                <h4>Headless Architectures</h4>
+                <p className="body-sm mt-2">We engineer web storefronts and interfaces using React frameworks to guarantee sub-second mobile page index loading speeds.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -177,35 +181,37 @@ export default function Services() {
       {/* ── Platforms We Build & Scale ── */}
       <section className="section section-gray">
         <div className="container">
-          <div className="text-center mb-12">
-            <span className="section-label">Integrations</span>
-            <h2 className="h1">Platforms we build & scale</h2>
-          </div>
-          
-          <div className="tech-logos-grid">
-            <div className="tech-logo-card">
-              <strong>React / Vite</strong>
-              <span>Headless Frontends</span>
+          <div className="rounded-container-xl" style={{ position: 'relative' }}>
+            <div className="text-center mb-12">
+              <span className="section-label">Integrations</span>
+              <h2 className="h1">Platforms we build & scale</h2>
             </div>
-            <div className="tech-logo-card">
-              <strong>Next.js</strong>
-              <span>Server-Side Code</span>
-            </div>
-            <div className="tech-logo-card">
-              <strong>Shopify Plus</strong>
-              <span>E-Commerce Engine</span>
-            </div>
-            <div className="tech-logo-card">
-              <strong>Node / APIs</strong>
-              <span>Secure Integrations</span>
-            </div>
-            <div className="tech-logo-card">
-              <strong>Google Ads</strong>
-              <span>Campaign Scaling</span>
-            </div>
-            <div className="tech-logo-card">
-              <strong>Google Tag Manager</strong>
-              <span>Conversion Audit</span>
+            
+            <div className="tech-logos-grid">
+              <div className="tech-logo-card">
+                <strong>React / Vite</strong>
+                <span>Headless Frontends</span>
+              </div>
+              <div className="tech-logo-card">
+                <strong>Next.js</strong>
+                <span>Server-Side Code</span>
+              </div>
+              <div className="tech-logo-card">
+                <strong>Shopify Plus</strong>
+                <span>E-Commerce Engine</span>
+              </div>
+              <div className="tech-logo-card">
+                <strong>Node / APIs</strong>
+                <span>Secure Integrations</span>
+              </div>
+              <div className="tech-logo-card">
+                <strong>Google Ads</strong>
+                <span>Campaign Scaling</span>
+              </div>
+              <div className="tech-logo-card">
+                <strong>Google Tag Manager</strong>
+                <span>Conversion Audit</span>
+              </div>
             </div>
           </div>
         </div>
