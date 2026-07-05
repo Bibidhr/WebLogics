@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Activity, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Portfolio.css';
 
@@ -10,7 +10,10 @@ const portfolioItems = [
     client: "Premium Garage Doors",
     country: "Australia 🇦🇺",
     industry: "Manufacturing & Installation",
+    category: "Full-scale website + local SEO",
     image: "/portfolio_garage.png",
+    ctaText: "Book a discovery call",
+    ctaHref: "/contact",
     overview: "Rebuilt the custom web platform and restructured local search indexes to capture residential garage installation traffic across Victoria.",
     challenge: "The client was losing significant local market share to competitors with faster, more optimized web presences. Their existing site had severe technical debt, poor local SEO signals, and an unoptimized lead capture flow that resulted in high bounce rates.",
     solution: "We engineered a lightning-fast React platform integrated with a headless CMS. We implemented a programmatic local SEO strategy, generating highly optimized service-area pages, and redesigned the conversion funnel to frictionlessly capture quote requests.",
@@ -27,7 +30,10 @@ const portfolioItems = [
     client: "Dhaage",
     country: "India 🇮🇳",
     industry: "High-End E-Commerce",
+    category: "Conversion-led storefront",
     image: "/portfolio_sarees.png",
+    ctaText: "See the growth strategy",
+    ctaHref: "/contact",
     overview: "Developed a modern Shopify storefront and automated abandoned cart pipelines, combined with targeted search and paid social advertising.",
     challenge: "Dhaage needed to transition from a local boutique to a national e-commerce brand. Their primary challenge was a low conversion rate on high-ticket items and an inability to accurately track ROAS across fragmented social media campaigns.",
     solution: "We deployed a bespoke Shopify architecture optimized for visual storytelling and mobile conversions. We integrated the Meta Conversions API for precise tracking and built automated retention pipelines to recover high-value abandoned carts.",
@@ -44,7 +50,10 @@ const portfolioItems = [
     client: "City Security",
     country: "Canada 🇨🇦",
     industry: "Corporate Security",
+    category: "Enterprise credibility platform",
     image: "/portfolio_city_security.png",
+    ctaText: "Discuss your project",
+    ctaHref: "/contact",
     overview: "Developed a secure corporate web presence for city security operations, optimizing local search visibility for corporate security bids.",
     challenge: "The firm needed to bid on multi-million dollar corporate and municipal security contracts, but their digital presence looked outdated and untrustworthy, lacking the enterprise-grade authority required to win large bids.",
     solution: "We designed a highly authoritative, brutalist yet premium corporate website. We built secure client portals for document handling and implemented an aggressive B2B SEO strategy targeting high-intent procurement keywords.",
@@ -61,7 +70,10 @@ const portfolioItems = [
     client: "IPT Logistics",
     country: "United Kingdom 🇬🇧",
     industry: "Logistics & Transport",
+    category: "Booking experience + paid acquisition",
     image: "/client_preview_3.png",
+    ctaText: "Start your rollout",
+    ctaHref: "/contact",
     overview: "Custom web app dashboard with rapid address auto-complete and Google Ads retargeting setups to maximize courier bookings.",
     challenge: "High customer acquisition costs were eroding profit margins. The booking process was cumbersome, causing users to abandon the funnel halfway through when trying to book urgent parcel deliveries.",
     solution: "We engineered a frictionless, single-page booking engine with predictive address mapping. Simultaneously, we restructured their Google Ads campaigns, focusing on hyper-local, high-intent search terms and aggressive CPA capping.",
@@ -107,130 +119,105 @@ export default function Portfolio() {
 
       {/* Massive Project Showcases */}
       <div className="portfolio-showcases">
-        {portfolioItems.map((project, index) => (
-          <section className="project-showcase-section" key={project.id}>
-            <div className="container">
-              
-              {/* 1. Large Browser Mockup */}
-              <motion.div 
-                className="project-mockup-stage"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8 }}
-              >
-                <div className="giant-browser-shell">
-                  <div className="browser-header">
-                    <div className="browser-dots">
-                      <div className="browser-dot red"></div>
-                      <div className="browser-dot yellow"></div>
-                      <div className="browser-dot green"></div>
+        {portfolioItems.map((project, index) => {
+          const isFeatured = index === 0;
+          const isReversed = index % 2 === 1;
+
+          return (
+            <section className={`project-showcase-section${isFeatured ? ' featured' : ''}${isReversed ? ' reversed' : ''}`} key={project.id}>
+              <div className="container">
+                <div className={`showcase-shell${isFeatured ? ' featured-shell' : ''}`}>
+                  <motion.div
+                    className="showcase-media"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 0.7 }}
+                    whileHover={{ y: -8, scale: 1.01 }}
+                  >
+                    <div className="desktop-mockup">
+                      <div className="browser-header">
+                        <div className="browser-dots">
+                          <div className="browser-dot red"></div>
+                          <div className="browser-dot yellow"></div>
+                          <div className="browser-dot green"></div>
+                        </div>
+                        <div className="browser-bar">www.{project.title.toLowerCase().replace(/\s+/g, '')}.com</div>
+                      </div>
+                      <div className="browser-screen">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} Interface`}
+                          onError={handleImgError}
+                          className="project-hero-image"
+                        />
+                      </div>
                     </div>
-                    <div className="browser-bar">www.{project.title.toLowerCase().replace(/\s+/g, '')}.com</div>
-                  </div>
-                  <div className="browser-screen">
-                    <img 
-                      src={project.image} 
-                      alt={`${project.title} Interface`} 
-                      onError={handleImgError}
-                      className="project-hero-image"
-                    />
-                    <div className="browser-glare"></div>
-                  </div>
+
+                    <div className="mobile-mockup">
+                      <div className="mobile-notch"></div>
+                      <div className="mobile-screen">
+                        <img
+                          src={project.image}
+                          alt={`${project.title} Mobile Preview`}
+                          onError={handleImgError}
+                          className="project-mobile-image"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="showcase-content"
+                    initial={{ opacity: 0, x: isReversed ? -20 : 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 0.7 }}
+                    whileHover={{ y: -4, scale: 1.005 }}
+                  >
+                    <div className="project-meta-tags">
+                      <span className="premium-tag">{project.country}</span>
+                      <span className="premium-tag">{project.industry}</span>
+                    </div>
+                    <div className="project-category">{project.category}</div>
+                    <h2 className="project-title">{project.title}</h2>
+                    <p className="project-overview">{project.overview}</p>
+
+                    <div className="info-grid">
+                      <div className="info-card">
+                        <h3>Business Challenge</h3>
+                        <p>{project.challenge}</p>
+                      </div>
+                      <div className="info-card">
+                        <h3>Solution Delivered</h3>
+                        <p>{project.solution}</p>
+                      </div>
+                    </div>
+
+                    <div className="tech-stack">
+                      {project.techStack.map((tech, i) => (
+                        <span key={i} className="tech-pill">{tech}</span>
+                      ))}
+                    </div>
+
+                    <div className="results-strip">
+                      {project.resultsList.map((result, i) => (
+                        <div className="result-pill" key={i}>
+                          <div className="metric-value">{result.metric}</div>
+                          <div className="metric-label">{result.label}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <a href={project.ctaHref} className="btn btn-primary project-cta">
+                      {project.ctaText} <ArrowRight size={16} />
+                    </a>
+                  </motion.div>
                 </div>
-              </motion.div>
-
-              {/* Narrative Content */}
-              <div className="project-narrative-container">
-                
-                {/* 2. Project Overview */}
-                <motion.div 
-                  className="narrative-header"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                >
-                  <div className="project-meta-tags">
-                    <span className="premium-tag">{project.country}</span>
-                    <span className="premium-tag">{project.industry}</span>
-                  </div>
-                  <h2 className="project-title">{project.title}</h2>
-                  <p className="project-overview">{project.overview}</p>
-                </motion.div>
-
-                <div className="narrative-grid">
-                  {/* 3. Challenge & Solution */}
-                  <div className="narrative-content-column">
-                    <motion.div 
-                      className="narrative-block challenge-block"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                    >
-                      <div className="block-icon">
-                        <Activity size={24} />
-                      </div>
-                      <h3>Business Challenge</h3>
-                      <p>{project.challenge}</p>
-                    </motion.div>
-
-                    <motion.div 
-                      className="narrative-block solution-block"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ delay: 0.1 }}
-                    >
-                      <div className="block-icon">
-                        <Zap size={24} />
-                      </div>
-                      <h3>Our Solution</h3>
-                      <p>{project.solution}</p>
-                    </motion.div>
-                  </div>
-
-                  {/* 4. Tech Stack & 5. Results */}
-                  <div className="narrative-sidebar-column">
-                    
-                    <motion.div 
-                      className="tech-stack-block"
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                    >
-                      <h3>Technology Stack</h3>
-                      <div className="tech-pills">
-                        {project.techStack.map((tech, i) => (
-                          <span key={i} className="tech-pill">{tech}</span>
-                        ))}
-                      </div>
-                    </motion.div>
-
-                    <motion.div 
-                      className="results-block"
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <h3>Business Impact</h3>
-                      <div className="metrics-list">
-                        {project.resultsList.map((result, i) => (
-                          <div className="metric-item" key={i}>
-                            <div className="metric-value">{result.metric}</div>
-                            <div className="metric-label">{result.label}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-
-                  </div>
-                </div>
-
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
       </div>
       
       {/* Call to Action */}

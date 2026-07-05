@@ -2,8 +2,8 @@
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 4.5rem;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3.5rem;
   align-items: stretch;
 }
 
@@ -90,8 +90,8 @@
 /* Right-Hand Visual Panel Card */
 .about-visual {
   background: white;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line-soft);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   display: flex;
@@ -237,9 +237,9 @@
 
 .mv-card {
   background: white;
-  padding: 3rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line-soft);
 }
 
 .mv-icon {

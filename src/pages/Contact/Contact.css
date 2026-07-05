@@ -63,9 +63,9 @@
 
 .contact-form-wrapper {
   background: white;
-  padding: 3rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line-soft);
   box-shadow: var(--shadow-sm);
 }
 
@@ -124,9 +124,9 @@ textarea.form-control {
 
 /* Google Map Embed container */
 .map-container {
-  margin-top: 3rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  margin-top: 2.5rem;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   height: 250px;
   background: #eee;

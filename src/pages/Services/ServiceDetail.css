@@ -131,9 +131,9 @@
 
 .sidebar-card {
   background: white;
-  border: 1px solid var(--border);
-  padding: 2.5rem;
-  border-radius: var(--radius-md);
+  border: 1px solid var(--line-soft);
+  padding: 2.25rem;
+  border-radius: var(--radius-lg);
 }
 
 .sidebar-card h4 {

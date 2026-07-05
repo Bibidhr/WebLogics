@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
+  ArrowLeft,
   BarChart3,
   CheckCircle2,
   Code2,
@@ -20,9 +21,17 @@ import {
   Globe2,
   ChevronDown,
   ChevronUp,
-  Check
+  Check,
+  ShieldCheck,
+  Handshake,
+  Zap,
+  Compass,
+  Palette,
+  Rocket,
+  LifeBuoy
 } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import useRevealOnScroll from '../../hooks/useRevealOnScroll';
 import './Home.css';
 
 const ease = [0.16, 1, 0.3, 1];
@@ -99,20 +108,26 @@ const projects = [
 
 const testimonials = [
   {
+    photo: '/team_photo.png',
     quote: 'Weblogics restructured our entire organic lead flow. The new website is clean, looks incredibly professional, and ranks at the top of Google for our installation categories.',
     name: 'David Vance',
     company: 'Premium Garage Doors',
+    industry: 'Construction',
+    projectType: 'Lead Generation Website',
     country: 'Australia',
-    project: 'Website Development + Local SEO',
-    rating: 5
+    rating: 5,
+    results: ['+142% organic traffic', '+68% qualified enquiries', 'Launch completed in 6 weeks']
   },
   {
+    photo: '/client_preview_1.png',
     quote: 'As an e-commerce brand, speed and reliable tracking are everything. The custom storefront Weblogics developed loads instantly, and their paid campaigns deliver steady returns.',
     name: 'Priya Sharma',
     company: 'Dhaage Sarees',
+    industry: 'Ecommerce',
+    projectType: 'Shopify Storefront + Paid Campaigns',
     country: 'India',
-    project: 'Shopify Storefront + Paid Campaigns',
-    rating: 5
+    rating: 5,
+    results: ['4.8x average ROAS', 'Faster checkout experience', 'Stronger repeat purchase flow']
   }
 ];
 
@@ -155,18 +170,22 @@ const services = [
 ];
 
 const differentiators = [
-  { title: '12+ Years Enterprise Experience', text: 'Established delivery history across custom development, SEO strategies, paid campaigns, and storefronts.' },
-  { title: 'Proven International Portfolio', text: 'Work represented across Australia, India, Canada, the United Kingdom, and the United States.' },
-  { title: 'Australian-Based Strategy Team', text: 'Consultation led from North Sydney with transparent, clear communication for corporate stakeholders.' },
-  { title: 'Results-Focused Methodology', text: 'Every layout element, service route, and campaign is explicitly tied to sales, visibility, or trust.' }
+  { title: 'Performance', text: 'Fast-loading builds, conversion-ready UX, and measurable lift from day one.', stat: '98/100+', icon: BarChart3 },
+  { title: 'Scalability', text: 'Modular systems that expand with your product, team, and market growth.', stat: 'Enterprise-ready', icon: Layers },
+  { title: 'Communication', text: 'Direct access to senior strategists with clear weekly progress updates.', stat: 'Weekly cadence', icon: Mail },
+  { title: 'Transparency', text: 'Shared roadmaps, milestone visibility, and no hidden scope surprises.', stat: '100% visibility', icon: ShieldCheck },
+  { title: 'Long-term support', text: 'Ongoing optimization, iteration, and strategic guidance beyond launch.', stat: 'Post-launch care', icon: Handshake },
+  { title: 'Quality assurance', text: 'Structured QA, testing, and launch checks before anything goes live.', stat: '3-stage review', icon: Zap }
 ];
 
 const processSteps = [
-  { step: '01', title: 'Discovery & Analytics Audit', text: 'We map your business model, current web performance, conversion metrics, and valuable client actions.' },
-  { step: '02', title: 'Technical Strategy Mapping', text: 'We define the landing page layout, offer hierarchy, high-intent keywords, campaign budget, and tracking setup.' },
-  { step: '03', title: 'Design & Custom Engineering', text: 'We design the user experience, write professional copy, and engineer custom assets in React or Shopify.' },
-  { step: '04', title: 'Integrations & Quality Control', text: 'We audit load times, responsiveness, API sync routes, forms, search readiness, and tracking before launch.' },
-  { step: '05', title: 'Post-Launch Performance Tuning', text: 'We monitor organic indices, tune search bids, optimize conversion copy, and support digital development.' }
+  { step: '01', title: 'Discovery', text: 'We align on goals, audience, scope, and the outcomes that matter most.', icon: Compass },
+  { step: '02', title: 'Research', text: 'We audit the market, competitors, and product positioning to sharpen the approach.', icon: Search },
+  { step: '03', title: 'Design', text: 'We shape the experience, information structure, and visual system with clarity in mind.', icon: Palette },
+  { step: '04', title: 'Development', text: 'We build scalable, maintainable solutions with performance and flexibility front and center.', icon: Code2 },
+  { step: '05', title: 'Testing', text: 'We validate quality, responsiveness, accessibility, and launch readiness before go-live.', icon: ShieldCheck },
+  { step: '06', title: 'Launch', text: 'We deploy with precision and ensure the rollout is smooth, measured, and controlled.', icon: Rocket },
+  { step: '07', title: 'Support', text: 'We stay close post-launch with iteration, optimization, and ongoing partnership.', icon: LifeBuoy }
 ];
 
 const techStack = [
@@ -268,6 +287,27 @@ export default function Home() {
   const [selectedTechTab, setSelectedTechTab] = useState('All');
   const [openFaq, setOpenFaq] = useState(null);
   const reduceMotion = useReducedMotion();
+  const heroRevealRef = useRevealOnScroll();
+  const processRevealRef = useRevealOnScroll();
+  const statsRevealRef = useRevealOnScroll();
+
+  const handlePointerMove = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    event.currentTarget.style.setProperty('--pointer-x', `${x}%`);
+    event.currentTarget.style.setProperty('--pointer-y', `${y}%`);
+  };
+
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+
+    const autoAdvance = window.setInterval(() => {
+      setActiveTestimonial((current) => (current + 1) % testimonials.length);
+    }, 6000);
+
+    return () => window.clearInterval(autoAdvance);
+  }, [reduceMotion]);
 
   const techCategories = ['All', 'Frontend', 'Backend', 'Platforms', 'Advertising'];
 
@@ -285,15 +325,18 @@ export default function Home() {
   return (
     <div className="home-page">
       {/* ── Layered Hero Section ── */}
-      <section className="home-hero-section">
+      <section className="home-hero-section" ref={heroRevealRef}>
         <div className="hero-gradient-mesh"></div>
+        <div className="hero-ambient hero-ambient-one" />
+        <div className="hero-ambient hero-ambient-two" />
+        <div className="hero-ambient hero-ambient-three" />
         <div className="container hero-grid">
-          <motion.div className="hero-copy" {...heroMotion}>
+          <motion.div className="hero-copy interactive-hover" onMouseMove={handlePointerMove} {...heroMotion}>
             <motion.div className="hero-badge" variants={fadeUp}>
               <Award size={14} /> Enterprise Digital Growth Agency
             </motion.div>
             <motion.h1 className="display display-light" variants={fadeUp}>
-              Websites, SEO, and paid media built to <em>generate better leads</em>.
+              Premium websites and growth systems that <em>turn attention into revenue</em>.
             </motion.h1>
             <motion.p className="hero-lead" variants={fadeUp}>
               We partner with established service businesses and global ecommerce brands to transform their digital presence into high-conversion sales pipelines.
@@ -306,25 +349,35 @@ export default function Home() {
                 View Our Portfolio
               </Link>
             </motion.div>
+
+            <motion.div className="hero-trust-strip" variants={fadeUp}>
+              <span className="trust-label">Trusted for</span>
+              <div className="trust-pills">
+                <span>React & Next.js</span>
+                <span>Shopify Plus</span>
+                <span>Google Ads</span>
+                <span>SEO-led growth</span>
+              </div>
+            </motion.div>
             
             <motion.div className="hero-stats-mini" variants={fadeUp}>
               <div className="stat-item">
                 <div className="stat-num"><CountUp end={12} suffix="+" /></div>
-                <div className="stat-label">Years Experience</div>
+                <div className="stat-label">Years of Experience</div>
               </div>
               <div className="stat-item">
                 <div className="stat-num"><CountUp end={180} suffix="+" /></div>
-                <div className="stat-label">Projects Delivered</div>
+                <div className="stat-label">Projects Completed</div>
               </div>
               <div className="stat-item">
-                <div className="stat-num"><span>$</span><CountUp end={12} suffix="M+" /></div>
-                <div className="stat-label">Managed Ads</div>
+                <div className="stat-num"><CountUp end={60} suffix="+" /></div>
+                <div className="stat-label">Happy Clients</div>
               </div>
             </motion.div>
           </motion.div>
 
           {/* Interactive Floating Dashboard visual */}
-          <div className="hero-visual-wrapper">
+          <div className="hero-visual-wrapper parallax-layer" style={{ '--parallax-offset': '-10px' }}>
             {/* Primary Browser Mockup showing Dashboard Mockup Image */}
             <div className="hero-main-dashboard browser-shell">
               <div className="browser-header">
@@ -380,17 +433,17 @@ export default function Home() {
             <div className="hero-floater floater-seo">
               <BarChart3 size={20} />
               <div>
-                <strong style={{ display: 'block', fontSize: '0.9rem', color: '#FFFFFF' }}>+142% Traffic</strong>
-                <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.5)' }}>Local search rankings</span>
+                <strong style={{ display: 'block', fontSize: '0.9rem', color: '#FFFFFF' }}>180+ projects</strong>
+                <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.5)' }}>Completed across growth channels</span>
               </div>
             </div>
 
             <div className="hero-floater floater-leads">
               <div className="growth-label">
-                <span>Leads Captured</span>
+                <span>Happy clients</span>
                 <span>Live</span>
               </div>
-              <div className="growth-num">+218% YoY</div>
+              <div className="growth-num">60+ partners</div>
               <div style={{ width: '100%', height: '3px', background: 'rgba(255,255,255,0.1)', borderRadius: '2px', overflow: 'hidden' }}>
                 <div style={{ width: '82%', height: '100%', background: '#10B981' }}></div>
               </div>
@@ -398,13 +451,9 @@ export default function Home() {
 
             <div className="hero-floater floater-trust">
               <div className="stars">
-                <Star size={12} fill="currentColor" />
-                <Star size={12} fill="currentColor" />
-                <Star size={12} fill="currentColor" />
-                <Star size={12} fill="currentColor" />
-                <Star size={12} fill="currentColor" />
+                <Award size={12} />
               </div>
-              <span>5.0 rating</span>
+              <span>12+ years of experience</span>
             </div>
           </div>
         </div>
@@ -443,40 +492,51 @@ export default function Home() {
         <div className="container-narrow">
           <div className="services-intro-row">
             <span className="section-label section-label-light">Capabilities</span>
-            <h2 className="h1 h1-light">Bespoke digital solutions engineered to convert.</h2>
-            <p>We deliver fast, secure web frameworks and technical search strategies that directly produce inquiries.</p>
+            <h2 className="h1 h1-light">Capabilities designed to move revenue, not just traffic.</h2>
+            <p>We build digital systems that strengthen brand confidence, increase qualified demand, and support long-term commercial growth.</p>
           </div>
           <div className="divider-dots"><span></span></div>
 
-          <div className="services-glass-grid">
-            {services.slice(0, 3).map((service, index) => {
-              const Icon = service.Icon;
-              return (
-                <div className="service-glass-card" key={index}>
-                  <div className="service-glass-icon"><Icon size={24} /></div>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
-                  <ul className="service-glass-bullets">
-                    {service.benefits.map((bullet) => (
-                      <li key={bullet}><Check size={14} /> {bullet}</li>
-                    ))}
-                  </ul>
-                  <Link to={service.path} className="service-glass-link">
-                    Explore Capability <ArrowRight size={14} />
-                  </Link>
-                </div>
-              );
-            })}
+          <div className="services-feature-band">
+            <div className="services-feature-copy">
+              <span className="services-feature-eyebrow">From strategy to launch</span>
+              <h3>One partner for the full digital growth lifecycle.</h3>
+              <p>We connect strategy, build quality, and commercial performance so every engagement compounds over time instead of ending at launch.</p>
+            </div>
+            <div className="services-feature-points">
+              <div className="service-point-card">
+                <strong>Revenue-led planning</strong>
+                <span>Priorities shaped by growth goals, not just delivery scope.</span>
+              </div>
+              <div className="service-point-card">
+                <strong>Performance engineering</strong>
+                <span>Fast, scalable systems built for trust and conversion.</span>
+              </div>
+              <div className="service-point-card">
+                <strong>Strategic support</strong>
+                <span>Ongoing optimization long after launch day.</span>
+              </div>
+            </div>
           </div>
 
-          <div className="services-glass-grid-bottom">
-            {services.slice(3, 5).map((service, index) => {
+          <div className="services-glass-grid">
+            {services.map((service, index) => {
               const Icon = service.Icon;
+              const isFeatured = index === 0;
               return (
-                <div className="service-glass-card" key={index + 3}>
-                  <div className="service-glass-icon"><Icon size={24} /></div>
+                <div className={`service-glass-card${isFeatured ? ' featured-service-card' : ''} interactive-hover`} key={service.title} onMouseMove={handlePointerMove}>
+                  <div className="service-card-header">
+                    <div className="service-glass-icon"><Icon size={24} /></div>
+                    {isFeatured && <span className="service-feature-badge">Featured</span>}
+                  </div>
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
+                  {isFeatured && (
+                    <div className="service-feature-highlight">
+                      <span>Business outcome</span>
+                      <strong>Turn attention into qualified opportunities with a site built for trust and conversion.</strong>
+                    </div>
+                  )}
                   <ul className="service-glass-bullets">
                     {service.benefits.map((bullet) => (
                       <li key={bullet}><Check size={14} /> {bullet}</li>
@@ -492,107 +552,106 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Portfolio Section (Browser shell mockups) ── */}
-      {/* ── Portfolio Section (Featured + Grid Layout) ── */}
-      <section className="section home-portfolio-section">
+      {/* ── Case Study Showcase ── */}
+      <section className="section case-study-showcase">
         <div className="container">
-          <div className="portfolio-header-layout">
-            <div className="left-column">
-              <span className="section-label">Selected Projects</span>
-              <h2 className="h1">High-performance custom work.</h2>
-            </div>
-            <p>Filter through our recent digital builds. Each system is designed from the ground up for speed, security, and leads.</p>
+          <div className="cs-header">
+            <span className="section-label">Case Studies</span>
+            <h2 className="display">Featured results, built to scale.</h2>
+            <p className="cs-header-sub">Each engagement blends strategy, product thinking, and performance design into a measurable growth outcome.</p>
           </div>
-          <div className="divider-gradient-line mb-8"></div>
 
-          {/* Featured Case Study (First project in list) */}
-          {projects.slice(0, 1).map((project, index) => (
-            <div className="portfolio-featured-card" key={index}>
-              <div className="portfolio-featured-image-col">
-                <div className="browser-shell">
-                  <div className="browser-header">
-                    <div className="browser-dots">
-                      <div className="browser-dot red"></div>
-                      <div className="browser-dot yellow"></div>
-                      <div className="browser-dot green"></div>
+          <div className="cs-stack">
+            {projects.slice(0, 2).map((project, index) => (
+              <motion.div
+                className={`cs-card ${index % 2 !== 0 ? 'cs-card-reversed' : ''}`}
+                key={index}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
+              >
+                <div className="cs-card-visual">
+                  <div className="cs-browser">
+                    <div className="cs-browser-bar">
+                      <div className="cs-browser-dots">
+                        <span></span><span></span><span></span>
+                      </div>
+                      <div className="cs-browser-url">www.{project.title.toLowerCase().replace(/\s+/g, '')}.com.au</div>
                     </div>
-                    <div className="browser-bar">www.{project.title.toLowerCase().replace(/\s+/g, '')}.com.au</div>
-                  </div>
-                  <div className="browser-screen">
-                    <div className="portfolio-screenshot">
+                    <div className="cs-browser-viewport">
                       <img src={project.image} alt={project.title} />
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="portfolio-featured-info-col">
-                <span className="section-label">Featured Project</span>
-                <div className="portfolio-tag-row">
-                  <span className="premium-tag">{project.category}</span>
-                  <span className="premium-tag">{project.country}</span>
-                </div>
-                <h2>{project.title}</h2>
-                <p className="body">{project.description}</p>
-                
-                <div className="portfolio-featured-metrics">
-                  <div className="portfolio-metrics-badge">
-                    <span>Attributed Result</span>
-                    <strong>{project.result}</strong>
-                  </div>
-                  <Link to="/case-studies" className="btn btn-primary">
-                    View Case Study <ArrowRight size={14} />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-
-          {/* Remaining Projects Grid */}
-          <div className="portfolio-grid-home">
-            {projects.slice(1).map((project, index) => (
-              <div className="portfolio-mockup-card" key={index}>
-                <div className="portfolio-shell-wrapper">
-                  <div className="browser-shell">
-                    <div className="browser-header">
-                      <div className="browser-dots">
-                        <div className="browser-dot red"></div>
-                        <div className="browser-dot yellow"></div>
-                        <div className="browser-dot green"></div>
-                      </div>
-                      <div className="browser-bar">www.{project.title.toLowerCase().replace(/\s+/g, '')}.com.au</div>
-                    </div>
-                    <div className="browser-screen">
-                      <div className="portfolio-screenshot">
-                        <img src={project.image} alt={project.title} />
-                      </div>
-                    </div>
+                  <div className="cs-result-float">
+                    <div className="cs-result-label">Key Result</div>
+                    <div className="cs-result-value">{project.result}</div>
                   </div>
                 </div>
 
-                <div className="portfolio-mockup-info">
-                  <div className="portfolio-tag-row">
-                    <span className="premium-tag">{project.category}</span>
-                    <span className="premium-tag">{project.country}</span>
-                  </div>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="portfolio-meta-bar">
-                    <div className="portfolio-metrics-badge">
-                      <span>Attributed Result</span>
-                      <strong>{project.result}</strong>
+                <div className="cs-card-content">
+                  <motion.div className="cs-card-meta" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: 0.08 + index * 0.08 }}>
+                    <span className="cs-pill">{project.industry}</span>
+                    <span className="cs-pill">{project.country}</span>
+                  </motion.div>
+                  <motion.h3 className="cs-card-title" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: 0.12 + index * 0.08 }}>
+                    {project.title}
+                  </motion.h3>
+                  <motion.div className="cs-card-category" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: 0.16 + index * 0.08 }}>
+                    {project.category}
+                  </motion.div>
+                  <motion.p className="cs-card-desc" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: 0.2 + index * 0.08 }}>
+                    {project.description}
+                  </motion.p>
+
+                  <motion.div className="cs-metrics-grid" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: 0.24 + index * 0.08 }}>
+                    <div className="cs-metric-card">
+                      <span className="cs-metric-value">+142%</span>
+                      <span className="cs-metric-label">Organic Traffic</span>
                     </div>
-                    <Link to="/case-studies" className="portfolio-cta-link">
-                      View Case Study <ArrowRight size={14} />
+                    <div className="cs-metric-card">
+                      <span className="cs-metric-value">+68%</span>
+                      <span className="cs-metric-label">Leads</span>
+                    </div>
+                    <div className="cs-metric-card">
+                      <span className="cs-metric-value">98</span>
+                      <span className="cs-metric-label">Performance Score</span>
+                    </div>
+                  </motion.div>
+
+                  <motion.div className="cs-detail-grid" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: 0.28 + index * 0.08 }}>
+                    <div>
+                      <span className="cs-service-label">Services Delivered</span>
+                      <p className="cs-service-value">{project.service}</p>
+                    </div>
+                    <div>
+                      <span className="cs-service-label">Timeline</span>
+                      <p className="cs-service-value">6–8 Weeks</p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div className="cs-tech-list" initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: 0.32 + index * 0.08 }}>
+                    <span className="cs-tech-badge">React</span>
+                    <span className="cs-tech-badge">SEO</span>
+                    <span className="cs-tech-badge">Google Ads</span>
+                    <span className="cs-tech-badge">Analytics</span>
+                  </motion.div>
+
+                  <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.35, delay: 0.36 + index * 0.08 }}>
+                    <Link to="/case-studies" className="btn btn-primary cs-card-link">
+                      View Case Study <ArrowRight size={16} />
                     </Link>
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Link to="/portfolio" className="btn btn-outline btn-lg">Browse Full Case Studies</Link>
+          <div className="cs-footer-cta">
+            <p>We've delivered 180+ projects across 6 countries.</p>
+            <Link to="/portfolio" className="btn btn-primary btn-lg">
+              Explore All Case Studies <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
@@ -603,48 +662,88 @@ export default function Home() {
           <div className="why-us-grid">
             <div className="why-us-sticky">
               <span className="section-label">Why Choose Us</span>
-              <h2 className="h1">Senior consulting, tailored codebases, and direct results.</h2>
-              <p>We are a dedicated growth partner, not a one-off template builder. We specialize in planning, structuring, and delivering custom campaigns designed to scale with your business operations.</p>
+              <h2 className="h1">A premium delivery partner built for speed, clarity, and long-term growth.</h2>
+              <p>We combine senior strategy, high-performance engineering, and disciplined delivery so your projects move faster and perform better than a typical agency engagement.</p>
+
+              <div className="why-us-stats">
+                <div className="why-stat">
+                  <strong>180+</strong>
+                  <span>Projects launched</span>
+                </div>
+                <div className="why-stat">
+                  <strong>6 countries</strong>
+                  <span>Global delivery</span>
+                </div>
+              </div>
+
               <Link to="/about" className="btn btn-outline">Meet our Sydney Team</Link>
             </div>
 
             <div className="why-us-cards">
-              {differentiators.map((diff, index) => (
-                <div className="premium-card why-card" key={index}>
-                  <div className="why-icon">
-                    <Check size={20} />
+              {differentiators.map((diff, index) => {
+                const Icon = diff.icon;
+
+                return (
+                  <div className="premium-card why-card" key={index}>
+                    <div className="why-icon">
+                      <Icon size={20} />
+                    </div>
+                    <div className="why-card-content">
+                      <div className="why-card-top">
+                        <h3>{diff.title}</h3>
+                        <span className="why-card-stat">{diff.stat}</span>
+                      </div>
+                      <p>{diff.text}</p>
+                    </div>
                   </div>
-                  <div className="why-card-content">
-                    <h3>{diff.title}</h3>
-                    <p>{diff.text}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Our Process (Milestones) ── */}
-      <section className="section process-section process-dark-theme">
+      <section className="section process-section process-dark-theme" ref={processRevealRef}>
         <div className="container">
           <div className="process-intro">
             <span className="section-label">Our Process</span>
-            <h2 className="h1">A structured digital roadmap.</h2>
-            <p>Our projects follow a structured five-step lifecycle to guarantee transparency, technical efficiency, and clean deployment.</p>
+            <h2 className="h1">A premium development workflow from idea to long-term growth.</h2>
+            <p>Every engagement is guided by a clear roadmap, disciplined delivery, and thoughtful collaboration at every stage.</p>
           </div>
 
-          <div className="timeline-track-wrap">
-            <div className="timeline-line"></div>
-            {processSteps.map((step, index) => (
-              <div className="timeline-step" key={index}>
-                <div className="timeline-bubble">{step.step}</div>
-                <div className="premium-card timeline-card">
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
-              </div>
-            ))}
+          <div className="process-timeline">
+            {processSteps.map((step, index) => {
+              const Icon = step.icon;
+
+              return (
+                <motion.div
+                  className="process-step-item"
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-70px' }}
+                  transition={{ duration: 0.4, delay: index * 0.06 }}
+                >
+                  <div className="process-step-card">
+                    <div className="process-step-icon">
+                      <Icon size={18} />
+                    </div>
+                    <div className="process-step-content">
+                      <span className="process-step-number">{step.step}</span>
+                      <h3>{step.title}</h3>
+                      <p>{step.text}</p>
+                    </div>
+                  </div>
+
+                  {index < processSteps.length - 1 && (
+                    <div className="process-step-arrow" aria-hidden="true">
+                      <ChevronDown size={16} />
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -652,22 +751,35 @@ export default function Home() {
       {/* ── Technologies We Use Section ── */}
       <section className="section tech-section">
         <div className="container">
-          <div className="tech-intro">
-            <span className="section-label">Our Stack</span>
-            <h2 className="h1">Modern technology optimized for conversion speed.</h2>
-            <p>We build without monolithic templates. We utilize robust libraries and frameworks to deliver lightweight, scalable assets.</p>
-          </div>
+          <div className="tech-showcase">
+            <div className="tech-showcase-copy">
+              <span className="section-label">Our Stack</span>
+              <h2 className="h1">Modern technology optimized for conversion speed.</h2>
+              <p>We build without monolithic templates. We utilize robust libraries and frameworks to deliver lightweight, scalable assets.</p>
 
-          <div className="tech-tabs-list">
-            {techCategories.map((cat) => (
-              <button
-                key={cat}
-                className={`tech-tab-btn ${selectedTechTab === cat ? 'active' : ''}`}
-                onClick={() => setSelectedTechTab(cat)}
-              >
-                {cat}
-              </button>
-            ))}
+              <div className="tech-tabs-list">
+                {techCategories.map((cat) => (
+                  <button
+                    key={cat}
+                    className={`tech-tab-btn ${selectedTechTab === cat ? 'active' : ''}`}
+                    onClick={() => setSelectedTechTab(cat)}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="tech-spotlight-card">
+              <div className="tech-spotlight-badge">Recommended stack</div>
+              <h3>React, Shopify, and analytics-native delivery.</h3>
+              <p>Our stack is chosen to enable fast iteration, clean handoff, and long-term maintainability for ambitious growth teams.</p>
+              <div className="tech-pill-row">
+                <span>Next.js</span>
+                <span>Shopify Plus</span>
+                <span>GA4</span>
+              </div>
+            </div>
           </div>
 
           <div className="tech-grid">
@@ -694,8 +806,10 @@ export default function Home() {
           <div className="industries-grid">
             {industries.map((ind, index) => {
               const IconComp = ind.icon;
+              const layoutClass = index === 0 ? 'industry-card industry-card-wide' : index === 2 ? 'industry-card industry-card-tall' : 'industry-card';
+
               return (
-                <div className="premium-card industry-card" key={index}>
+                <div className={`premium-card ${layoutClass} interactive-hover`} key={index} onMouseMove={handlePointerMove}>
                   <div className="industry-icon">
                     <IconComp size={20} />
                   </div>
@@ -713,7 +827,7 @@ export default function Home() {
       </section>
 
       {/* ── Company Statistics (Animated count ups) ── */}
-      <section className="stats-section">
+      <section className="stats-section" ref={statsRevealRef}>
         <div className="container stats-grid">
           <div className="stat-card">
             <div className="stat-number-large"><CountUp end={12} suffix="+" /></div>
@@ -739,34 +853,88 @@ export default function Home() {
         <div className="container">
           <div className="testimonials-intro">
             <span className="section-label">Success Proof</span>
-            <h2 className="h1">Client results backed by work.</h2>
-            <p>Read specific reviews from business owners who partnered with Weblogics for websites, search SEO, and campaigns.</p>
+            <h2 className="h1">Premium client stories with measurable outcomes.</h2>
+            <p>Each engagement is shaped around business goals, clear execution, and results that matter to the people behind the brand.</p>
           </div>
 
           <div className="testimonial-panel-outer">
-            <div className="testimonial-card-premium">
-              <Stars rating={testimonials[activeTestimonial].rating} />
-              <blockquote>"{testimonials[activeTestimonial].quote}"</blockquote>
-              <div className="testimonial-author-box">
-                <div className="author-avatar">{testimonials[activeTestimonial].company.slice(0, 2).toUpperCase()}</div>
-                <div className="author-meta">
-                  <strong>{testimonials[activeTestimonial].name}</strong>
-                  <span>{testimonials[activeTestimonial].company} — {testimonials[activeTestimonial].country}</span>
-                  <small>{testimonials[activeTestimonial].project}</small>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTestimonial}
+                className="testimonial-card-premium"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.35, ease }}
+              >
+                <div className="testimonial-visual">
+                  <img src={testimonials[activeTestimonial].photo} alt={`${testimonials[activeTestimonial].name} from ${testimonials[activeTestimonial].company}`} />
+                  <div className="testimonial-photo-overlay">
+                    <Stars rating={testimonials[activeTestimonial].rating} />
+                    <span>{testimonials[activeTestimonial].industry}</span>
+                  </div>
                 </div>
+
+                <div className="testimonial-content">
+                  <div className="testimonial-meta-row">
+                    <div>
+                      <p className="testimonial-company">{testimonials[activeTestimonial].company}</p>
+                      <p className="testimonial-project-type">{testimonials[activeTestimonial].projectType}</p>
+                    </div>
+                    <div className="testimonial-location-pill">{testimonials[activeTestimonial].country}</div>
+                  </div>
+
+                  <blockquote>“{testimonials[activeTestimonial].quote}”</blockquote>
+
+                  <div className="testimonial-results-block">
+                    <span className="testimonial-results-label">Business results</span>
+                    <ul>
+                      {testimonials[activeTestimonial].results.map((result, index) => (
+                        <li key={index}>{result}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="testimonial-author-box">
+                    <div className="author-meta">
+                      <strong>{testimonials[activeTestimonial].name}</strong>
+                      <span>{testimonials[activeTestimonial].company}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="testimonial-controls">
+              <button
+                className="testimonial-nav-button"
+                type="button"
+                onClick={() => setActiveTestimonial((current) => (current - 1 + testimonials.length) % testimonials.length)}
+                aria-label="Show previous testimonial"
+              >
+                <ArrowLeft size={16} />
+              </button>
+
+              <div className="testimonial-dots">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    className={activeTestimonial === index ? 'active' : ''}
+                    onClick={() => setActiveTestimonial(index)}
+                    aria-label={`Show testimonial ${index + 1}`}
+                    type="button"
+                  />
+                ))}
               </div>
-            </div>
-            
-            <div className="testimonial-dots">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  className={activeTestimonial === index ? 'active' : ''}
-                  onClick={() => setActiveTestimonial(index)}
-                  aria-label={`Show testimonial ${index + 1}`}
-                  type="button"
-                />
-              ))}
+
+              <button
+                className="testimonial-nav-button"
+                type="button"
+                onClick={() => setActiveTestimonial((current) => (current + 1) % testimonials.length)}
+                aria-label="Show next testimonial"
+              >
+                <ArrowRight size={16} />
+              </button>
             </div>
           </div>
         </div>
