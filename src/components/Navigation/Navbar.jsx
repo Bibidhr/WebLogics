@@ -1,10 +1,9 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './Navbar.css';
 
 export default function Navbar() {
-  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -29,11 +28,8 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isHome = location.pathname === '/';
-  const isSolid = !isHome || isScrolled;
-
   return (
-    <header className={`navbar ${isSolid ? 'solid scrolled' : 'transparent'}`}>
+    <header className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         <NavLink to="/" className="brand" onClick={() => setIsMobileMenuOpen(false)}>
           <span className="brand-text">Web<span className="text-accent">logics</span></span>

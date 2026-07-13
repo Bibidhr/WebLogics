@@ -31,7 +31,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  padding: 1.8rem 2.1rem;
+  padding: clamp(1.25rem, 3vw, 1.8rem) clamp(1.25rem, 3vw, 2.1rem);
   margin-bottom: 2.25rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.035);
@@ -50,7 +50,7 @@
 .footer-top {
   display: grid;
   grid-template-columns: 1.3fr 0.8fr 0.8fr 0.8fr 1fr;
-  gap: 1.6rem 2rem;
+  gap: clamp(1.25rem, 2vw, 1.6rem) clamp(1.25rem, 2vw, 2rem);
   padding-top: 0.4rem;
   margin-bottom: 2.25rem;
 }

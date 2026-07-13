@@ -245,7 +245,7 @@
 .mv-icon {
   width: 56px;
   height: 56px;
-  background: rgba(200, 16, 46, 0.05);
+  background: var(--accent-light);
   color: var(--secondary);
   display: flex;
   align-items: center;
@@ -339,6 +339,24 @@
   line-height: 1.6;
 }
 
+/* ── Dark container card overrides for team bio card ── */
+.rounded-container-xl-dark .team-bio-card {
+  background: var(--bg-white);
+  border-color: var(--border);
+}
+
+.rounded-container-xl-dark .team-bio-card h3 {
+  color: var(--primary) !important;
+}
+
+.rounded-container-xl-dark .team-bio-card span {
+  color: var(--secondary) !important;
+}
+
+.rounded-container-xl-dark .team-bio-card p {
+  color: var(--text-muted) !important;
+}
+
 @media (max-width: 1024px) {
   .about-grid {
     grid-template-columns: 1fr;
@@ -351,6 +369,15 @@
     grid-template-columns: 1fr;
   }
   .team-bios-grid {
+    grid-template-columns: 1fr;
+  }
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-row {
     grid-template-columns: 1fr;
   }
 }

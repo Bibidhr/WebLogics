@@ -3,6 +3,8 @@ import { ShieldCheck, Target, Award, Users, Heart, MapPin, Phone, ArrowRight, Ma
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './About.css';
+import { team, locationChips } from '../../data/team';
+import { fadeUp, staggerContainer } from '../../data/animations';
 
 // ─── Custom Scroll Counter Component ─────────────────────────────────────────
 function ScrollCounter({ end, suffix = '', prefix = '', duration = 2000 }) {
@@ -38,28 +40,8 @@ function ScrollCounter({ end, suffix = '', prefix = '', duration = 2000 }) {
   return <span ref={ref}>{prefix}{count}{suffix}</span>;
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 15 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
-};
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
 
-const locationChips = [
-  { label: "Australia", flag: "🇦🇺" },
-  { label: "Canada", flag: "🇨🇦" },
-  { label: "USA", flag: "🇺🇸" },
-  { label: "United Kingdom", flag: "🇬🇧" },
-  { label: "India", flag: "🇮🇳" }
-];
 
 const chipVariants = {
   hidden: { opacity: 0, y: 10, scale: 0.95 },
@@ -67,26 +49,6 @@ const chipVariants = {
 };
 
 export default function About() {
-  const team = [
-    {
-      name: "Daniel Reynolds",
-      role: "Founder & Managing Director",
-      initials: "DR",
-      bio: "Over 15 years directing digital acquisition projects for national brands. Daniel oversees strategy and commercial growth in North Sydney."
-    },
-    {
-      name: "Marcus Vance",
-      role: "Head of Search & SEO",
-      initials: "MV",
-      bio: "Leading SEO strategies and technical architecture audits since 2012. Former developer focused on structural crawl optimization."
-    },
-    {
-      name: "Sarah Lin",
-      role: "Technical Director",
-      initials: "SL",
-      bio: "Manages the custom React and commerce engineering teams. Sarah prioritizes headless platform security and loading speeds."
-    }
-  ];
 
   return (
     <div className="about-page">
