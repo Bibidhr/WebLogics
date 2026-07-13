@@ -23,10 +23,10 @@ import {
 } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-const MotionLink = motion(Link);
+
 import { useRef, useState, useEffect } from 'react';
 import IndustryModal from '../../components/UI/IndustryModal';
-import SectionHeader from '../../components/ui/SectionHeader';
+import SectionHeader from '../../components/UI/SectionHeader';
 
 // Data Imports
 import { services as servicesData } from '../../data/services';
