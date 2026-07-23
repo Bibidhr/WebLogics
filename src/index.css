@@ -1,85 +1,84 @@
 /* ============================================================
-   WEBLOGICS — Refined Enterprise Design System
-   Modern, Luxurious, Timeless — Calm and Elegant UI/UX
+   WEB-LOGICS — Premium Strategic Digital Agency Design System
+   Confident, Luxurious, Editorial — Warm Charcoal & Terracotta Bronze
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Syne:wght@600;700;800&display=swap');
 
 :root {
-  /* ── Brand Palette ── */
-  --primary:         #071A3D;   /* Primary Color (Deep Navy) */
-  --primary-dark:    #041026;   /* Darker Primary Hover state */
-  --accent:          #2C5EAD;   /* Brand Accent (Active Blue) */
-  --accent-light:    rgba(44, 94, 173, 0.1);
-  --dark-bg:         #071A3D;   /* Deep Navy for dark sections */
-  --dark-bg-light:   #0D2654;   /* Balanced navy gradient step */
-  --surface-soft:    #F7F9FC;
+  /* ── Brand Palette (Warm Charcoal & Studio Bronze) ── */
+  --primary:         #11131A;   /* Rich Charcoal */
+  --primary-dark:    #090A0E;   /* Deepest Charcoal */
+  --accent:          #C8956C;   /* Studio Bronze / Warm Terracotta */
+  --accent-hover:    #B88358;
+  --accent-light:    rgba(200, 149, 108, 0.12);
+  --dark-bg:         #0E1017;   /* Deep Dark Canvas */
+  --dark-bg-light:   #161822;   /* Balanced Step */
+  --surface-soft:    #F4F3EF;   /* Warm Paper Soft */
   --surface-elevated:#FFFFFF;
-  --line-soft:       rgba(7, 26, 61, 0.08);
+  --line-soft:       rgba(17, 19, 26, 0.08);
 
   /* Brand Gradients */
   --navy-gradient:   linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-bg-light) 100%);
-  --navy-glow:       radial-gradient(circle at center, rgba(44, 94, 173, 0.25) 0%, transparent 60%);
+  --navy-glow:       radial-gradient(circle at center, rgba(200, 149, 108, 0.15) 0%, transparent 65%);
 
   /* Neutral Scale */
-  --bg-deep-navy: #071A3D;
-  --bg-almost-black: #0B1120;
-  --bg-light-gray: #F8FAFC;
-  --bg-soft-gray: #F5F7FA;
-  --bg-white: #FFFFFF;
+  --bg-deep-navy: #0E1017;
+  --bg-almost-black: #08090C;
+  --bg-light-gray: #F4F3EF;
+  --bg-soft-gray: #EFECE6;
+  --bg-white: #FAF9F6;          /* Luxurious warm off-white canvas */
 
-  --bg-white:        #FFFFFF;   /* Primary Background */
-  --bg-gray:         #F8FAFC;   /* Secondary Background */
-  --background:      #FFFFFF;
+  --background:      #FAF9F6;
   --surface:         #FFFFFF;
-  --text:            #111827;   /* Primary Text */
-  --text-muted:      #6B7280;   /* Secondary Text */
-  --text-subtle:     #9CA3AF;   /* Muted text */
-  --heading-color:   #111827;
-  --text-color:      #374151;
-  --text-color-secondary: #6B7280;
-  --text-color-muted: #9CA3AF;
-  --text-color-inverse: #F8FAFC;
-  --text-color-inverse-secondary: #CBD5E1;
-  --text-color-inverse-muted: rgba(255, 255, 255, 0.72);
+  --text:            #181920;   /* Deep Warm Text */
+  --text-muted:      #686C7A;   /* Muted Body */
+  --text-subtle:     #9A9EA9;   /* Subdued Text */
+  --heading-color:   #11131A;
+  --text-color:      #2A2C36;
+  --text-color-secondary: #646875;
+  --text-color-muted: #8E92A0;
+  --text-color-inverse: #FAF9F6;
+  --text-color-inverse-secondary: #C8CBD6;
+  --text-color-inverse-muted: rgba(250, 249, 246, 0.72);
   --label-color:     var(--primary);
   --label-color-inverse: var(--accent);
   --link-color:      var(--primary);
-  --border:          #E5E7EB;   /* Warm light border */
-  --border-dark:     rgba(255, 255, 255, 0.08);
+  --border:          rgba(17, 19, 26, 0.1);
+  --border-dark:     rgba(255, 255, 255, 0.09);
 
   /* Centralized Accent / Secondary Tokens */
   --secondary:       var(--accent);
-  --secondary-hover: var(--primary-dark);
+  --secondary-hover: var(--accent-hover);
   --secondary-light: var(--accent-light);
 
   /* Glassmorphic/Panel Settings */
-  --panel-bg:        rgba(255, 255, 255, 0.8);
-  --panel-border:    #E5E7EB;
-  --glass-dark-bg:   rgba(7, 26, 61, 0.8);
+  --panel-bg:        rgba(255, 255, 255, 0.85);
+  --panel-border:    rgba(17, 19, 26, 0.08);
+  --glass-dark-bg:   rgba(14, 16, 23, 0.85);
   --glass-dark-border: rgba(255, 255, 255, 0.08);
 
   /* Typography */
-  --font-display:    'Plus Jakarta Sans', sans-serif;
+  --font-display:    'Syne', 'Plus Jakarta Sans', sans-serif;
   --font-body:       'Inter', sans-serif;
 
   /* Spacing */
-  --section:         5.5rem;    /* Tighter spacing to reduce empty space */
-  --section-sm:      3.5rem;
-  --container:       1400px;
-  --radius-sm:       8px;
-  --radius:          12px;
-  --radius-md:       16px;
-  --radius-lg:       20px;
-  --radius-xl:       30px;
-  --radius-2xl:      36px;
+  --section:         6.5rem;    /* Generous breathing room */
+  --section-sm:      4rem;
+  --container:       1360px;
+  --radius-sm:       6px;
+  --radius:          10px;
+  --radius-md:       14px;
+  --radius-lg:       18px;
+  --radius-xl:       24px;
+  --radius-2xl:      32px;
 
-  /* Shadows — Soft and calm */
-  --shadow-xs:       0 1px 2px rgba(17, 24, 39, 0.03);
-  --shadow-sm:       0 10px 24px rgba(7, 26, 61, 0.05);
-  --shadow-md:       0 16px 34px rgba(7, 26, 61, 0.08);
-  --shadow-lg:       0 24px 56px rgba(7, 26, 61, 0.1);
-  --shadow-blue:     0 12px 30px rgba(44, 94, 173, 0.16);
+  /* Shadows — Soft, diffused ambient */
+  --shadow-xs:       0 1px 3px rgba(17, 19, 26, 0.04);
+  --shadow-sm:       0 8px 24px rgba(17, 19, 26, 0.06);
+  --shadow-md:       0 16px 36px rgba(17, 19, 26, 0.09);
+  --shadow-lg:       0 28px 64px rgba(17, 19, 26, 0.14);
+  --shadow-blue:     0 12px 30px rgba(200, 149, 108, 0.22);
 
   /* Transitions */
   --ease-out-expo:   cubic-bezier(0.16, 1, 0.3, 1);
@@ -87,8 +86,6 @@
   --transition:      0.25s var(--ease-in-out);
   --transition-fast: 0.18s var(--ease-out-expo);
   --transition-premium: 0.5s var(--ease-out-expo);
-
-
 }
 
 /* ── Marquee Track ── */

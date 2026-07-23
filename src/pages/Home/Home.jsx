@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
+  ArrowUpRight,
   BarChart3,
   Search,
   Code2,
@@ -8,143 +9,172 @@ import {
   ShoppingBag,
   Target,
   Layers,
-  Mail,
   ShieldCheck,
-  Handshake,
   Zap,
   Globe2,
   Award,
-  Factory,
-  HardHat,
-  Briefcase,
-  Truck,
-  Coffee,
-  HeartPulse
+  Sparkles,
+  CheckCircle2
 } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-
-
 import { useRef, useState, useEffect } from 'react';
-import IndustryModal from '../../components/UI/IndustryModal';
 import SectionHeader from '../../components/UI/SectionHeader';
 
 // Data Imports
 import { services as servicesData } from '../../data/services';
 import { portfolioItems } from '../../data/portfolioItems';
 import { caseStudies } from '../../data/caseStudies';
-import { industries as industriesData } from '../../data/industries';
 import { testimonials } from '../../data/testimonials';
+import { logos } from '../../data/logos';
 
 // Local CSS
 import './Home.css';
 
 const iconMap = { 
   Code2, Search, Target, Share2, ShoppingBag, 
-  BarChart3, Layers, Mail, ShieldCheck, Handshake, Zap, Globe2, Award,
-  Factory, HardHat, Briefcase, Truck, Coffee, HeartPulse
+  BarChart3, Layers, ShieldCheck, Zap, Globe2, Award
 };
 
 export default function Home() {
-  const [selectedIndustry, setSelectedIndustry] = useState(null);
-  
-  // Lock body scroll when modal is open
-  useEffect(() => {
-    if (selectedIndustry) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedIndustry]);
-
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
   });
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.75, 0.95]);
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
 
-  // Map icons
   const services = servicesData.map(s => ({ ...s, Icon: iconMap[s.iconName] || Code2 }));
-  const industries = industriesData.map(i => ({ ...i, Icon: iconMap[i.iconName] || Briefcase }));
-  const featuredCaseStudy = caseStudies[0]; // Take the first one
+  const featuredCaseStudy = caseStudies[0];
 
   return (
     <div className="home-page">
-      {/* ── 1. Hero Section (White) ── */}
+      {/* ── 1. Studio Hero Section ── */}
       <section className="home-hero-section" ref={heroRef}>
-        <motion.div 
-          className="hero-parallax-bg"
-          style={{ y: bgY, scale: bgScale }}
-        />
-        <motion.div 
-          className="hero-overlay"
-          style={{ opacity: overlayOpacity }}
-        />
-        <div className="hero-radial-glow"></div>
+        <div className="hero-grid-pattern"></div>
+        <div className="hero-ambient-glow"></div>
+        
         <div className="container">
-          <div className="home-hero-content">
+          <motion.div 
+            className="home-hero-content"
+            style={{ y: heroY, opacity: heroOpacity }}
+          >
+            <motion.div 
+              className="hero-badge"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Sparkles size={14} className="hero-badge-icon" />
+              <span>Bespoke Digital Product Studio & Growth Agency</span>
+            </motion.div>
+            
             <motion.h1 
               className="home-hero-title"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Premium websites and growth systems that turn attention into <span className="text-accent">revenue.</span>
+              Engineering digital products & brand systems that turn attention into <span className="hero-highlight">revenue.</span>
             </motion.h1>
             
             <motion.p 
               className="home-hero-subtitle"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              We partner with established service businesses and global ecommerce brands to transform their digital presence into high-conversion sales pipelines.
+              We partner with ambitious market leaders in Nepal and worldwide to build high-performance web systems, engineer brand identities, and scale digital revenue channels.
             </motion.p>
             
             <motion.div 
               className="hero-cta-group"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <Link to="/contact" className="btn btn-primary btn-lg">
-                Book a Discovery Call
+              <Link to="/contact" className="btn btn-primary btn-lg hero-btn-primary">
+                Start a Project <ArrowUpRight size={18} />
               </Link>
-              <Link to="/portfolio" className="btn btn-outline btn-lg">
-                View Our Work
+              <Link to="/portfolio" className="btn btn-outline btn-lg hero-btn-secondary">
+                Explore Selected Work
               </Link>
             </motion.div>
-          </div>
 
+            {/* Quick Metrics Bar */}
+            <motion.div 
+              className="hero-metrics-bar"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="hero-metric-item">
+                <span className="hero-metric-num">180+</span>
+                <span className="hero-metric-label">Projects Delivered</span>
+              </div>
+              <div className="hero-metric-divider"></div>
+              <div className="hero-metric-item">
+                <span className="hero-metric-num">4.8×</span>
+                <span className="hero-metric-label">Avg Campaign ROAS</span>
+              </div>
+              <div className="hero-metric-divider"></div>
+              <div className="hero-metric-item">
+                <span className="hero-metric-num">0.8s</span>
+                <span className="hero-metric-label">Sub-Second Load Times</span>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Featured Hero Mockup / Showpiece */}
           <motion.div 
-            className="hero-mockup-wrapper"
+            className="hero-showcase-container"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <img 
-              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-              alt="Premium Website Dashboard" 
-              className="hero-mockup-img"
-            />
+            <div className="browser-shell hero-browser-shell">
+              <div className="browser-header">
+                <div className="browser-dots">
+                  <span className="browser-dot red"></span>
+                  <span className="browser-dot yellow"></span>
+                  <span className="browser-dot green"></span>
+                </div>
+                <div className="browser-bar">weblogics.com.np/selected-work</div>
+              </div>
+              <div className="browser-screen">
+                <img 
+                  src="/portfolio_garage.png" 
+                  alt="Web-Logics Flagship Digital Experience Platform" 
+                  className="hero-mockup-img"
+                />
+              </div>
+            </div>
           </motion.div>
+        </div>
+
+        {/* ── Client Marquee ── */}
+        <div className="hero-marquee-wrapper">
+          <div className="marquee-container">
+            <div className="marquee-track">
+              {logos.concat(logos).map((brand, idx) => (
+                <div className="marquee-item" key={idx}>
+                  <span className="marquee-brand-text">{brand}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── 2. Capabilities Section (Deep Navy) ── */}
+      {/* ── 2. Capabilities Section (Studio Clean Grid) ── */}
       <section className="capabilities-section">
         <div className="container">
           <SectionHeader 
             theme="dark" 
             label="Capabilities" 
-            title="Capabilities designed to move revenue, not just traffic." 
-            description="We build digital systems that strengthen brand confidence, increase qualified demand, and support long-term commercial growth."
+            title="Engineered for business impact, not superficial metrics." 
+            description="We combine senior product strategy, bespoke engineering, and growth acceleration into cohesive digital systems."
           />
           
           <div className="capabilities-grid">
@@ -154,35 +184,38 @@ export default function Home() {
                 <motion.div 
                   key={index}
                   className="capability-card" 
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <div className="capability-icon">
-                    <Icon size={28} />
+                  <div className="capability-header">
+                    <div className="capability-icon">
+                      <Icon size={26} />
+                    </div>
+                    <span className="capability-index">0{index + 1}</span>
                   </div>
-                  <div className="capability-content">
-                    <h3 className="h4 h1-light mb-3">{service.title}</h3>
-                    <p className="capability-desc text-sm">
-                      {service.description}
-                    </p>
-                    {service.benefits && (
-                      <ul className="capability-features">
-                        {service.benefits.slice(0, 3).map((benefit, i) => (
-                          <li key={i}>
-                            <svg className="feature-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            {benefit}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <Link to={service.path} className="capability-cta inline-flex items-center text-sm">
-                      Explore Capability <ArrowRight size={16} className="ml-2 capability-arrow" />
-                    </Link>
-                  </div>
+                  
+                  <h3 className="capability-title">{service.title}</h3>
+                  <p className="capability-desc">
+                    {service.description}
+                  </p>
+                  
+                  {service.benefits && (
+                    <ul className="capability-features">
+                      {service.benefits.slice(0, 3).map((benefit, i) => (
+                        <li key={i}>
+                          <CheckCircle2 size={15} className="feature-check" />
+                          <span>{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  
+                  <Link to={service.path} className="capability-cta">
+                    <span>Explore Capability</span>
+                    <ArrowRight size={16} className="capability-arrow" />
+                  </Link>
                 </motion.div>
               );
             })}
@@ -190,18 +223,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3. Portfolio Section (Light Gray) ── */}
+      {/* ── 3. Selected Work Showcase (Editorial Grid) ── */}
       <section className="portfolio-section">
         <div className="container">
-          <SectionHeader 
-            theme="light"
-            label="Recent Work"
-            title="Crafted for conversion and scale."
-            description="Explore our recent projects spanning enterprise web development, Shopify Plus storefronts, and performance marketing."
-          />
+          <div className="section-title-between">
+            <SectionHeader 
+              theme="light"
+              label="Selected Work"
+              title="Crafted for market dominance and conversion."
+              description="Explore flagship digital transformations designed and deployed by our studio."
+            />
+            <Link to="/portfolio" className="btn btn-outline d-desktop-only">
+              View All Projects <ArrowRight size={16} />
+            </Link>
+          </div>
           
           <div className="portfolio-grid">
-            {portfolioItems.slice(0, 3).map((project, index) => (
+            {portfolioItems.slice(0, 4).map((project, index) => (
               <motion.div 
                 key={index} 
                 className="portfolio-card"
@@ -212,120 +250,148 @@ export default function Home() {
               >
                 <div className="portfolio-image-wrapper">
                   <img src={project.image} alt={project.title} className="portfolio-image" />
+                  <div className="portfolio-tag-overlay">
+                    <span className="portfolio-country-pill">{project.country}</span>
+                    <span className="portfolio-category-pill">{project.category}</span>
+                  </div>
                 </div>
                 <div className="portfolio-content">
-                  <span className="badge badge-primary mb-3">{project.category}</span>
-                  <h3 className="h4 mb-2">{project.title}</h3>
-                  <p className="text-color-secondary mb-4">{project.description}</p>
-                  <Link to={`/portfolio/${project.id}`} className="btn btn-outline btn-sm">
-                    View Case Study
+                  <h3 className="portfolio-title">{project.title}</h3>
+                  <p className="portfolio-desc">{project.overview}</p>
+                  
+                  {project.resultsList && (
+                    <div className="portfolio-metrics-row">
+                      {project.resultsList.slice(0, 2).map((res, rIdx) => (
+                        <div className="portfolio-metric-box" key={rIdx}>
+                          <span className="metric-val">{res.metric}</span>
+                          <span className="metric-lbl">{res.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <Link to={`/portfolio`} className="portfolio-link">
+                    <span>View Case Study</span>
+                    <ArrowUpRight size={16} />
                   </Link>
                 </div>
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ── 4. Featured Case Study (White) ── */}
-      <section className="featured-case-study">
-        <div className="container">
-          <div className="case-study-split">
-            <motion.div 
-              className="case-study-image"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <img 
-                src={featuredCaseStudy?.heroImage || 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80'} 
-                alt="Case Study" 
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
-            </motion.div>
-            
-            <motion.div 
-              className="case-study-info"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <span className="section-label">Featured Case Study</span>
-              <h2 className="h2 mt-2 mb-4">{featuredCaseStudy?.title || 'Enterprise Scaling'}</h2>
-              <p className="lead mb-6">
-                {featuredCaseStudy?.overview || 'How we transformed a legacy system into a high-performance growth engine.'}
-              </p>
-              
-              <div className="case-study-kpi-grid">
-                <div className="kpi-card">
-                  <div className="kpi-value">+142%</div>
-                  <div className="text-sm font-medium text-color-secondary">Organic Traffic</div>
-                </div>
-                <div className="kpi-card">
-                  <div className="kpi-value">+68%</div>
-                  <div className="text-sm font-medium text-color-secondary">Qualified Enquiries</div>
-                </div>
-              </div>
-              
-              <Link to="/case-studies" className="btn btn-primary">
-                Read Full Case Study <ArrowRight size={18} className="ml-2" />
-              </Link>
-            </motion.div>
+          <div className="text-center mt-12 d-mobile-only">
+            <Link to="/portfolio" className="btn btn-outline btn-lg">
+              View All Projects <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── 5. Industries We Serve (Deep Navy) ── */}
-      <section className="industries-section">
+      {/* ── 4. Featured Enterprise Case Study ── */}
+      <section className="featured-case-study">
+        <div className="container">
+          <div className="case-study-card-xl">
+            <div className="case-study-split">
+              <motion.div 
+                className="case-study-image"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="browser-shell">
+                  <div className="browser-header">
+                    <div className="browser-dots">
+                      <span className="browser-dot red"></span>
+                      <span className="browser-dot yellow"></span>
+                      <span className="browser-dot green"></span>
+                    </div>
+                    <div className="browser-bar">case-study / premium-garage-doors</div>
+                  </div>
+                  <img 
+                    src={featuredCaseStudy?.image || '/portfolio_garage.png'} 
+                    alt="Featured Case Study" 
+                    className="case-study-img-fit"
+                  />
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                className="case-study-info"
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+              >
+                <span className="section-label">Featured Transformation</span>
+                <h2 className="case-study-heading">{featuredCaseStudy?.title || 'Enterprise Scaling'}</h2>
+                <p className="case-study-text">
+                  {featuredCaseStudy?.description || 'How we transformed a legacy web platform into a high-performance, lead-generating growth engine.'}
+                </p>
+                
+                <div className="case-study-kpi-grid">
+                  <div className="kpi-card">
+                    <div className="kpi-value">+142%</div>
+                    <div className="kpi-label">Organic Search Traffic</div>
+                  </div>
+                  <div className="kpi-card">
+                    <div className="kpi-value">+88%</div>
+                    <div className="kpi-label">Direct Qualified Leads</div>
+                  </div>
+                </div>
+                
+                <Link to="/case-studies" className="btn btn-primary">
+                  Read Full Case Breakdown <ArrowRight size={18} className="ml-2" />
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. Studio Methodology (01 - 04 Stepped Process) ── */}
+      <section className="process-section">
         <div className="container">
           <SectionHeader 
             theme="dark"
-            label="Industries"
-            title="Tailored strategies for target sectors."
-            description="We configure custom conversion copy and systems mapped to specific business models."
+            label="Methodology"
+            title="A disciplined workflow built for speed, clarity & scale."
+            description="Every engagement is guided by a rigorous process to eliminate scope creep and ensure verified business impact."
           />
           
-          <div className="industries-grid">
-            {industries.map((industry, index) => {
-              const Icon = industry.Icon;
-              return (
-                <motion.button 
-                  key={index} 
-                  className="sector-card"
-                  onClick={() => setSelectedIndustry({ ...industry, Icon })}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  aria-label={`Explore ${industry.name} industry`}
-                >
-                  <div className="sector-icon">
-                    <Icon size={32} />
-                  </div>
-                  <div className="sector-content">
-                    <h4 className="h5 h1-light mb-2">{industry.name}</h4>
-                    <p className="text-sm text-color-inverse-secondary mb-4">{industry.description}</p>
-                    <span className="explore-cta text-accent inline-flex items-center font-bold text-sm">
-                      Explore Industry <ArrowRight size={18} className="ml-2 explore-icon" />
-                    </span>
-                  </div>
-                </motion.button>
-              );
-            })}
+          <div className="process-timeline-grid">
+            <div className="process-step-card">
+              <span className="process-step-num">01</span>
+              <h4>Discovery & Architecture</h4>
+              <p>We audit market dynamics, map user journeys, and architect a clear technical roadmap aligned with commercial goals.</p>
+            </div>
+            <div className="process-step-card">
+              <span className="process-step-num">02</span>
+              <h4>Bespoke Design System</h4>
+              <p>We design high-fidelity custom visual systems, interactive prototypes, and conversion pathways tailored to your brand.</p>
+            </div>
+            <div className="process-step-card">
+              <span className="process-step-num">03</span>
+              <h4>Technical Engineering</h4>
+              <p>We write clean, high-performance React code, build decoupled headless architectures, and integrate core CRM APIs.</p>
+            </div>
+            <div className="process-step-card">
+              <span className="process-step-num">04</span>
+              <h4>Launch & Growth Acceleration</h4>
+              <p>Rigorous multi-stage QA, speed optimization, and ongoing search and media campaign tuning for long-term lift.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── 6. Client Testimonials (Soft Gray) ── */}
+      {/* ── 6. Client Testimonials & Authority ── */}
       <section className="testimonials-section">
         <div className="container">
           <SectionHeader 
             theme="light"
-            label="Testimonials"
-            title="Trusted by industry leaders."
-            description="Our approach is grounded in measurable outcomes and long-term partnerships."
+            label="Client Endorsements"
+            title="Trusted by forward-thinking founders & executives."
+            description="Our reputation is built on long-term growth partnerships and verified outcomes."
           />
           
           <div className="testimonials-grid">
@@ -338,14 +404,15 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
+                <div className="testimonial-stars">★★★★★</div>
                 <p className="testimonial-quote">"{testimonial.quote}"</p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
-                    <img src={testimonial.image} alt={testimonial.author} className="w-full h-full object-cover" />
+                <div className="testimonial-author-row">
+                  <div className="testimonial-avatar">
+                    <img src={testimonial.photo} alt={testimonial.name} />
                   </div>
                   <div>
-                    <div className="font-semibold">{testimonial.author}</div>
-                    <div className="text-sm text-color-secondary">{testimonial.role}, {testimonial.company}</div>
+                    <div className="author-name">{testimonial.name}</div>
+                    <div className="author-role">{testimonial.company} · {testimonial.country}</div>
                   </div>
                 </div>
               </motion.div>
@@ -354,42 +421,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 7. Final CTA (Gradient Navy) ── */}
+      {/* ── 7. Final High-Intent CTA ── */}
       <section className="final-cta-section">
         <div className="final-cta-pattern"></div>
         <div className="container">
           <div className="final-cta-content">
+            <span className="section-label section-label-light mb-4">Start the Conversation</span>
             <motion.h2 
-              className="h1 h1-light mb-6"
+              className="final-cta-title"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              Let's build something exceptional together.
+              Ready to engineer your next digital advantage?
             </motion.h2>
-            <motion.div 
-              className="flex justify-center gap-4 mt-8"
+            <motion.p
+              className="final-cta-subtitle"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <Link to="/contact" className="btn btn-primary btn-lg bg-white text-primary hover:bg-gray-100">
-                Book a Strategy Session
+              Let's map out a customized strategy, design, and growth roadmap tailored to your specific commercial objectives.
+            </motion.p>
+            <motion.div 
+              className="final-cta-buttons"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link to="/contact" className="btn btn-primary btn-lg cta-btn-main">
+                Start a Project <ArrowUpRight size={18} />
               </Link>
-              <Link to="/portfolio" className="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-primary">
-                Explore Portfolio
+              <Link to="/portfolio" className="btn btn-outline-white btn-lg">
+                Explore Selected Work
               </Link>
             </motion.div>
           </div>
         </div>
       </section>
-      <IndustryModal 
-        isOpen={!!selectedIndustry} 
-        onClose={() => setSelectedIndustry(null)} 
-        industry={selectedIndustry}
-        Icon={selectedIndustry?.Icon}
-      />
     </div>
   );
 }

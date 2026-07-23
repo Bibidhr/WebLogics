@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowUpRight } from 'lucide-react';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './Navbar.css';
 
@@ -17,7 +17,7 @@ export default function Navbar() {
   const closeDropdown = useCallback(() => {
     dropdownTimeout.current = setTimeout(() => {
       setIsDropdownOpen(false);
-    }, 300);
+    }, 250);
   }, []);
 
   useEffect(() => {
@@ -32,14 +32,15 @@ export default function Navbar() {
     <header className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         <NavLink to="/" className="brand" onClick={() => setIsMobileMenuOpen(false)}>
-          <span className="brand-text">Web<span className="text-accent">logics</span></span>
+          <span className="brand-text">Web<span className="brand-dot">-</span><span className="text-accent">Logics</span></span>
+          <span className="brand-tagline">Studio</span>
         </NavLink>
 
         <nav className="desktop-nav">
           <ul className="nav-links">
             <li>
-              <NavLink to="/" end className={({ isActive }) => isActive ? "active-link" : ""}>
-                Home
+              <NavLink to="/portfolio" className={({ isActive }) => isActive ? "active-link" : ""}>
+                Work
               </NavLink>
             </li>
             <li 
@@ -51,22 +52,16 @@ export default function Navbar() {
                 to="/services" 
                 className={({ isActive }) => isActive ? "nav-item-with-icon active-link" : "nav-item-with-icon"}
               >
-                Services <ChevronDown size={14} />
+                Capabilities <ChevronDown size={14} />
               </NavLink>
               <div className="dropdown-bridge"></div>
               <ul className="dropdown-menu">
-                <li><NavLink to="/services/web-development">Web Development</NavLink></li>
-                <li><NavLink to="/services/seo">SEO Optimization</NavLink></li>
-                <li><NavLink to="/services/google-ads">Google Ads & PPC</NavLink></li>
-                <li><NavLink to="/services/social-media-marketing">Social Media Marketing</NavLink></li>
-                <li><NavLink to="/services/branding">Brand Strategy</NavLink></li>
-                <li><NavLink to="/services/ecommerce">E-commerce Solutions</NavLink></li>
+                <li><NavLink to="/services/web-development">Digital Product Engineering</NavLink></li>
+                <li><NavLink to="/services/branding">Brand Identity & Strategy</NavLink></li>
+                <li><NavLink to="/services/seo">Search & Growth Optimization</NavLink></li>
+                <li><NavLink to="/services/google-ads">Performance Marketing (PPC)</NavLink></li>
+                <li><NavLink to="/services/ecommerce">Headless Commerce</NavLink></li>
               </ul>
-            </li>
-            <li>
-              <NavLink to="/portfolio" className={({ isActive }) => isActive ? "active-link" : ""}>
-                Portfolio
-              </NavLink>
             </li>
             <li>
               <NavLink to="/case-studies" className={({ isActive }) => isActive ? "active-link" : ""}>
@@ -75,28 +70,20 @@ export default function Navbar() {
             </li>
             <li>
               <NavLink to="/about" className={({ isActive }) => isActive ? "active-link" : ""}>
-                About Us
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/careers" className={({ isActive }) => isActive ? "active-link" : ""}>
-                Careers
+                About Studio
               </NavLink>
             </li>
             <li>
               <NavLink to="/blog" className={({ isActive }) => isActive ? "active-link" : ""}>
-                Blog
+                Insights
               </NavLink>
             </li>
           </ul>
         </nav>
 
         <div className="nav-actions">
-          <a href="tel:+61290666555" className="nav-phone d-mobile-none">
-            +61 2 9066 6555
-          </a>
           <NavLink to="/contact" className="btn btn-primary nav-cta">
-            Contact Us
+            Start a Project <ArrowUpRight size={16} />
           </NavLink>
           <button 
             className="mobile-menu-btn"
@@ -112,19 +99,19 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="mobile-menu">
           <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</NavLink>
-          <NavLink to="/services" onClick={() => setIsMobileMenuOpen(false)}>Services</NavLink>
+          <NavLink to="/portfolio" onClick={() => setIsMobileMenuOpen(false)}>Work</NavLink>
+          <NavLink to="/services" onClick={() => setIsMobileMenuOpen(false)}>Capabilities</NavLink>
           <div className="mobile-sublinks">
-            <NavLink to="/services/web-development" onClick={() => setIsMobileMenuOpen(false)}>— Web Development</NavLink>
-            <NavLink to="/services/seo" onClick={() => setIsMobileMenuOpen(false)}>— SEO Optimization</NavLink>
-            <NavLink to="/services/google-ads" onClick={() => setIsMobileMenuOpen(false)}>— Google Ads & PPC</NavLink>
+            <NavLink to="/services/web-development" onClick={() => setIsMobileMenuOpen(false)}>— Product Engineering</NavLink>
+            <NavLink to="/services/branding" onClick={() => setIsMobileMenuOpen(false)}>— Brand Identity</NavLink>
+            <NavLink to="/services/seo" onClick={() => setIsMobileMenuOpen(false)}>— Search & Growth</NavLink>
+            <NavLink to="/services/ecommerce" onClick={() => setIsMobileMenuOpen(false)}>— Headless Commerce</NavLink>
           </div>
-          <NavLink to="/portfolio" onClick={() => setIsMobileMenuOpen(false)}>Portfolio</NavLink>
           <NavLink to="/case-studies" onClick={() => setIsMobileMenuOpen(false)}>Case Studies</NavLink>
-          <NavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About Us</NavLink>
+          <NavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About Studio</NavLink>
           <NavLink to="/careers" onClick={() => setIsMobileMenuOpen(false)}>Careers</NavLink>
-          <NavLink to="/blog" onClick={() => setIsMobileMenuOpen(false)}>Blog</NavLink>
-          <a href="tel:+61290666555" className="mobile-phone-link">+61 2 9066 6555</a>
-          <NavLink to="/contact" className="btn btn-primary" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</NavLink>
+          <NavLink to="/blog" onClick={() => setIsMobileMenuOpen(false)}>Insights</NavLink>
+          <NavLink to="/contact" className="btn btn-primary mt-4" onClick={() => setIsMobileMenuOpen(false)}>Start a Project <ArrowUpRight size={16} /></NavLink>
         </div>
       )}
     </header>

@@ -1,28 +1,28 @@
 export const team = [
   {
-    name: 'Daniel Reynolds',
-    role: 'Founder & Managing Director',
-    initials: 'DR',
-    bio: 'Over 15 years directing digital acquisition projects for national brands. Daniel oversees strategy and commercial growth in North Sydney.'
+    name: 'Aarav Sharma',
+    role: 'Founder & Principal Strategist',
+    initials: 'AS',
+    bio: 'Over 12 years directing enterprise product strategy and digital transformation across Nepal and international markets. Aarav leads strategic direction from Kathmandu.'
   },
   {
-    name: 'Marcus Vance',
-    role: 'Head of Search & SEO',
-    initials: 'MV',
-    bio: 'Leading SEO strategies and technical architecture audits since 2012. Former developer focused on structural crawl optimization.'
+    name: 'Sneha Shrestha',
+    role: 'Head of UX & Brand Identity',
+    initials: 'SS',
+    bio: 'Award-winning design director specialized in strategic visual systems, brand positioning, and human-centric UI/UX architectures.'
   },
   {
-    name: 'Sarah Lin',
-    role: 'Technical Director',
-    initials: 'SL',
-    bio: 'Manages the custom React and commerce engineering teams. Sarah prioritizes headless platform security and loading speeds.'
+    name: 'Bikash Adhikari',
+    role: 'Technical Director & Lead Engineer',
+    initials: 'BA',
+    bio: 'Pioneer in headless architecture, React ecosystems, and high-concurrency web systems. Bikash oversees all product engineering standards.'
   }
 ];
 
 export const locationChips = [
-  { label: 'Australia', flag: '🇦🇺' },
-  { label: 'Canada', flag: '🇨🇦' },
-  { label: 'USA', flag: '🇺🇸' },
-  { label: 'United Kingdom', flag: '🇬🇧' },
-  { label: 'India', flag: '🇮🇳' }
+  { label: 'Kathmandu HQ, Nepal', flag: '🇳🇵' },
+  { label: 'Sydney, Australia', flag: '🇦🇺' },
+  { label: 'London, United Kingdom', flag: '🇬🇧' },
+  { label: 'Toronto, Canada', flag: '🇨🇦' },
+  { label: 'California, USA', flag: '🇺🇸' }
 ];
