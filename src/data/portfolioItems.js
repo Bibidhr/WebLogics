@@ -5,18 +5,24 @@ export const portfolioItems = [
     client: "Premium Garage Doors",
     country: "Australia 🇦🇺",
     industry: "Manufacturing & Installation",
-    category: "Full-scale website + local SEO",
+    category: "Full-Scale Web System + Local SEO",
     image: "/portfolio_garage.png",
-    ctaText: "Book a discovery call",
-    ctaHref: "/contact",
+    ctaText: "Discuss Local Market Dominance",
+    ctaHref: "/contact?project=premium-garage-doors",
     overview: "Rebuilt the custom web platform and restructured local search indexes to capture residential garage installation traffic across Victoria.",
-    challenge: "The client was losing significant local market share to competitors with faster, more optimized web presences. Their existing site had severe technical debt, poor local SEO signals, and an unoptimized lead capture flow that resulted in high bounce rates.",
-    solution: "We engineered a lightning-fast React platform integrated with a headless CMS. We implemented a programmatic local SEO strategy, generating highly optimized service-area pages, and redesigned the conversion funnel to frictionlessly capture quote requests.",
+    
+    // 5-Stage Transformation Story
+    challenge: "The client was losing local installation market share to competitors with faster web presences. Severe technical debt, poor local search signals, and an unoptimized quote funnel caused 68% mobile bounce rates.",
+    insight: "Residential buyers facing garage door failures require instant trust, sub-second mobile page loads, and a friction-free 2-step quote request system.",
+    approach: "Eliminated template CMS bloat in favor of a bespoke React platform integrated with a programmatic local SEO engine targeting high-intent Victorian suburbs.",
+    build: "Engineered a sub-second React frontend with headless CMS, automated quote dispatch routing, and custom local search schema markup.",
+    outcome: "Achieved search market dominance across Victoria, driving verified lead growth and sub-second page performance.",
+    
     techStack: ["React", "Next.js", "Node.js", "PostgreSQL", "Framer Motion"],
     resultsList: [
       { metric: "+142%", label: "Local Search Traffic" },
       { metric: "3.2x", label: "Increase in Lead Volume" },
-      { metric: "0.8s", label: "Average Page Load Time" }
+      { metric: "0.8s", label: "Average Page Load Speed" }
     ]
   },
   {
@@ -25,13 +31,19 @@ export const portfolioItems = [
     client: "Dhaage",
     country: "India 🇮🇳",
     industry: "High-End E-Commerce",
-    category: "Conversion-led storefront",
+    category: "Conversion Storefront + Paid Growth",
     image: "/portfolio_sarees.png",
-    ctaText: "See the growth strategy",
-    ctaHref: "/contact",
+    ctaText: "Discuss E-Commerce Scaling",
+    ctaHref: "/contact?project=dhaage-sarees",
     overview: "Developed a modern Shopify storefront and automated abandoned cart pipelines, combined with targeted search and paid social advertising.",
-    challenge: "Dhaage needed to transition from a local boutique to a national e-commerce brand. Their primary challenge was a low conversion rate on high-ticket items and an inability to accurately track ROAS across fragmented social media campaigns.",
-    solution: "We deployed a bespoke Shopify architecture optimized for visual storytelling and mobile conversions. We integrated the Meta Conversions API for precise tracking and built automated retention pipelines to recover high-value abandoned carts.",
+    
+    // 5-Stage Transformation Story
+    challenge: "Transitioning from a local boutique to a national e-commerce brand, Dhaage suffered high cart drop-off on luxury apparel and an inability to track ad returns across fragmented social campaigns.",
+    insight: "High-ticket luxury buyers require immersive visual storytelling, transparent material credentials, and zero checkout friction to complete high-value transactions.",
+    approach: "Designed a conversion-first luxury storefront backed by server-side Meta Conversions API (CAPI) tracking and automated multi-stage cart recovery flows.",
+    build: "Custom Shopify Plus architecture, Klaviyo automated retention pipelines, and precision-targeted search/social performance media.",
+    outcome: "Scaled global e-commerce returns while significantly lifting add-to-cart conversions and recovering high-value abandoned carts.",
+    
     techStack: ["Shopify Plus", "Liquid", "Tailwind CSS", "Meta CAPI", "Klaviyo"],
     resultsList: [
       { metric: "4.8x", label: "Average ROAS" },
@@ -45,13 +57,19 @@ export const portfolioItems = [
     client: "City Security",
     country: "Canada 🇨🇦",
     industry: "Corporate Security",
-    category: "Enterprise credibility platform",
+    category: "Enterprise Credibility Platform",
     image: "/portfolio_city_security.png",
-    ctaText: "Discuss your project",
-    ctaHref: "/contact",
+    ctaText: "Discuss Enterprise B2B Positioning",
+    ctaHref: "/contact?project=city-security",
     overview: "Developed a secure corporate web presence for city security operations, optimizing local search visibility for corporate security bids.",
-    challenge: "The firm needed to bid on multi-million dollar corporate and municipal security contracts, but their digital presence looked outdated and untrustworthy, lacking the enterprise-grade authority required to win large bids.",
-    solution: "We designed a highly authoritative, brutalist yet premium corporate website. We built secure client portals for document handling and implemented an aggressive B2B SEO strategy targeting high-intent procurement keywords.",
+    
+    // 5-Stage Transformation Story
+    challenge: "The firm needed to bid on multi-million dollar corporate and municipal security tenders, but their outdated web presence lacked the enterprise-grade authority required to pass procurement screening.",
+    insight: "Corporate procurement committees evaluate digital security compliance, client credentials, and structural credibility before shortlisting contract bids.",
+    approach: "Repositioned the firm as an authoritative enterprise security operator, building secure client document portals and targeting high-intent B2B tender keywords.",
+    build: "Authoritative corporate web platform with Auth0-secured document portals, compliance documentation hubs, and technical B2B search architecture.",
+    outcome: "Secured top-page search ranks for enterprise security keywords and generated multi-million dollar contract pipeline inquiries.",
+    
     techStack: ["React", "Express", "AWS", "MongoDB", "Auth0"],
     resultsList: [
       { metric: "Page 1", label: "Rankings for B2B Keywords" },
@@ -65,13 +83,19 @@ export const portfolioItems = [
     client: "IPT Logistics",
     country: "United Kingdom 🇬🇧",
     industry: "Logistics & Transport",
-    category: "Booking experience + paid acquisition",
+    category: "Booking Experience + PPC Scaling",
     image: "/client_preview_3.png",
-    ctaText: "Start your rollout",
-    ctaHref: "/contact",
+    ctaText: "Discuss Custom Web App Engineering",
+    ctaHref: "/contact?project=ipt-logistics",
     overview: "Custom web app dashboard with rapid address auto-complete and Google Ads retargeting setups to maximize courier bookings.",
-    challenge: "High customer acquisition costs were eroding profit margins. The booking process was cumbersome, causing users to abandon the funnel halfway through when trying to book urgent parcel deliveries.",
-    solution: "We engineered a frictionless, single-page booking engine with predictive address mapping. Simultaneously, we restructured their Google Ads campaigns, focusing on hyper-local, high-intent search terms and aggressive CPA capping.",
+    
+    // 5-Stage Transformation Story
+    challenge: "High customer acquisition costs (CPA) eroded courier margins. A cumbersome multi-step booking form caused users to abandon urgent parcel deliveries halfway through.",
+    insight: "Urgent logistics customers require sub-60-second address auto-fill and upfront price transparency without account creation barriers.",
+    approach: "Re-engineered the entire booking journey into a single-page reactive application with instant Google Maps address auto-complete and hyper-local PPC campaign restructuring.",
+    build: "Single-page booking engine with Google Maps API integration, Stripe instant payments, and automated Google Ads retargeting API synchronization.",
+    outcome: "Dramatically reduced customer acquisition costs while multiplying booking conversion rates and cutting average booking time under 60 seconds.",
+    
     techStack: ["Vue.js", "Google Maps API", "Firebase", "Stripe", "Google Ads API"],
     resultsList: [
       { metric: "-34%", label: "Reduction in CPA" },

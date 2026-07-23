@@ -421,12 +421,14 @@
   z-index: 5;
 }
 
-/* ── Stats Section Angled Top ── */
+/* ── Stats Section Straight Studio Banner ── */
 .about-stats-angled {
   position: relative;
-  clip-path: polygon(0 30px, 100% 0, 100% 100%, 0 100%);
-  padding: calc(4rem + 30px) 0 5.5rem 0;
-  margin-top: -30px;
+  clip-path: none !important;
+  margin-top: 0 !important;
+  padding: clamp(4rem, 7vw, 6rem) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ── Mission/Vision Layered Cards ── */
@@ -471,9 +473,9 @@
   }
   
   .about-stats-angled {
-    clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
-    margin-top: -15px;
-    padding-top: calc(5.5rem + 15px);
+    clip-path: none !important;
+    margin-top: 0 !important;
+    padding: 4rem 0;
   }
   
   .image-overlap-accent {

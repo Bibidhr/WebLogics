@@ -62,9 +62,10 @@
   --font-display:    'Syne', 'Plus Jakarta Sans', sans-serif;
   --font-body:       'Inter', sans-serif;
 
-  /* Spacing */
-  --section:         6.5rem;    /* Generous breathing room */
-  --section-sm:      4rem;
+  /* Spacing System — Controlled Vertical Rhythm */
+  --section:         clamp(7.5rem, 11vw, 10.5rem);  /* Major Sections: 120px-168px */
+  --section-md:      clamp(5.5rem, 8vw, 8.5rem);    /* Standard Sections: 88px-136px */
+  --section-sm:      clamp(3.75rem, 5.5vw, 5.5rem); /* Compact Sections: 60px-88px */
   --container:       1360px;
   --radius-sm:       6px;
   --radius:          10px;

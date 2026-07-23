@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { Menu, X, ChevronDown, ArrowUpRight } from 'lucide-react';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -22,18 +23,29 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 25);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <header className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         <NavLink to="/" className="brand" onClick={() => setIsMobileMenuOpen(false)}>
-          <span className="brand-text">Web<span className="brand-dot">-</span><span className="text-accent">Logics</span></span>
-          <span className="brand-tagline">Studio</span>
+          <span className="brand-text">Weblogic<span className="brand-dot text-accent">.</span></span>
         </NavLink>
 
         <nav className="desktop-nav">
@@ -88,32 +100,49 @@ export default function Navbar() {
           <button 
             className="mobile-menu-btn"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="mobile-menu">
-          <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</NavLink>
-          <NavLink to="/portfolio" onClick={() => setIsMobileMenuOpen(false)}>Work</NavLink>
-          <NavLink to="/services" onClick={() => setIsMobileMenuOpen(false)}>Capabilities</NavLink>
-          <div className="mobile-sublinks">
-            <NavLink to="/services/web-development" onClick={() => setIsMobileMenuOpen(false)}>— Product Engineering</NavLink>
-            <NavLink to="/services/branding" onClick={() => setIsMobileMenuOpen(false)}>— Brand Identity</NavLink>
-            <NavLink to="/services/seo" onClick={() => setIsMobileMenuOpen(false)}>— Search & Growth</NavLink>
-            <NavLink to="/services/ecommerce" onClick={() => setIsMobileMenuOpen(false)}>— Headless Commerce</NavLink>
-          </div>
-          <NavLink to="/case-studies" onClick={() => setIsMobileMenuOpen(false)}>Case Studies</NavLink>
-          <NavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About Studio</NavLink>
-          <NavLink to="/careers" onClick={() => setIsMobileMenuOpen(false)}>Careers</NavLink>
-          <NavLink to="/blog" onClick={() => setIsMobileMenuOpen(false)}>Insights</NavLink>
-          <NavLink to="/contact" className="btn btn-primary mt-4" onClick={() => setIsMobileMenuOpen(false)}>Start a Project <ArrowUpRight size={16} /></NavLink>
-        </div>
-      )}
+      {/* Mobile Drawer Navigation with AnimatePresence */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            className="mobile-menu-drawer"
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</NavLink>
+            <NavLink to="/portfolio" onClick={() => setIsMobileMenuOpen(false)}>Work</NavLink>
+            <NavLink to="/services" onClick={() => setIsMobileMenuOpen(false)}>Capabilities</NavLink>
+            <div className="mobile-sublinks">
+              <NavLink to="/services/web-development" onClick={() => setIsMobileMenuOpen(false)}>— Product Engineering</NavLink>
+              <NavLink to="/services/branding" onClick={() => setIsMobileMenuOpen(false)}>— Brand Identity</NavLink>
+              <NavLink to="/services/seo" onClick={() => setIsMobileMenuOpen(false)}>— Search & Growth</NavLink>
+              <NavLink to="/services/ecommerce" onClick={() => setIsMobileMenuOpen(false)}>— Headless Commerce</NavLink>
+            </div>
+            <NavLink to="/case-studies" onClick={() => setIsMobileMenuOpen(false)}>Case Studies</NavLink>
+            <NavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>About Studio</NavLink>
+            <NavLink to="/blog" onClick={() => setIsMobileMenuOpen(false)}>Insights</NavLink>
+            
+            <div className="mobile-cta-wrapper mt-4">
+              <NavLink 
+                to="/contact" 
+                className="btn btn-primary btn-block mobile-drawer-cta" 
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Start a Project <ArrowUpRight size={18} />
+              </NavLink>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

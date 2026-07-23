@@ -68,9 +68,9 @@ export default function Footer() {
 
         <div className="footer-top">
           <div className="footer-brand">
-            <h2 className="brand-text">Web<span className="brand-dot">-</span><span className="text-accent">Logics</span></h2>
+            <h2 className="brand-text">Weblogic<span className="brand-dot text-accent">.</span></h2>
             <p>
-              Nepal's premier bespoke digital product studio & growth agency. We engineer custom high-performance applications, craft distinctive brand systems, and scale market leaders globally.
+              Global digital growth partner headquartered in Sydney, Australia. We connect custom web development, search engine optimization, performance advertising, social media, and content creation to drive measurable business outcomes.
             </p>
 
             <div className="social-links">
@@ -94,34 +94,34 @@ export default function Footer() {
           ))}
 
           <div className="link-column contact-column">
-            <h4>Kathmandu HQ</h4>
+            <h4>Sydney HQ 🇦🇺</h4>
             <div className="contact-item">
               <Mail size={16} />
-              <a href="mailto:hello@weblogics.com.np">hello@weblogics.com.np</a>
+              <a href="mailto:hello@weblogics.com.au">hello@weblogics.com.au</a>
             </div>
             <div className="contact-item">
-              <Phone size={16} />
-              <a href="tel:+977014528900">+977 (01) 452-8900</a>
+              <Globe size={16} />
+              <a href="https://weblogics.com.au/" target="_blank" rel="noreferrer">https://weblogics.com.au/</a>
             </div>
             <div className="contact-item">
               <MapPin size={16} />
-              <span>Level 4, Heritage Plaza,<br />Kamaladi, Kathmandu, Nepal</span>
+              <span>Sydney, New South Wales, Australia<br />Australian Owned & Operated</span>
             </div>
             <div className="contact-item">
               <Clock size={16} />
-              <span>Mon – Fri: 9:00 AM – 6:00 PM NPT</span>
+              <span>Mon – Fri: 9:00 AM – 5:30 PM AEST</span>
             </div>
           </div>
         </div>
 
         <div className="footer-bottom">
           <div className="footer-copyright">
-            &copy; {new Date().getFullYear()} Web-Logics Digital Studio Pvt. Ltd. All rights reserved.
+            &copy; {new Date().getFullYear()} Weblogic Technologies. All rights reserved. Australian Owned & Operated.
           </div>
           <div className="footer-legal">
             <Link to="/privacy">Privacy Policy</Link>
             <Link to="/terms">Terms of Service</Link>
-            <span className="designer-tag">Crafted in Kathmandu</span>
+            <span className="designer-tag">Sydney, Australia 🇦🇺</span>
           </div>
         </div>
       </div>

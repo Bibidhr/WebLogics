@@ -1,0 +1,253 @@
+/* ============================================================
+   WEB-LOGICS — Human Team System Component Styling
+   Human, Specific, Authentic — Charcoal & Bronze
+   ============================================================ */
+
+.human-team-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.team-header-block {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto clamp(2.5rem, 4vw, 3.5rem);
+}
+
+/* ── Team Cards Grid ── */
+.human-team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.human-team-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s var(--ease-out-expo);
+  cursor: pointer;
+}
+
+.human-team-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.human-team-card.active-card {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+/* Card Header */
+.member-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.member-avatar-box {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  border: 2px solid var(--accent);
+}
+
+.member-location-chip {
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.member-name-text {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--heading-color);
+  line-height: 1.2;
+}
+
+.member-role-title {
+  font-size: 0.82rem;
+  color: var(--text-color-muted);
+  font-weight: 600;
+}
+
+/* Expertise Tags */
+.expertise-header {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-color-muted);
+  margin-bottom: 0.4rem;
+}
+
+.expertise-tags-list {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.expertise-tag {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  color: var(--heading-color);
+}
+
+/* Operational Philosophy Box */
+.member-philosophy-box {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  position: relative;
+}
+
+.philosophy-quote-icon {
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.philosophy-text {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--heading-color);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Direct Contribution Block */
+.member-contribution-block {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.contribution-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.contribution-text {
+  font-size: 0.88rem;
+  color: var(--text-color-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Commitment Banner */
+.team-commitment-banner {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-radius: var(--radius-xl);
+  padding: 1.75rem 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.commitment-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 650px;
+}
+
+.commitment-left h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.25rem;
+}
+
+.commitment-left p {
+  font-size: 0.88rem;
+  color: var(--text-color-inverse-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.commitment-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.presence-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.presence-flags-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.presence-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 1180px) {
+  .human-team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .human-team-grid {
+    grid-template-columns: 1fr;
+  }
+  .team-commitment-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+}

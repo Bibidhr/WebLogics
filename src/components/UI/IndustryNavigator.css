@@ -1,0 +1,278 @@
+/* ============================================================
+   WEB-LOGICS — Industry Navigator Component Styling
+   Contextual, Strategic, Editorial — Charcoal & Bronze
+   ============================================================ */
+
+.industry-navigator-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.industry-navigator-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto clamp(2.5rem, 4vw, 3.5rem);
+}
+
+/* ── Industry Selector Tabs ── */
+.industry-selector-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.85rem;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.industry-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  color: var(--heading-color);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s var(--ease-out-expo);
+  text-align: left;
+}
+
+.industry-tab-btn:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.industry-tab-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-md);
+}
+
+.tab-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(200, 149, 108, 0.14);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.industry-tab-btn.active .tab-icon-box {
+  background: var(--accent);
+  color: #FFFFFF;
+}
+
+.tab-name-text {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* ── Dynamic Output Panel ── */
+.industry-panel-container {
+  position: relative;
+  min-height: 420px;
+}
+
+.industry-output-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 4vw, 3rem);
+  box-shadow: var(--shadow-md);
+  color: var(--heading-color);
+}
+
+.ind-panel-header {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.ind-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.ind-icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(200, 149, 108, 0.14);
+  border: 1px solid rgba(200, 149, 108, 0.28);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ind-sector-badge {
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.ind-sector-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+  color: var(--heading-color);
+  line-height: 1.2;
+}
+
+.ind-tagline-text {
+  font-size: 1.05rem;
+  color: var(--text-color-secondary);
+  line-height: 1.6;
+  max-width: 850px;
+}
+
+/* 3 Pillar Insight Grid */
+.ind-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.ind-insight-card {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ind-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.ind-card-header h4 {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--heading-color);
+}
+
+.ind-insight-card p {
+  font-size: 0.92rem;
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Approach Chain */
+.ind-approach-chain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ind-approach-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ind-step-num {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent);
+  background: rgba(200, 149, 108, 0.15);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.ind-step-text {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+/* Real Case Proof Banner */
+.ind-proof-banner {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 1.35rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.proof-badge {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.proof-banner-info h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.15rem;
+}
+
+.proof-metrics-text {
+  font-size: 0.88rem;
+  color: var(--text-color-inverse-secondary);
+}
+
+.proof-cta {
+  flex-shrink: 0;
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+.proof-cta:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #FFFFFF;
+}
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 1180px) {
+  .industry-selector-tabs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .ind-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .industry-selector-tabs {
+    grid-template-columns: 1fr;
+  }
+  .ind-proof-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

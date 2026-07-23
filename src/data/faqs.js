@@ -1,6 +1,18 @@
 export const faqs = [
-  { question: 'What core capabilities does Web-Logics specialize in?', answer: 'We operate as a digital product studio & growth consultancy. Our core pillars cover bespoke React/Next.js product engineering, brand strategy & visual design systems, technical search optimization (SEO), and data-driven performance marketing (PPC & paid social).' },
-  { question: 'How are engagement and billing structured?', answer: 'Projects are structured around transparent milestone-based deliverables with defined outcomes. We refuse locked-in template subscriptions; you own 100% of your source code, design assets, and intellectual property.' },
-  { question: 'Does Web-Logics work with international brands outside Nepal?', answer: 'Yes. Headquartered in Kathmandu, Nepal, we partner with enterprise brands and scaling ventures across Australia, North America, the UK, Europe, and Asia-Pacific.' },
-  { question: 'What is the typical timeline for an enterprise digital project?', answer: 'A focused brand design or growth system launch typically ranges between 4–6 weeks, while bespoke Web Applications, headless e-commerce setups, or complete digital transformations take 8–12 weeks from discovery to rollout.' }
+  { 
+    question: 'What core capabilities does Weblogic Technologies specialize in?', 
+    answer: 'Weblogic Technologies is an Australian-owned digital growth partner specializing in Website Design & Development, Search Engine Optimization (SEO), Paid Advertising (PPC), Social Media Marketing, Content Creation, and Digital Marketing Strategy.' 
+  },
+  { 
+    question: 'Where is Weblogic Technologies based and which markets do you serve?', 
+    answer: 'Weblogic Technologies is headquartered in Sydney, Australia. We work with clients across Australia, New Zealand, the United Kingdom, Canada, the United States, South Africa, and international markets.' 
+  },
+  { 
+    question: 'How are client partnerships and deliverables structured?', 
+    answer: 'We provide transparent, milestone-based execution with clear reporting and dedicated personal support. You own 100% of your website code, design assets, and marketing accounts.' 
+  },
+  { 
+    question: 'What is the typical timeline for a web design or growth campaign?', 
+    answer: 'A high-converting website design or targeted search optimization launch typically takes 4–6 weeks, while comprehensive digital growth campaigns run on a continuous optimization model.' 
+  }
 ];

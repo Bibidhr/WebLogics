@@ -1,6 +1,38 @@
+/* ============================================================
+   WEB-LOGICS — Controlled & Intentional Animation System
+   ============================================================ */
+
 /* Global Smooth Scroll */
 html {
   scroll-behavior: smooth;
 }
 
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 
+  .marquee-track {
+    animation: none !important;
+  }
+
+  .mobile-menu-drawer,
+  .dropdown-menu,
+  .diagnostic-output-panel,
+  .system-inspection-panel,
+  .industry-output-panel,
+  .transformation-main-card {
+    transition: none !important;
+    transform: none !important;
+  }
+}
